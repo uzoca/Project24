@@ -1,0 +1,103 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Login | FinAnalyes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="remix_fonts/fonts/remixicon.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="css/vendor/bootstrap-4.3.1/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+      <style>
+      </style>
+    <meta name="theme-color" content="#fafafa">
+  </head>
+<body class="position-relative">
+    <!-- Main content start -->
+   
+    <div class="login-page w-100 ">
+        <!-- Login card -->
+                
+                <div class="row" style="height: 100vh;">
+                    <div class="col-md-8 bg-primary  d-flex justify-content-center align-items-center">
+                         <!-- Brand -->
+                         <div class="login-brand d-flex justify-content-center align-items-center">
+                            <img src="img/QbyteIcon.png" alt="image" class="w-25">
+                        </div>
+                    </div>
+                   <!-- Row -->
+                    <!-- Left side -->
+                    <div class="col-md-4 border-0 pt-5 pb-5 ">
+                       <div class="mt-5">
+                        <form class=" col-lg-10 signin-form pt-5 ml-5">
+                            <h5 class="text-dark my-3">Sign In</h5>
+                            <!-- Email -->
+                            <div class="form-group mb-2">
+                                <label for="email" class="text-muted">Email Address</label>
+                                <input id="email" class="form-control rounded-sm border-0 bg-light" type="text" name="email">
+                            </div>
+                            <!-- Passeord -->
+                            <div class="form-group mb-2">
+                                <label for="Passeord" class="text-muted">Password</label>
+                                <input id="Passeord" class="form-control border-0 rounded-sm bg-light" type="password" name="pass">
+                            </div>
+                            <!-- Remember me checkbox -->
+                            <div class="custom-control custom-checkbox my-3">
+                                <input id="my-input" class="custom-control-input" type="checkbox" name="" value="true">
+                                <label for="my-input" class="custom-control-label">Remember me</label>
+                            </div>
+
+                            <button type="submit" class="btn bg-primary text-white btn-block w-100">Sign in</button>
+                            <p class=" mt-3"><a href="./forget_password.html" >Forgot Password?</a></p>
+                            <p class="mt-3"><a href="./signup.html" >Register for a  new account.</a></p>
+                        </form>
+                       </div>
+                       
+                    </div>
+                    
+                    
+                </div>
+          
+    </div>
+    <script src="js/vendor/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+    <script src="js/plugins/sweetjs.js"></script>
+    <script src="js/plugins.js"></script>
+     <script src="js/main.js"></script>
+    <script>
+          $(".signin-form").on('submit',function(e){
+            e.preventDefault()
+            var formData = new FormData(e.target)
+            $.ajax({
+                method :'Post',
+                url: 'backend/backend.php',
+                data : formData,
+                processData: false,
+                contentType : false,
+                beforeSend : function(){
+                    $("button[type ='submit']").html("Loadind please wait....")
+                },
+                success : function(data){
+                    console.log(data)
+                    if(data.indexOf('rror')!= -1){
+                        Swal.fire({
+                        title: 'Error!',
+                        text: data,
+                        icon: 'error',
+                        confirmButtonText: 'Close'
+                        })
+                    }else{
+                        $("body").append(data)
+                    }
+                   
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

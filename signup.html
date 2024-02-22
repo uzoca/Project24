@@ -1,0 +1,130 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Signup| FinAnalyes</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+        <!-- Google fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+        <!-- Stylesheet -->
+        <link rel="stylesheet" href="remix_fonts/fonts/remixicon.css">
+        <link rel="stylesheet" href="fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="css/vendor/bootstrap-4.3.1/bootstrap.min.css">
+        
+        <link rel="stylesheet" href="css/main.css">
+
+          <style>
+          </style>
+        <meta name="theme-color" content="#fafafa">
+      </head>
+
+<body class="position-relative">
+    <!-- Main content start -->
+   
+    <div class="login-page w-100">
+        
+        <div class="row" style="height: 100vh;">
+            <div class="col-md-8 bg-primary  d-flex justify-content-center align-items-center">
+                 <!-- Brand -->
+                 <div class="login-brand d-flex justify-content-center align-items-center">
+                    <img src="img/QbyteIcon.png" alt="image" class="w-25">
+                </div>
+            </div>
+           <!-- Row -->
+            <!-- Left side -->
+            <div class="col-md-4 border-0 pt-5 pb-5 ">
+               <div class="mt-5">
+                <form class="signup-form col-lg-10">
+                    <h5 class="text-dark my-3">Sign Up</h5>
+                    <!-- First Name -->
+                    <div class="form-group mb-2">
+                        <label for="name" class="text-muted">First name</label>
+                        <input id="name" class="form-control rounded-sm border-0 bg-light" type="text" name="firstname">
+                    </div>
+                     <!-- Last Name -->
+                     <div class="form-group mb-2">
+                        <label for="name" class="text-muted">Last name</label>
+                        <input id="name" class="form-control rounded-sm border-0 bg-light" type="text" name="lastname">
+                    </div>
+                    <!-- Email -->
+                    <div class="form-group mb-2">
+                        <label for="email" class="text-muted">Email Address</label>
+                        <input id="email" class="form-control rounded-sm border-0 bg-light" type="email" name="email">
+                    </div>
+                     <!-- Email -->
+                     <div class="form-group mb-2">
+                        <label for="phone" class="text-muted">Phone</label>
+                        <input id="phone" class="form-control rounded-sm border-0 bg-light" type="tel" name="phone">
+                    </div>
+                     <!-- Email -->
+                     <div class="form-group mb-2" >
+                        <label for="email" class="text-muted">Gender</label>
+                        <select class="form-control rounded-sm border-0 bg-light" name="gender">
+                            <option value="Male">
+                                Male
+                            </option>
+                            <option value="Female">
+                                Female
+                            </option>
+                        </select>
+                       
+                    </div>
+                    <!-- password -->
+                    <div class="form-group mb-2">
+                        <label for="password" class="text-muted">Password</label>
+                        <input id="password" class="form-control rounded-sm border-0 bg-light" type="password" name="pass">
+                    </div>
+                    <!-- Password -->
+                    <div class="form-group mb-4">
+                        <label for="c-pass" class="text-muted">Confirm Password</label>
+                        <input id="c-pass" class="form-control rounded-sm border-0 bg-light" type="password" name="c-pass">
+                    </div>
+
+                    <button type="submit" class="btn bg-primary text-white btn-block w-100">Sign Up</button>
+                    <p class="mt-3"><a href="./index.html" >Already have an account sign in</a></p>
+                </form>
+               </div>
+               
+            </div>
+            
+            
+        </div>
+
+    </div>
+    <script src="js/vendor/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+    <script src="js/plugins/sweetjs.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        $(".signup-form").on('submit',function(e){
+            e.preventDefault()
+            var formData = new FormData(e.target)
+            $.ajax({
+                method :'Post',
+                url: 'backend/backend.php',
+                data : formData,
+                processData: false,
+                contentType : false,
+                beforeSend : function(){
+                    $("button[type ='submit']").html("Loadind please wait....")
+                },
+                success : function(data){
+                    if(data.indexOf('rror')!= -1){
+                        Swal.fire({
+                        title: 'Error!',
+                        text: data,
+                        icon: 'error',
+                        confirmButtonText: 'Close'
+                        })
+                    }else{
+                        console.log("success")
+                        $("body").append(data)
+                    }
+                   
+                }
+            })
+        })
+    </script>
+</body>
+</html>

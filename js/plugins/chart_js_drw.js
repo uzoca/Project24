@@ -1,18 +1,31 @@
 // Line chart 1
 let myChart = document.getElementById("lineChart").getContext("2d");
-
+var gradient = myChart.createLinearGradient(0, 0, 0, 400);
+gradient.addColorStop(0, 'rgba(195, 195, 197,1)');   
+gradient.addColorStop(1, 'rgba(250,174,50,0)');
 let chart = new Chart(myChart,{
     type : "line",
     data : {
         labels : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
         datasets : [{
-            label : '',
-            backgroundColor : 'rgb(0, 0,225,0.4)',
-            borderColor : 'rgb(0, 0,225)',
+            backgroundColor : gradient,
+            label:'',
+           // borderColor : '#7f7f81',
+            strokeColor : "rgba(121, 121, 122,1)",
             pointRadius : 0,
             lineTension:0,
-            data : [5,15,15,25,25,30,45]
+            data : [60,75,59,65,73,80,59,55,62,93,45]
         }]
+    },
+    options : {
+        scales: {
+            
+            yAxes: [{
+                gridLines: {
+                    color: "rgba(0, 0, 0, 0)",
+                }   
+            }]
+        }
     }
 })
 let myChart10 = document.getElementById("pPieChart2").getContext("2d");

@@ -129,7 +129,7 @@ if(isset($_POST['email']) && isset($_POST['pass'])){
     if($profiledata=$pocket->doQuery($sql,$shw)->fetch(PDO::FETCH_ASSOC)) {
       //  if(password_verify($_POST['password'] ,$profiledata['password']))
          $_SESSION['online']=$profiledata['userid'];    
-         echo"<script> setCookie('session_id','".$_SESSION['online']."', '2'); window.location='./dashboard.html'</script>";
+         echo"<script> setCookie('session_id','".$_SESSION['online']."', '2'); window.location='./dashboard2.html'</script>";
         }else echo "Error Email or Password not correct check and try again.";
     
 }

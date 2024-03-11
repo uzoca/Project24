@@ -1,0 +1,558 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Budgets | FinAnalyes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="icon" type="image/x-icon" href="img/appIcon.png">
+  <!-- Google fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="remix_fonts/fonts/remixicon.css">
+  <link rel="stylesheet" href="fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/vendor/bootstrap-4.3.1/bootstrap.min.css">
+
+    <style>
+        .progress{
+        height: 0.7rem;
+        }
+        .card {
+            background-color:#f5f6f7 !important;
+            box-shadow: none !important;
+        }
+    </style>
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body class="position-relative">
+  <!--[if IE]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+  <div class="container-fluid px-0" >
+    <div class="container-fluid top-bar" style="position: fixed; z-index: 200;">
+        <div class="row justify-content-center pt-2 px-3" style="height: 55px;border-bottom: #dbdbdd solid 2px; background-color: #fff;">
+            <div class="col">
+
+            </div>
+            <div class="form-group col-md-5">
+                <input id="search_box" class="form-control border-0" type="text" name="search" placeholder="search" style="background-color: #f3f2f8;">
+            </div>
+            <div class="col row justify-content-end">
+                <i class="ri-upload-2-line"></i>
+                <i class="ri-add-fill"></i>
+                <i class="ri-settings-4-line"></i>
+                <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown"><img src="img/profilepix1.jpg" alt="profile" style="height:40px;width:40px;border-radius: 100%;"></a>
+            </div>
+        </div>
+       </div>
+     <!-- The side bar -->
+     <div class="side-bar side-bar-lg-active" data-theme="black" >
+        <!-- Brand details -->
+        <div class="side-menu-brand mt-5">
+        <div class="close-btn-div text-right text-white pr-3"><i class="ri-close-line font-weight-bold close-btn" style="font-size:2rem;"></i></div>
+            <div class="col-sm-8 mx-auto">
+              <div class="row">
+                <div class="col-2 p-0 mt-2">
+                    <img src="img/appIcon.png" alt="bran_name" class="brand-img">
+                   </div>
+                    <div class="col-7 p-0 m-0 ml-2">
+                        <a href="#" class="brand-name font-weight-bold mt-2">FinAnalyes</a>
+                        <div class="text-white" style="font-size: 13px;color:#f0e8e8">Admin account</div>
+                    </div>
+              </div>
+            </div>
+           
+        </div>
+        <!-- Side bar menu -->
+        <div class="the_menu mt-5">
+
+            <!-- Menu item -->
+            <div >
+                <ul class="side-menu p-0 m-0">
+                    <li class="side-menu-item px-4 mb-1 "><a href="dashboard2.html" class="pt-2 pl-4"><i class="ri-dashboard-line pr-2"></i>Dashboard</a></li>
+                    <!-- Sub menu parent -->
+                    <li class="side-menu-item px-4 "><a href="transaction.html" class="pt-2 pl-4" ><i class="ri-exchange-funds-fill pr-2" ></i>Transactions</a></li>
+                    <li class="side-menu-item px-4">
+                        <hr style="background-color: #f0e8e8;"/>
+                    </li>
+                    <!-- Sub menu parent -->
+                    <li class="side-menu-item px-4 mb-1"><a href="budgets.html" class="pt-2 pl-4 " >
+                    <i class="ri-crosshair-2-fill pr-2"></i>Budgets/Goals</a></li>
+                    <!-- Sub menu -->
+                    <!-- <div id="form-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <ul class="side-sub-menu p-0">
+                            <li class="side-sub-menu-item px-3"><a href="form_basic.html" class="w-100 pl-4">Basic Elements</a></li>
+                            <li class="side-sub-menu-item px-3"><a href="form_basic_action.html" class="w-100 pl-4">Basic Action Bar</a></li>
+                            <li class="side-sub-menu-item px-3"><a href="form_layout.html" class="w-100 pl-4">Form layouts</a></li>
+                            <li class="side-sub-menu-item px-3"><a href="multi_column_forms.html" class="w-100 pl-4">Multi Column Forms</a></li>
+                            <li class="side-sub-menu-item px-3"><a href="input_group.html" class="w-100 pl-4">Input Group</a></li>
+                            <li class="side-sub-menu-item px-3"><a href="form_validation.html" class="w-100 pl-4">Form Validation</a></li>
+                        </ul>
+                    </div> -->
+                    <li class="side-menu-item px-4 mb-1"><a href="users.html" class="pt-2 pl-4 active"  aria-expanded="false" ><i class="ri-pie-chart-2-line pr-2"></i>Manage Users</a></li>
+
+                    <!-- Sub menu parent -->
+                    <li class="side-menu-item px-4 mb-1"><a href="reports.html" class="pt-2 pl-4"  ><i class="ri-file-chart-line pr-2"></i>Activity Log</a></li>
+                  
+                  
+                    <!-- <li class="side-menu-item px-4"><a href="#" class="pt-2 pl-4"><i class="ri-message-3-line pr-2"></i>Messages</a></li> -->
+                    <!-- spacer====== -->
+                    <li style="height: calc(100vh/4);">
+
+                    </li>
+                    <li class="side-menu-item px-4 mb-1"><a href="Javascript:viod(0)"  id="logout-btn"  class="pt-2 pl-4"   aria-expanded="true" aria-controls="sub_menu_2"><i class="ri-logout-circle-r-line pr-2"></i>Logout</a></li>
+                  
+                </ul>
+            </div>
+        </div>
+    </div>
+      <!-- Main body -->
+   <div class="main_body_div" style="position: relative; margin-left:16rem; width: 70%;padding-top:3.5%;transition: all ease 0.5s;">
+    
+    <div class="row p-0 m-0">
+      <div class="w-100 P-3 M-0 mt-3"><i class="ri-menu-2-line menu_toggle" style="font-size: 25px;"></i></div>
+            <!-- col-md-9  -->
+            <div class="col-md-9" style="background-color: #fff;">
+                <h3 class="font-weight-bold my-2">All  Adminitrators</h3>
+                <span>Manage all users here.</span>
+              </div>
+              <!--End col-md-9 -->
+                <!-- Start col-md-3 -->
+            <div class="col-3 m-0 pt-0 text-right">
+            <button class="btn bg-dark text-white px-4 my-3"> <i class="ri-add-fill"></i> Add</button>
+          </div>
+          <!-- End col-md-3 -->
+        </div>
+        <!-- End of row -->
+          <div class="card mx-3 mx-md-0 border-0 rounded-lg mb-4 ">
+               <div class="card-body">
+                <!-- Row -->
+             <form  class="createAdmin-form">
+                <div class="row">
+                    <!-- Left side -->
+                    <div class="col-md-6 border-0 border-md-right">
+                      
+                           
+                                <!-- First Name -->
+                        <div class="form-group mb-2">
+                        <label for="name" class="text-muted">First name</label>
+                        <input id="name" class="form-control badge-pill bg-light" type="text" name="firstname">
+                        </div>
+                        <!-- Last Name -->
+                        <div class="form-group mb-2">
+                        <label for="name" class="text-muted">Last name</label>
+                        <input id="name" class="form-control badge-pill bg-light" type="text" name="lastname">
+                        </div>
+                        <!-- Email -->
+                        <div class="form-group mb-2">
+                        <label for="email" class="text-muted">Email Address</label>
+                        <input id="email" class="form-control badge-pill bg-light" type="email" name="email">
+                        </div>
+                        <!-- Email -->
+                        <div class="form-group mb-2">
+                        <label for="phone" class="text-muted">Phone</label>
+                        <input id="phone" class="form-control badge-pill bg-light" type="tel" name="phone">
+                        </div>
+                        <!-- Email -->
+                         <div class="p-2 my-2 previledges">
+                         <h5> Manage previledges</h5>
+                          <div class="row">
+                           <input class="m-2 privi_check" value="admin" type="checkbox" ><labe>create admin</labe>
+                           <input class="m-2  privi_check" value="reports" type="checkbox" ><labe>See reports</labe>
+                            <input class="m-2  privi_check" type="checkbox" value="budgets/goals" ><labe>manage budget/Goals</labe>
+                          </div>
+                         </div>     
+                     
+                    </div>
+                   <div class="col-md-6 border-0">
+                   <div class="form-group mb-2" >
+                        <label for="gender" class="text-muted">Gender</label>
+                        <select class="form-control badge-pill bg-light" name="gender">
+                            <option value="Male">
+                                Male
+                            </option>
+                            <option value="Female">
+                                Female
+                            </option>
+                        </select>
+
+                        </div>
+                    
+                    <!-- password -->
+                    <div class="form-group mb-2">
+                        <label for="password" class="text-muted">Password</label>
+                        <input id="password" class="form-control badge-pill bg-light" type="password" name="pass">
+                    </div>
+                    <!-- Password -->
+                    <div class="form-group mb-4">
+                        <label for="c-pass" class="text-muted">Confirm Password</label>
+                        <input id="c-pass" class="form-control badge-pill bg-light" type="password" name="c-pass">
+                    </div>
+
+                     <button type="submit" class="btn btn-primary btn-outline-primary badge-pill btn-block w-75 m-auto">Create Admin  </button>
+                   
+                   </div>
+                   </form>
+                </div>
+            </div>
+        </div> 
+
+                    <!-- Data table -->
+                    <div class="card rounded-lg border-0">
+                        <!-- Card body -->
+                        <div class="card-body">
+                         
+                             <!-- Data table -->
+                        <div class="card  rounded-lg border-0">
+                        <!-- Card body -->
+                        <div class="card-body">
+                        <div class="row my-3">
+                        <!-- col  -->
+                        <div class="col-md-9">
+                        <h5 class="font-weight-bold my-2"></h5>
+                        </div>
+                        <!--End col-md-9 -->
+                        <!-- Start col-md-3 -->
+                        <div class="col-3 m-0 pt-0 text-right">
+                        <!-- <button class="btn btn-outline-light m-2 text-dark badge-pill shadow-sm"> See all records</button> -->
+                        </div>
+                        <!-- End col-md-3 -->
+                        </div>  
+                            
+                            <!-- Data table -->
+                             <div class="table-responsive">
+                                <table class="table border-0" style="width: 100%;">
+                                    <!-- Table head -->
+                                    <thead>
+                                         <tr style="color:#a8a8a8 !important">
+                                            <th ><div style='width:20px'>Id</div> </th>
+                                            <th ><div style='width:60px'></div> </th>
+                                            <th ><div style='width:120px'>Name</div> </th>
+                                            <th ><div  style='width:120px'>Email</div> </th>
+                                            <th ><div  style='width:120px'>Phone</div> </th>
+                                            <th style="margin-left: 0px;"><div style='width:70px'>Gender</div> </th>
+                                            <th > <div style='width:120px' >Priviledges</div> </th>
+                                            <th > <div style='width:120px' >Action </div> </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                          
+                           
+                              <div class="table-responsive" style="overflow: auto;">
+                                <table class="table border-0" id="defaultOrderingDataTable" style="width: 100%;">
+                                    <!-- Table body -->
+                                    <tbody class="text-dark font-weight-bold">
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+    
+                        </div>
+    
+    
+                    </div>
+                    <!-- End data table -->
+                            
+    
+                        </div>
+    
+    
+                    </div>
+      </div>
+   </div>
+  </div>
+     <div class="mt-3 mt-md-0">
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <div class="card mx-3 mx-md-0 border-0 rounded-lg mb-4 ">
+               <div class="card-body">
+                <!-- Row -->
+             <form  class="editAdmin-form">
+                <div class="row justify-content-start">
+                    <!-- Left side -->
+                    <div class="col-md-7 border-0 border-md-right">
+                      
+                           
+                                <!-- First Name -->
+                        <div class="form-group mb-2">
+                        <label for="name" class="text-muted">First name</label>
+                        <input id="name" class="form-control badge-pill bg-light" type="text" name="firstname">
+                        </div>
+                        <!-- Last Name -->
+                        <div class="form-group mb-2">
+                        <label for="name" class="text-muted">Last name</label>
+                        <input id="name" class="form-control badge-pill bg-light" type="text" name="lastname">
+                        </div>
+                        <!-- Email -->
+                        <div class="form-group mb-2">
+                        <label for="email" class="text-muted">Email Address</label>
+                        <input id="email" class="form-control badge-pill bg-light" type="email" name="email">
+                        </div>
+                        <!-- Email -->
+                        <div class="form-group mb-2">
+                        <label for="phone" class="text-muted">Phone</label>
+                        <input id="phone" class="form-control badge-pill bg-light" type="tel" name="phone">
+                        </div>
+                       
+                         <!-- Preiledges-->
+                         <div class=" my-2 previledges">
+                         <h5> Manage previledges</h5>
+                          <div class="row">
+                           <input class="m-2 privi_check" value="admin" type="checkbox" ><labe>create admin</labe><br/>
+                           <input class="m-2  privi_check" value="reports" type="checkbox" ><labe>See reports</labe><br/>
+                            <input class="m-2  privi_check" type="checkbox" value="budgets/goals" ><labe>manage budget/Goals</labe>
+                          </div>
+                         </div> 
+                    </div>
+                   <div class="col-md-5 border-0">
+                   <div class="form-group mb-2" >
+                        <label for="gender" class="text-muted">Gender</label>
+                        <select class="form-control badge-pill bg-light" name="gender">
+                            <option value="Male">
+                                Male
+                            </option>
+                            <option value="Female">
+                                Female
+                            </option>
+                        </select>
+
+                        </div>
+                    
+                    <!-- password -->
+                    <div class="form-group mb-2">
+                        <label for="password" class="text-muted">Password</label>
+                        <input id="password" class="form-control badge-pill bg-light" type="password" name="pass">
+                    </div>
+                    <!-- Password -->
+                    <div class="form-group mb-4">
+                        <label for="c-pass" class="text-muted">Confirm Password</label>
+                        <input id="c-pass" class="form-control badge-pill bg-light" type="password" name="c-pass">
+                    </div>
+                       
+                     <button type="submit" class="btn btn-primary btn-outline-primary badge-pill btn-block w-75 m-auto">Edit Admin  </button>
+                   
+                   </div>
+                   </div>
+                       
+                   </form>
+                </div>
+            </div>
+            </div>
+            
+        </div>
+        </div>
+    </div>
+</div>
+<script src="js/vendor/bootstrap-4.3.1/modernizr-3.7.1.min.js"></script>
+  <script src="js/vendor/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="js/vendor/popper-js/popper1.14.7.js"></script>
+  <script src="js/vendor/bootstrap-4.3.1/bootstrap.min.js"></script>
+  <!-- eChart -->
+  <script src="js/vendor/eChart/echarts.min.js"></script>
+  <script src="js/vendor/eChart/echarts.option.min.js"></script>
+   <!-- Chart js -->
+   <script src="./js/vendor/Chart.js-2.9.3/Chart.min.js"></script>
+   <script src="./js/plugins/chart_js_drw.js"></script>
+  <!-- eChart script -->
+  <!-- Sweet js  -->
+    <script src="js/plugins/sweetjs.js"></script>
+<!-- data jquery scripts -->
+<script src="js/plugins/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.min.js"></script>
+  <script src="js/plugins/echart_drw.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+   var priviledgeArray = [ ]
+   $(".privi_check").on('change',function(e){
+     if(this.checked){
+        priviledgeArray.push('"'+$(this).val()+'"')
+     }else{
+         priviledgeArray.pop('"'+$(this).val()+'"')
+     }
+     console.log(this.checked)
+     console.log(priviledgeArray)
+   })
+
+    $(".createAdmin-form").on('submit',function(e){
+            e.preventDefault()
+            console.log("form sent ............")
+            var formData = new FormData(e.target)
+            formData.append('priviledge','['+ priviledgeArray.toString() +']')
+            formData.append("from_admin",'true')
+            $.ajax({
+                method :'Post',
+                url: 'backend/backend.php',
+                data : formData,
+                processData: false,
+                contentType : false,
+                beforeSend : function(){
+                    $("button[type ='submit']").html("Loadind please wait....")
+                },
+                success : function(data){
+                    if(data.indexOf('rror')!= -1){
+                        Swal.fire({
+                        title: 'Error!',
+                        text: data,
+                        icon: 'error',
+                        confirmButtonText: 'Close'
+                        })
+                    }else{
+                        console.log("success")
+                        if(data.indexOf('script')!= -1){
+                        $("body").append(data)
+                        }else{
+                           Swal.fire({
+                        title: 'Successfull',
+                        text: data,
+                        icon: 'success',
+                        showConfirmButton : false
+                        })
+                         $("input").val('')
+                         $("input[type='checkbox']").each((e,ele)=>{
+                          ele.checked = false
+                         })
+                         $("button[type ='submit']").html("Create admin")
+                        }
+                       
+                    }
+
+                }
+            })
+        })
+
+
+ 
+  sendMinorData('all_user',function(data){
+         data = JSON.parse(data)
+         console.log(data)
+         count = 0
+      data.forEach( 
+       element => {
+         var priviledge = JSON.parse(element['priviledges'])
+         if(priviledge.length<=0)
+          priviledge = 'none'
+        $("#defaultOrderingDataTable tbody").append( "<tr><td><div style='width:20px'>"+ ++count +"</div></td>"+
+             "<td><div style='width:60px'><img style='width:50px;height:50px;border-radius:50%' src="+element['userimg']+"></div></td> "+
+            "<td><div  style='width:120px' >"+ element['firstname']+" "+element['lastname']+ "</div></td>"+
+            "<td><div  style='width:120px' >"+ element['email']+"</div></td>"+
+            "<td><div style='width:120px'>"+ element['phone'] +"</div></td>"+
+            "<td><div style='width:70px;padding-left:15px'>"+ element['gender'] +"</div></td>"+
+            "<td><div style='width:120px;padding-left:15px'>"+ priviledge +"</div></td>"+ 
+            "<td><div style='width:120px;padding-left:15px'><i class='ri-edit-2-line m-2 mr-4' data-toggle='modal' data-target='#exampleModal4'><span style='display:none'>"+  element['userid'] +"</span></i> <i class='ri-delete-bin-6-line m-2 admin_delete'><span style='display:none'>"+  element['userid'] +"</span></i></div></td></tr>"
+            )
+     });
+  var userEditValue
+  $("i[data-target='#exampleModal4']").click(
+     function(){
+      var editData = data[parseInt($(this).parent().parent().siblings().first().text())-1]
+      console.log($(this).text())
+        userEditValue = $(this).text()
+        $("input[type='checkbox']").each((e,ele)=>{
+        ele.checked = false
+        })
+        $("input[name='firstname']").val(editData['firstname'])
+        $("input[name='lastname']").val(editData['lastname'])
+        $("input[name='email']").val(editData['email'])
+        $("input[name='phone']").val(editData['phone']) 
+    })
+
+    
+// edit admin ajax codes =====================
+    $(".editAdmin-form").on('submit',function(e){
+     e.preventDefault()
+            console.log("Edit form sent ............")
+            var formData = new FormData(e.target)
+            formData.append('priviledge','['+ priviledgeArray.toString() +']')
+            formData.append("from_admin",'true')
+            formData.append("edit_admin",userEditValue)
+            $.ajax({
+                method :'Post',
+                url: 'backend/backend.php',
+                data : formData,
+                processData: false,
+                contentType : false,
+                beforeSend : function(){
+                    $("button[type ='submit']").html("Loadind please wait....")
+                },
+                success : function(data){
+                    if(data.indexOf('rror')!= -1){
+                        Swal.fire({
+                        title: 'Error!',
+                        text: data,
+                        icon: 'error',
+                        confirmButtonText: 'Close'
+                        })
+                    }else{
+                        console.log("success")
+                        if(data.indexOf('script')!= -1){
+                        $("body").append(data)
+                        }else{
+                           Swal.fire({
+                        title: 'Successfull',
+                        text: data,
+                        icon: 'success',
+                        showConfirmButton : false
+                        })
+                         //$("input").val('')
+                         $("input[type='checkbox']").each((e,ele)=>{
+                          ele.checked = false
+                         })
+                         $("button[type ='submit']").html("Edit admin")
+                         setTimeout(function(){window.location.reload()},1500)
+                        }
+                       
+                    }
+
+                }
+            })
+    
+    })
+
+    // Delete admin ===
+    $(".admin_delete").click(function(){
+      userEditValue = $(this).text()
+      var that = this
+       Swal.fire({
+            title: 'Confirmation',
+            text: "Sure you want to delete admin "+$(this).parent().parent().siblings().eq(3).text(),
+            icon: 'error',
+            confirmButtonText: 'Delete',
+            showCancelButton: true
+            }).then(function(result){
+             if(result.isConfirmed){
+                 sendMinorData({"delete_admin":userEditValue},function(data){
+                if(data.indexOf('Success')!=-1)
+                    $(that).parent().parent().parent().remove()
+                    else
+                    Swal.fire({
+                        title: 'Error!',
+                        text: data,
+                        icon: 'error',
+                        confirmButtonText: 'Close'
+                        })
+                })
+             }
+            })
+    
+    })
+
+        })
+  </script>
+  </body>
+ 
+  
+  
+ </html>  

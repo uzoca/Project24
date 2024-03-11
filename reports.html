@@ -1,0 +1,173 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Log reports | FinAnalyes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="icon" type="image/x-icon" href="img/appIcon.png">
+  <!-- Google fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="remix_fonts/fonts/remixicon.css">
+  <link rel="stylesheet" href="fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/vendor/bootstrap-4.3.1/bootstrap.min.css">
+
+    <style>
+        .progress{
+        height: 0.7rem;
+        }
+        .card {
+            background-color:#f5f6f7 !important;
+            box-shadow: none !important;
+        }
+    </style>
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body class="position-relative">
+  <!--[if IE]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+  <div class="container-fluid px-0" >
+    <div class="container-fluid top-bar" style="position: fixed; z-index: 200;">
+        <div class="row justify-content-center pt-2 px-3" style="height: 55px;border-bottom: #dbdbdd solid 2px; background-color: #fff;">
+            <div class="col">
+
+            </div>
+            <div class="form-group col-md-5">
+                <input id="search_box" class="form-control border-0" type="text" name="search" placeholder="search" style="background-color: #f3f2f8;">
+            </div>
+            <div class="col row justify-content-end">
+                <i class="ri-upload-2-line"></i>
+                <i class="ri-add-fill"></i>
+                <i class="ri-settings-4-line"></i>
+                <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown"><img src="img/profilepix1.jpg" alt="profile" style="height:40px;width:40px;border-radius: 100%;"></a>
+            </div>
+        </div>
+       </div>
+     <!-- The side bar -->
+     <div class="side-bar side-bar-lg-active" data-theme="black" >
+        <!-- Brand details -->
+        <div class="side-menu-brand mt-5">
+         <div class="close-btn-div text-right text-white pr-3"><i class="ri-close-line font-weight-bold close-btn" style="font-size:2rem;"></i></div>
+            <div class="col-sm-8 mx-auto">
+              <div class="row">
+                <div class="col-2 p-0 mt-2">
+                    <img src="img/appIcon.png" alt="bran_name" class="brand-img">
+                   </div>
+                    <div class="col-7 p-0 m-0 ml-2">
+                        <a href="#" class="brand-name font-weight-bold mt-2">FinAnalyes</a>
+                        <div class="text-white" style="font-size: 13px;color:#f0e8e8">Admin account</div>
+                    </div>
+              </div>
+            </div>
+           
+        </div>
+        <!-- Side bar menu -->
+        <div class="the_menu mt-5">
+
+            <!-- Menu item -->
+            <div >
+                <ul class="side-menu p-0 m-0">
+                    <li class="side-menu-item px-4 mb-1 "><a href="dashboard2.html" class="pt-2 pl-4"><i class="ri-dashboard-line pr-2"></i>Dashboard</a></li>
+                    <!-- Sub menu parent -->
+                    <li class="side-menu-item px-4 "><a href="transaction.html" class="pt-2 pl-4" ><i class="ri-exchange-funds-fill pr-2" ></i>Transactions</a></li>
+                    <li class="side-menu-item px-4">
+                        <hr style="background-color: #f0e8e8;"/>
+                    </li>
+                    <!-- Sub menu parent -->
+                    <li class="side-menu-item px-4 mb-1"><a href="budgets.html" class="pt-2 pl-4 " >
+                    <i class="ri-crosshair-2-fill pr-2"></i>Budgets/Goals</a></li>
+                    <!-- Sub menu -->
+                    <!-- <div id="form-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <ul class="side-sub-menu p-0">
+                            <li class="side-sub-menu-item px-3"><a href="form_basic.html" class="w-100 pl-4">Basic Elements</a></li>
+                            <li class="side-sub-menu-item px-3"><a href="form_basic_action.html" class="w-100 pl-4">Basic Action Bar</a></li>
+                            <li class="side-sub-menu-item px-3"><a href="form_layout.html" class="w-100 pl-4">Form layouts</a></li>
+                            <li class="side-sub-menu-item px-3"><a href="multi_column_forms.html" class="w-100 pl-4">Multi Column Forms</a></li>
+                            <li class="side-sub-menu-item px-3"><a href="input_group.html" class="w-100 pl-4">Input Group</a></li>
+                            <li class="side-sub-menu-item px-3"><a href="form_validation.html" class="w-100 pl-4">Form Validation</a></li>
+                        </ul>
+                    </div> -->
+                    <li class="side-menu-item px-4 mb-1"><a href="users.html" class="pt-2 pl-4"  aria-expanded="false" ><i class="ri-pie-chart-2-line pr-2"></i>Manage Users</a></li>
+
+                    <!-- Sub menu parent -->
+                    <li class="side-menu-item px-4 mb-1"><a href="#" class="pt-2 pl-4 active" data-toggle="collapse" aria-expanded="false"><i class="ri-file-chart-line pr-2"></i>Activity Log</a></li>
+                  
+                    <!-- <li class="side-menu-item px-4"><a href="#" class="pt-2 pl-4"><i class="ri-message-3-line pr-2"></i>Messages</a></li> -->
+                    <!-- spacer====== -->
+                    <li style="height: calc(100vh/4);">
+
+                    </li>
+                    <li class="side-menu-item px-4 mb-1"><a  id="logout-btn"  class="pt-2 pl-4"   aria-expanded="true" aria-controls="sub_menu_2"><i class="ri-logout-circle-r-line pr-2"></i>Logout</a></li>
+                  
+                </ul>
+            </div>
+        </div>
+    </div>
+      <!-- Main body -->
+   <div class="main_body_div" style="position: relative; margin-left:16rem; width: 70%;padding-top:3.5%;transition: all ease 0.5s;">
+    
+    <div class="row p-0 m-0">
+      <div class="w-100 P-3 M-0 mt-3"><i class="ri-menu-2-line menu_toggle" style="font-size: 25px;"></i></div>
+            <!-- col-md-9  -->
+            <div class="col-md-9" style="background-color: #fff;">
+                <h3 class="font-weight-bold my-2">Activity Log </h3>
+                <span> Displayed here is all admins activity report. </span>
+              </div>
+              <!--End col-md-9 -->
+                <!-- Start col-md-3 -->
+           
+          <!-- End col-md-3 -->
+        </div>
+        <!-- End of row -->
+          <div class="card mx-3 mx-md-0 border-0 rounded-lg my-4 activity_card">
+               <div class="card-body shadow-sm" style="background-color: #fff !important;">
+                 
+                 
+             
+                </div>
+            </div>
+        </div> 
+
+      </div>
+   </div>
+  </div>
+     
+<script src="js/vendor/bootstrap-4.3.1/modernizr-3.7.1.min.js"></script>
+  <script src="js/vendor/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="js/vendor/popper-js/popper1.14.7.js"></script>
+  <script src="js/vendor/bootstrap-4.3.1/bootstrap.min.js"></script>
+  <!-- eChart -->
+  <script src="js/vendor/eChart/echarts.min.js"></script>
+  <script src="js/vendor/eChart/echarts.option.min.js"></script>
+   <!-- Chart js -->
+   <script src="./js/vendor/Chart.js-2.9.3/Chart.min.js"></script>
+   <script src="./js/plugins/chart_js_drw.js"></script>
+  <!-- eChart script -->
+  <!-- Sweet js  -->
+    <script src="js/plugins/sweetjs.js"></script>
+<!-- data jquery scripts -->
+<script src="js/plugins/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.min.js"></script>
+  <script src="js/plugins/echart_drw.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+
+   sendMinorData('get_activities',function(data){
+    if(data = JSON.parse(data)){
+
+    data.forEach(function(ele){
+     $(".activity_card .card-body").append(' <div class="btn bg-light shadow-sm my-3 py-3"><div class=" font-weight-bold rounded-sm text-left" style=" white-space: nowrap; overflow: hidden !important;text-overflow: ellipsis !important;font-size:15px">'+ele['which_admin']+ ' ' + ele['activity']+'<br/> Date : '+ ele['date'] +'</div></div><br/>')
+    })
+      
+    }
+   })
+  </script>
+  </body>
+ 
+  
+  
+ </html>  

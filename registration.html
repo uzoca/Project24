@@ -1,0 +1,128 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Sign UP | qbytAdmin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="icon" type="image/x-icon" href="img/appIcon.png">
+  <!-- Google fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="css/vendor/bootstrap-4.3.1/bootstrap.min.css">
+  <link rel="stylesheet" href="css/main.css">
+    <!-- Theme color -->
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body class="position-relative">
+    <!-- Main content start -->
+    <div class="login-page d-flex flex-row justify-content-center align-items-center">
+        <!-- Login card -->
+        <div class="card mx-3 mx-md-0 border-0 rounded-lg">
+            <div class="card-body">
+                <!-- Row -->
+                <div class="row">
+                    <!-- Left side -->
+                    <div class="col-md-6 border-0 border-md-right">
+                        <!-- Brand -->
+                        <div class="login-brand m-3 m-md-0 d-flex justify-content-center align-items-center">
+                           <img src="img/appIcon.png" alt="image" class="w-25">
+                        </div>
+                        <form  class="signup-form">
+                            <h5 class="text-dark my-3">Sign Up Your Organisation</h5>
+                             <!-- First Name -->
+                    <div class="form-group mb-2">
+                        <label for="name" class="text-muted">Name</label>
+                        <input id="name" class="form-control badge-pill bg-light" type="text" name="organisation_name">
+                    </div>
+                     
+                     <div class="form-group mb-2" >
+                        <label for="gender" class="text-muted">AccountType</label>
+                        <select class="form-control badge-pill bg-light" name="account_type">
+                            <option value="savings">
+                                Savings
+                            </option>
+                            <option value="current">
+                                Current
+                            </option>
+                        </select>
+
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="image" class="text-muted">Organisation Image</label>
+                        <input id="image" class="form-control badge-pill bg-light" type="file" name="org_image">
+                    </div>
+                     <div class="form-group mb-2">
+                        <label for="account_number" class="text-muted">Account Number</label>
+                        <input id="account_number" class="form-control badge-pill bg-light" type="text" name="account_number">
+                    </div>
+                    <!-- password -->
+                    <div class="form-group mb-2">
+                        <label for="password" class="text-muted">Password</label>
+                        <input id="password" class="form-control badge-pill bg-light" type="password" name="pass">
+                    </div>
+                    <!-- Password -->
+                    <div class="form-group mb-4">
+                        <label for="c-pass" class="text-muted">Confirm Password</label>
+                        <input id="c-pass" class="form-control badge-pill bg-light" type="password" name="c-pass">
+                    </div>
+
+                     <button type="submit" class="btn btn-primary btn-outline-primary badge-pill btn-block w-75 m-auto">Sign Up</button>
+                     <p class="text-center mt-3"><a href="./index.html" >Already have an acount? Login </a></p>      
+                     </form>
+                    </div>
+                    <!-- Right side -->
+                    <div class="col-md-6 d-flex flex-column justify-content-center align-items-center pt-3 pt-md-0">
+                        <div style="width: 300px;height: 100px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/vendor/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+    <script src="js/plugins/sweetjs.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        $(".signup-form").on('submit',function(e){
+            e.preventDefault()
+            var formData = new FormData(e.target)
+            $.ajax({
+                method :'Post',
+                url: 'backend/backend.php',
+                data : formData,
+                processData: false,
+                contentType : false,
+                beforeSend : function(){
+                    $("button[type ='submit']").html("Loadind please wait....")
+                },
+                success : function(data){
+                    if(data.indexOf('rror')!= -1){
+                        Swal.fire({
+                        title: 'Error!',
+                        text: data,
+                        icon: 'error',
+                        confirmButtonText: 'Close'
+                        })
+                    }else{
+                        console.log("success")
+                        if(data.indexOf('script')!= -1){
+                        $("body").append(data)
+                        }else
+                         Swal.fire({
+                        title: 'Error!',
+                        text: data,
+                        icon: 'error',
+                        confirmButtonText: 'Close'
+                        })
+                    }
+
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

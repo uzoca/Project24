@@ -1,8 +1,8 @@
 // Line chart 1
 let myChart = document.getElementById("lineChart").getContext("2d");
 var gradient = myChart.createLinearGradient(0, 0, 0, 400);
-gradient.addColorStop(0, 'rgba(195, 195, 197,1)');   
-gradient.addColorStop(1, 'rgba(250,174,50,0)');
+gradient.addColorStop(0, 'rgba(207, 207, 207,1)');   
+gradient.addColorStop(1, 'rgba(207, 207, 207,0)');
 let chart = new Chart(myChart,{
     type : "line",
     data : {

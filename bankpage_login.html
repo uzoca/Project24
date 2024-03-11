@@ -1,0 +1,105 @@
+
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Pseudo Bank</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="img/pseudo_icon.png">
+  <!-- Google fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="css/vendor/bootstrap-4.3.1/bootstrap.min.css">
+  <link rel="stylesheet" href="css/main.css">
+    <!-- Theme color -->
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body class="position-relative">
+    <!-- Main content start -->
+    <div class="login-page d-flex flex-row justify-content-end align-items-center"  
+    style="background-image: url(img/pseudo_bank_background.png); background-position: 100% 100%; background-repeat: no-repeat;">
+        <!-- Login card -->
+       
+        <div class="card mx-3 mx-md-5 border-0 rounded-lg">
+            <div class="card-body">
+                <!-- Row -->
+                <div class="row">
+                    <!-- Left side -->
+                    <div class="col-md-11 border-0 ">
+                        <!-- Brand -->
+                        <div class="login-brand m-3 m-md-0 d-flex justify-content-center align-items-center">
+                        <img src="img/pseudo_icon.png" alt="image" ><span class="p-3">Pseudo Bank</span>
+                        </div>
+                        <form  class="signin-form-bank">
+                            <h5 class="text-dark my-3">Sign In</h5>
+                            <!-- Email -->
+                            <div class="form-group mb-2 w-100">
+                                <label for="email" class="text-muted">Account Name</label>
+                                <input id="acc_name"  class="form-control badge-pill bg-light" type="text" name="account_name">
+                            </div>
+                            <!-- Passeord -->
+                            <div class="form-group mb-2 w-100">
+                                <label for="Passeord" class="text-muted">Password</label>
+                                <input id="Passeord" name="pass" class="form-control badge-pill bg-light" type="text" >
+                            </div>
+                            <!-- Remember me checkbox -->
+                            <div class="custom-control custom-checkbox">
+                                <input id="my-input" class="custom-control-input" type="checkbox" name="" value="true">
+                                <label for="my-input" class="custom-control-label">Remember me</label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-outline-primary badge-pill btn-block w-75 m-auto">Sign in</button>
+                             <p class="text-center mt-3"><a href="./bankpage_register.html" >Don't have an account register here</a></p>
+                            <p class="text-center mt-3"><a href="./forget_password.html" >Forgot Password?</a></p>
+                        </form>
+                    </div>
+                    <!-- Right side -->
+                    <div class="col-md-6 d-flex flex-column justify-content-center align-items-center pt-3 pt-md-0">
+                       <div style="width:250px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/vendor/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+<script src="js/plugins/sweetjs.js"></script>
+<script src="js/plugins.js"></script>
+ <script src="js/main.js"></script>
+<script>
+    $(".signin-form-bank").on('submit',function(e){
+      e.preventDefault()
+      var formData = new FormData(e.target)
+
+      $.ajax({
+          method :'Post',
+          url: 'backend/backend.php',
+          data : formData,
+          processData: false,
+          contentType : false,
+          beforeSend : function(){
+              $("button[type ='submit']").html("Loadind please wait....")
+          },
+          success : function(data){
+              console.log(data)
+              if(data.indexOf('rror')!= -1){
+                  Swal.fire({
+                  title: 'Error!',
+                  text: data,
+                  icon: 'error',
+                  confirmButtonText: 'Close'
+                  })
+              }else{
+                  $("body").append(data)
+              }
+             
+          }
+      })
+  })
+</script>
+</body>
+
+</html>

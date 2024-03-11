@@ -1,0 +1,116 @@
+
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Pseudo Bank</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="icon" type="image/x-icon" href="img/pseudo_icon.png">
+  <!-- Google fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="css/vendor/bootstrap-4.3.1/bootstrap.min.css">
+  <link rel="stylesheet" href="css/main.css">
+    <!-- Theme color -->
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body class="position-relative">
+    <!-- Main content start -->
+    <div class="login-page d-flex flex-row justify-content-end align-items-center" 
+    style="background-image: url(img/pseudo_bank_background.png); background-position: 100% 100%; background-repeat: no-repeat;">
+        <!-- Login card -->
+       
+        <div class="card mx-3 mx-md-5 border-0 rounded-lg">
+            <div class="card-body">
+                <!-- Row -->
+                <div class="row">
+                    <!-- Left side -->
+                    <div class="col-md-11 border-0 ">
+                        <!-- Brand -->
+                        <div class="login-brand m-3 m-md-0 d-flex justify-content-center align-items-center">
+                            <img src="img/pseudo_icon.png" alt="image" ><span class="p-3">Pseudo Bank</span>
+                        </div>
+                 <form  class="signup-bank-form">
+                     <h5 class="text-dark my-3">Sign Up </h5>
+                             <!-- First Name -->
+                    <div class="form-group mb-2">
+                        <label for="name" class="text-muted">firstname</label>
+                        <input id="name" class="form-control badge-pill bg-light" type="text" name="firstname_bank">
+                    </div>
+                     <div class="form-group mb-2">
+                        <label for="name" class="text-muted">lastname</label>
+                        <input id="name" class="form-control badge-pill bg-light" type="text" name="lastname_bank">
+                    </div>
+                     <div class="form-group mb-2">
+                        <label for="name" class="text-muted">Enter a username </label>
+                        <input id="name" placeholder="Enter a simple username you can remember" class="form-control badge-pill bg-light" type="text" name="username_bank">
+                    </div>
+                      <div class="form-group mb-2">
+                        <label for="email" class="text-muted">Email</label>
+                        <input id="email" class="form-control badge-pill bg-light" type="text" name="bank_email">
+                    </div>
+                     
+                    <!-- password -->
+                    <div class="form-group mb-2">
+                        <label for="password" class="text-muted">Password</label>
+                        <input id="password" class="form-control badge-pill bg-light" type="password" name="pass">
+                    </div>
+                    <!-- Password -->
+                    <div class="form-group mb-4">
+                        <label for="c-pass" class="text-muted">Confirm Password</label>
+                        <input id="c-pass" class="form-control badge-pill bg-light" type="password" name="c-pass">
+                    </div>
+
+                     <button type="submit" class="btn btn-primary btn-outline-primary badge-pill btn-block w-75 m-auto">Sign Up</button>
+                     <p class="text-center mt-3"><a href="./bankpage_login.html" >Already have an acount? Login </a></p>      
+                    </form>
+                    </div>
+                    <!-- Right side -->
+                    <div class="col-md-6 d-flex flex-column justify-content-center align-items-center pt-3 pt-md-0">
+                       <div style="width:250px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/vendor/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+<script src="js/plugins/sweetjs.js"></script>
+ <script src="js/main.js"></script>
+<script>
+
+    $(".signup-bank-form").on('submit',function(e){
+      e.preventDefault()
+      var formData = new FormData(e.target)
+      $.ajax({
+          method :'Post',
+          url: 'backend/backend.php',
+          data : formData,
+          processData: false,
+          contentType : false,
+          beforeSend : function(){
+              $("button[type ='submit']").html("Loadind please wait....")
+          },
+          success : function(data){
+              console.log(data)
+              if(data.indexOf('rror')!= -1){
+                  Swal.fire({
+                  title: 'Error!',
+                  text: data,
+                  icon: 'error',
+                  confirmButtonText: 'Close'
+                  })
+              }else{
+                  $("body").append(data)
+              }
+             
+          }
+      })
+  })
+</script>
+</body>
+
+</html>

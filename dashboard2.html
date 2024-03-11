@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <title>Dashboard | FinAnalyes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+   <link rel="icon" type="image/x-icon" href="img/appIcon.png">
   <!-- Google fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
   <!-- Stylesheet -->
@@ -19,9 +19,10 @@
         height: 0.7rem;
         }
         .card {
-            background-color:#f7f5f5 !important;
+            background-color:#f5f6f7 !important;
             box-shadow: none !important;
         }
+         
     </style>
   <meta name="theme-color" content="#fafafa">
 </head>
@@ -36,9 +37,9 @@
             <div class="col">
 
             </div>
-            <div class="form-group col-md-5">
+            <!-- <div class="form-group col-md-5">
                 <input id="search_box" class="form-control border-0" type="text" name="search" placeholder="search" style="background-color: #f3f2f8;">
-            </div>
+            </div> -->
             <div class="col row justify-content-end">
                 <i class="ri-upload-2-line"></i>
                 <i class="ri-add-fill"></i>
@@ -51,12 +52,13 @@
      <div class="side-bar side-bar-lg-active" data-theme="black" >
         <!-- Brand details -->
         <div class="side-menu-brand mt-5">
+              <div class="close-btn-div text-right text-white pr-3"><i class="ri-close-line font-weight-bold close-btn" style="font-size:2rem;"></i></div>
             <div class="col-sm-8 mx-auto">
               <div class="row">
-                <div class="col-2 p-0 mt-2">
+                <div class="col-lg-2 col-xl-2 col-2 p-0 ml-2 ml-md-0 mt-2">
                     <img src="img/appIcon.png" alt="bran_name" class="brand-img">
                    </div>
-                    <div class="col-7 p-0 m-0 ml-2">
+                    <div class="col-lg-9 col-xl-7 col-6 p-0 m-0 ml-2">
                         <a href="#" class="brand-name font-weight-bold mt-2">FinAnalyes</a>
                         <div class="text-white" style="font-size: 13px;color:#f0e8e8">Admin account</div>
                     </div>
@@ -70,14 +72,15 @@
             <!-- Menu item -->
             <div >
                 <ul class="side-menu p-0 m-0">
-                    <li class="side-menu-item px-4 mb-1 "><a href="index.html" class="pt-2 pl-4 active"><i class="ri-dashboard-line pr-2"></i>Dashboard</a></li>
+                    <li class="side-menu-item px-lg-2 px-xl-4 mb-1 "><a href="dashboard2.html" class="pt-2 pl-4 active"><i class="ri-dashboard-line pr-2"></i>Dashboard</a></li>
                     <!-- Sub menu parent -->
-                    <li class="side-menu-item px-4 "><a href="#" class="pt-2 pl-4" aria-expanded="false" aria-controls="sub_menu_1"><i class="ri-exchange-funds-fill pr-2" ></i>Transactions</a></li>
+                    <li class="side-menu-item px-lg-2 px-xl-4 "><a href="transaction.html" class="pt-2 pl-4" ><i class="ri-exchange-funds-fill pr-2" ></i>Transactions</a></li>
                     <li class="side-menu-item px-4">
                         <hr style="background-color: #f0e8e8;"/>
                     </li>
                     <!-- Sub menu parent -->
-                    <li class="side-menu-item px-4 mb-1"><a href="#" class="pt-2 pl-4" data-toggle="collapse"  aria-expanded="false" aria-controls="form-sub-menu"><i class="ri-crosshair-2-fill pr-2"></i>Budgets/Goals</a></li>
+                    <li class="side-menu-item px-lg-2 px-xl-4 mb-1"><a href="budgets.html" class="pt-2 pl-4" >
+                    <i class="ri-crosshair-2-fill pr-2"></i>Budgets/Goals</a></li>
                     <!-- Sub menu -->
                     <!-- <div id="form-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                         <ul class="side-sub-menu p-0">
@@ -89,31 +92,30 @@
                             <li class="side-sub-menu-item px-3"><a href="form_validation.html" class="w-100 pl-4">Form Validation</a></li>
                         </ul>
                     </div> -->
+                    <li class="side-menu-item px-lg-2 px-xl-4 mb-1"><a href="users.html" class="pt-2 pl-4"  aria-expanded="false" ><i class="ri-pie-chart-2-line pr-2"></i>Manage Users</a></li>
 
                     <!-- Sub menu parent -->
-                    <li class="side-menu-item px-4 mb-1"><a href="#" class="pt-2 pl-4" data-toggle="collapse" aria-expanded="false"><i class="ri-file-chart-line pr-2"></i>Reports</a></li>
+                    <li class="side-menu-item px-lg-2 px-xl-4 mb-1"><a href="reports.html" class="pt-2 pl-4" ><i class="ri-file-chart-line pr-2"></i>Activity Log</a></li>
                   
-                    <li class="side-menu-item px-4 mb-1"><a href="#" class="pt-2 pl-4"  aria-expanded="false" ><i class="ri-pie-chart-2-line pr-2"></i>Manage Data</a></li>
-                   
-                   
-                    <li class="side-menu-item px-4"><a href="#" class="pt-2 pl-4"><i class="ri-message-3-line pr-2"></i>Messages</a></li>
+                    <!-- <li class="side-menu-item px-4"><a href="#" class="pt-2 pl-4"><i class="ri-message-3-line pr-2"></i>Messages</a></li> -->
                     <!-- spacer====== -->
                     <li style="height: calc(100vh/4);">
 
                     </li>
-                    <li class="side-menu-item px-4 mb-1"><a href="Javascript:viod(0)"  id="logout-btn"  class="pt-2 pl-4"   aria-expanded="true" aria-controls="sub_menu_2"><i class="ri-logout-circle-r-line pr-2"></i>Logout</a></li>
+                    <li class="side-menu-item px-lg-2 px-xl-4 mb-1"><a  id="logout-btn"  class="pt-2 pl-4"   aria-expanded="true" aria-controls="sub_menu_2"><i class="ri-logout-circle-r-line pr-2"></i>Logout</a></li>
                   
                 </ul>
             </div>
         </div>
     </div>
       <!-- Main body -->
-   <div style="position: relative; margin-left:17rem; width: 80rem;padding-top:3.5%;">
+   <div class="main_body_div" style="position: relative; margin-left:16rem; width: 80%;padding-top:3.5%;transition: all ease 0.5s;">
     
-    <div class="row p-0 m-0">
-        <div class="col-md-9 pt-5">
+    <div class="row p-xl-0 m-xl-0">
+      <div class="w-100 P-3 M-0 mt-lg-3 mt-5 ml-2 ml-lg-0"><i class="ri-menu-2-line menu_toggle" style="font-size: 25px;"></i></div>
+        <div class="col-md-8 col-xl-9 pt-5 m-lg-0 p-lg-0">
             <!-- beginning row -->
-         <div class="row">
+         <div class="row m-lg-0 p-lg-0 mb-lg-4">
             <!-- col  -->
           <div class="col-md-9">
             <h3 class="font-weight-bold my-2">Overview</h3>
@@ -121,72 +123,73 @@
           </div>
           <!--End col-md-9 -->
           <!-- Start col-md-3 -->
-          <div class="col-3 m-0 pt-0 text-right">
+          <!-- <div class="col-3 m-0 pt-0 text-right">
             <button class="btn bg-dark text-white px-4 my-3"> <i class="ri-add-fill"></i> Add</button>
-          </div>
+          </div> -->
           <!-- End col-md-3 -->
          </div>
           <!-- Overview bars -->
-          <div class="row pt-4">
+          <div class="row pt-2 m-lg-0 p-lg-0">
             <!-- Col sm 6, col md 6, col lg 3 -->
-            <div class="col-sm-6 col-md-6 col-lg-4 mt-3 mt-lg-0 ">
+            <div class=" col-lg-4 mt-3 mt-lg-0 p-lg-0 m-lg-0 pr-lg-2 " style="height: 150px !important; overflow: hidden;">
                     <!-- Card body -->
                 <div class="card border-0 rounded-sm p-4">
-                    <p class="font-weight-bold m-0" style="font-size: 0.88rem;">Total Income</p>
+                    <p class="font-weight-bold m-0" style="font-size: 0.88rem;"> Account Balance</p>
                     <div class="row">
                         <div class="col-8">
-                            <h3 class="font-weight-bold my-2">$ 60,000</h3>
+                            <h5 class="font-weight-bold my-2 acc_balance"></h5>
                         </div>
                         <!-- col-8 end -->
                         <div class="col-2">
-                            <span class="badge badge-outline-success badge-pill m-1" style="background-color:#c1f1c3 ;"><i class="fa fa-arrow-up m-2"></i>60%</span>
+                            <span class="badge badge-outline-success badge-pill m-1" style="background-color:#c1f1c3 ;"><i class="fa fa-arrow-up m-xl-1 "></i>30%</span>
                             </div>
                             <!-- col-2 end -->
                     </div>
                         
-                        <p class="small">From January to April </p>
+                        <p class="small">Shows current account balance </p>
                     </div>
                               
                 </div>
            <!-- end  -->
                <!-- Col sm 6, col md 6, col lg 3 -->
-            <div class="col-sm-6 col-md-6 col-lg-4 mt-3 mt-lg-0 ">
+            <div class=" col-lg-4 mt-3 mt-lg-0 p-lg-0 m-lg-0 pr-lg-2" style="height: 150px !important; overflow: hidden;">
                 <!-- Card body -->
             <div class="card border-0 rounded-sm p-4">
-                <p class="font-weight-bold m-0" style="font-size: 0.88rem;">Total Income</p>
+                <p class="font-weight-bold m-0" style="font-size: 0.88rem;">Total Income </p>
                 <div class="row">
                     <div class="col-8">
-                        <h3 class="font-weight-bold my-2">$ 60,000</h3>
+                        <h5 class="font-weight-bold my-2 income_h3"></h5>
                     </div>
                     <!-- col-8 end -->
                     <div class="col-2">
-                        <span class="badge badge-outline-success badge-pill m-1" style="background-color:#c1f1c3 ;"><i class="fa fa-arrow-up m-2"></i>60%</span>
+                        <span class="badge badge-outline-success badge-pill m-1" 
+                        style="background-color:#c1f1c3 ;"><i class="fa fa-arrow-up m-xl-1"></i>10%</span>
                         </div>
                         <!-- col-2 end -->
                 </div>
                     
-                    <p class="small">From January to April </p>
+                    <p class="small">Records show for a 30 days period </p>
                 </div>
                           
             </div>
        <!-- end  -->
               <!-- Col sm 6, col md 6, col lg 3 -->
-            <div class="col-sm-6 col-md-6 col-lg-4 mt-3 mt-lg-0 ">
+            <div class=" col-lg-4 mt-3 mt-lg-0 p-lg-0 m-lg-0" style="height: 150px !important; overflow: hidden;">
                 <!-- Card body -->
             <div class="card border-0 rounded-sm p-4">
-                <p class="font-weight-bold m-0" style="font-size: 0.88rem;">Total Income</p>
+                <p class="font-weight-bold m-0" style="font-size: 0.88rem;">Total Expenditure</p>
                 <div class="row">
                     <div class="col-8">
-                        <h3 class="font-weight-bold my-2">$ 60,000</h3>
+                        <h5 class="font-weight-bold my-2 expenditure_h3"></h5>
                     </div>
                     <!-- col-8 end -->
                     <div class="col-2">
-                        <span class="badge badge-outline-danger badge-pill m-1" style="background-color:#f3dbdb ;"><i class="fa fa-arrow-down m-2"></i>30%</span>
+                        <span class="badge badge-outline-danger badge-pill m-1" style="background-color:#f3dbdb ;"><i class="fa fa-arrow-down m-xl-1"></i>14%</span>
                         </div>
                         <!-- col-2 end -->
                 </div>
                     
-                    <p class="small">From January to April </p>
+                    <p class="small">Records show for a 30 days period  </p>
                 </div>
                           
             </div>
@@ -204,15 +207,164 @@
                 </div>
 
             </div>
-        </div>
-        <!-- End -->
-        </div>
-        <!--end col-md-8 -->
-        <!-- col-3 -->
-        <div class="col-md-3">
+            <!-- end of card -->
+            <!-- Data table -->
+                    <div class="card mt-4 rounded-lg border-0">
+                    <!-- Card body -->
+                    <div class="card-body">
+                            <div class="row my-3">
+                    <!-- col  -->
+                    <div class="col-md-9">
+                    <h5 class="font-weight-bold my-2">Transaction History</h5>
+                    </div>
+                    <!--End col-md-9 -->
+                    <!-- Start col-md-3 -->
+                    <div class="col-3 m-0 pt-0 text-right">
+                    <button class="btn btn-outline-light m-2 text-dark badge-pill shadow-sm"> See all records</button>
+                    </div>
+                    <!-- End col-md-3 -->
+                    </div>                
+                        <!-- Data table -->
+                         <div class="table-responsive">
+                            <table class="table border-0" style="width: 100%;">
+                                <!-- Table head -->
+                                <thead>
+                                    <tr style="color:#a8a8a8 !important">
+                                        <th ><div style='width:40px'>Id</div> </th>
+                                        <th ><div style='width:120px'>Name</div> </th>
+                                        <th ><div style='width:140px'>Payment type</div> </th>
+                                        <th ><div  style='width:100px'>Amount</div> </th>
+                                        <th ><div style='width:140px'> Description</div> </th>
+                                        <th > <div style='width:80px' >status</div> </th>
+                                        <th ><div style='width:80px'> Date</div></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="table-responsive" style="overflow:auto;height: 350px;">
+                            <table class="table border-0" id="defaultOrderingDataTable" style="width: 100%;">
+                                <!-- Table body -->
+                                <tbody class="text-dark font-weight-bold">
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                         <div class="table-responsive">
+                            <table class="table border-0" id="defaultOrderingDataTable" style="width: 100%;">
+                                <!-- Table footer -->
+                                <tfoot>
+                                     <tr style="color:#a8a8a8 !important">
+                                        <th ><div style='width:40px'>Id</div> </th>
+                                        <th ><div style='width:120px'>Name</div> </th>
+                                        <th ><div style='width:140px'>Payment type</div> </th>
+                                        <th ><div  style='width:100px'>Amount</div> </th>
+                                        <th ><div style='width:140px'> Description</div> </th>
+                                        <th > <div style='width:80px' >status</div> </th>
+                                        <th ><div style='width:80px'> Date</div></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        
 
+                    </div>
+
+
+                </div>
+                <!-- End data table -->
         </div>
-        <!-- End col-3 -->
+        <!-- End of col-md-8 -->
+        <!-- col-md-3  -->
+        <div class="col-md-3" style="background-color: #fff !important;">
+         <!-- Top transaction row -->
+         <div class="row">
+            <!-- col  -->
+          <div class="col-md-9 pt-5 mt-2">
+            <h6 class="font-weight-bold my-2">payments view</h6>
+          </div>
+          <!--End col-md-9 -->
+          <!-- Start col-md-3 -->
+          <div class="col-3 text-right pt-5 mt-3">
+           <div class="d-flex justify-content-between text-secondary-light">
+            <i class="ri-arrow-left-circle-line"></i>
+            <i class="ri-arrow-right-circle-line"></i>     
+            </div>
+          </div>
+          <!-- End col-md-3 -->
+         </div>
+          <!-- End top transaction row -->
+            <div class="card bg-light mt-2 rounded border-0 pt-1 pb-3 mb-md-3"
+             style=" background-color: #fff !important;box-shadow: 0 .5rem 0.3rem rgba(0,0,0,.10) !important;">
+            <h6 class="font-weight-bold m-3">Credits</h6>
+            <!-- button starts -->
+             <div class="credit_div">
+
+             </div>
+            <!-- credit div ======== -->
+             
+             <h6 class="font-weight-bold m-3">Debits</h6>
+
+             <div class="debit_div">
+
+             </div>
+               <!-- Debit div ======== -->
+             
+            </div>
+              <div class="card bg-light mt-2 mt-md-5 rounded border-0 pt-1 pb-3"
+             style=" background-color: #fff !important; box-shadow: 0 .5rem 0.3rem rgba(0,0,0,.10) !important;">
+             
+              <h6 class="font-weight-bold m-3 text-secondary-light">Statictics</h6>
+               <!-- start col-12 -->
+               <div class="col-12 mb-3">
+                 <div class="d-flex text-secondary-light">
+                  <div class="bg-light rounded-sm text-center px-1"><i class="ri-exchange-cny-line" style="font-size:22px;"></i> </div>
+                  <span class="pl-2 font-weight-bold">Tution fees</span>
+                </div>
+                <div class="progress border-0 mt-2">
+                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 60%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                 <div class=" d-flex justify-content-between">
+                   <span style="font-size: 12px;font-weight: bold;">200,000</span>
+                   <span style="font-size: 12px;font-weight: bold;">30%</span>
+             </div>
+               </div>
+               <!-- End col-12 -->
+                <!-- start col-12 -->
+               <div class="col-12 mb-3">
+                 <div class="d-flex text-secondary-light">
+                  <div class="bg-light rounded-sm text-center px-1"><i class="ri-hand-coin-fill" style="font-size:22px;"></i> </div>
+                  <span class="pl-2 font-weight-bold">Staff Expenses</span>
+                </div>
+                <div class="progress border-0 mt-2">
+                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 60%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                 <div class=" d-flex justify-content-between">
+                   <span style="font-size: 12px;font-weight: bold;">400,000</span>
+                   <span style="font-size: 12px;font-weight: bold;">55%</span>
+             </div>
+               </div>
+               <!-- End col-12 -->
+                <!-- start col-12 -->
+               <div class="col-12 mb-3">
+                 <div class="d-flex text-secondary-light">
+                  <div class="bg-light rounded-sm text-center px-1"><i class="ri-building-2-fill" style="font-size:22px;"></i> </div>
+                  <span class="pl-2 font-weight-bold">Capital project</span>
+                </div>
+                <div class="progress border-0 mt-2">
+                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 60%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                 <div class=" d-flex justify-content-between">
+                   <span style="font-size: 12px;font-weight: bold;">1000,000</span>
+                   <span style="font-size: 12px;font-weight: bold;">40%</span>
+             </div>
+               </div>
+               <!-- End col-12 -->
+             </div>
+        </div>
+        <!-- End of col-md-3 -->
+        </div>
+        <!-- End of row -->
+       
       </div>
    </div>
   </div>
@@ -235,10 +387,36 @@
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
   <script>
-    getUser()
+
+function get_transactions_decending_order(){
+  sendMinorData({'transaction_decending': organisation_acount},function(data){
+   data = JSON.parse(data) 
+   console.log(data)
+   data['credit'].forEach(function(ele){
+   
+    $(".credit_div").append('<div class="btn bg-light d-flex justify-content-between mx-2 my-1"><i class="ri-arrow-left-right-line"></i><div class="col-7 font-weight-bold rounded-sm text-left" style=" white-space: nowrap; overflow: hidden !important;text-overflow: ellipsis !important;">'+ ele["description"]+'</div><i class="ri-arrow-right-line"></i></div>')
+   })
+   data['debit'].forEach(function(ele){
+   
+   $(".debit_div").append('<div class="btn bg-light d-flex justify-content-between mx-2 my-1"><i class="ri-bank-card-fill"></i><div class="col-7 font-weight-bold rounded-sm text-left" style=" white-space: nowrap; overflow: hidden !important;text-overflow: ellipsis !important;">'+ ele["description"]+' </div><i class="ri-arrow-right-line"></i> </div>')
+  })
+  })
+}
+
+    getAccountDetails() 
+     setTimeout(function(){get_transactions();get_transactions_decending_order()},1000) 
+     
+
+    var tranTicker=  setInterval(() => {
+    get_transactions()
+    getAccountDetails()
+    }, 2000);
+   
 
     $("#logout-btn,.logout").click(function(){
         logOut()
     })
+
+   
   </script>
 </html>  

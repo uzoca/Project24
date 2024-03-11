@@ -1,0 +1,504 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard | FinAnalyes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="remix_fonts/fonts/remixicon.css">
+  <link rel="stylesheet" href="fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/vendor/bootstrap-4.3.1/bootstrap.min.css">
+  <link rel="stylesheet" href="js/plugins/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.min.css" />
+    <style>
+        .progress{
+        height: 0.7rem;
+        }
+        .card {
+            background-color:#f5f6f7 !important;
+            box-shadow: none !important;
+        }
+    </style>
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body class="position-relative">
+  <!--[if IE]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+  <div class="container-fluid px-0" >
+    <div class="container-fluid top-bar" style="position: fixed; z-index: 200;">
+        <div class="row justify-content-center pt-2 px-3" style="height: 55px;border-bottom: #dbdbdd solid 2px; background-color: #fff;">
+            <div class="col">
+
+            </div>
+            <div class="form-group col-md-5">
+                <input id="search_box" class="form-control border-0" type="text" name="search" placeholder="search" style="background-color: #f3f2f8;">
+            </div>
+            <div class="col row justify-content-end">
+                <i class="ri-upload-2-line"></i>
+                <i class="ri-add-fill"></i>
+                <i class="ri-settings-4-line"></i>
+                <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown"><img src="img/profilepix1.jpg" alt="profile" style="height:40px;width:40px;border-radius: 100%;"></a>
+            </div>
+        </div>
+       </div>
+     <!-- The side bar -->
+     <div class="side-bar side-bar-lg-active" data-theme="black" >
+        <!-- Brand details -->
+        <div class="side-menu-brand mt-5">
+            <div class="col-sm-8 mx-auto">
+              <div class="row">
+                <div class="col-2 p-0 mt-2">
+                    <img src="img/appIcon.png" alt="bran_name" class="brand-img">
+                   </div>
+                    <div class="col-7 p-0 m-0 ml-2">
+                        <a href="#" class="brand-name font-weight-bold mt-2">FinAnalyes</a>
+                        <div class="text-white" style="font-size: 13px;color:#f0e8e8">Admin account</div>
+                    </div>
+              </div>
+            </div>
+           
+        </div>
+        <!-- Side bar menu -->
+        <div class="the_menu mt-5">
+
+            <!-- Menu item -->
+            <div >
+                <ul class="side-menu p-0 m-0">
+                    <li class="side-menu-item px-4 mb-1 "><a href="index.html" class="pt-2 pl-4 active"><i class="ri-dashboard-line pr-2"></i>Dashboard</a></li>
+                    <!-- Sub menu parent -->
+                    <li class="side-menu-item px-4 "><a href="#" class="pt-2 pl-4" aria-expanded="false" aria-controls="sub_menu_1"><i class="ri-exchange-funds-fill pr-2" ></i>Transactions</a></li>
+                    <li class="side-menu-item px-4">
+                        <hr style="background-color: #f0e8e8;"/>
+                    </li>
+                    <!-- Sub menu parent -->
+                    <li class="side-menu-item px-4 mb-1"><a href="#" class="pt-2 pl-4" data-toggle="collapse"  aria-expanded="false" aria-controls="form-sub-menu"><i class="ri-crosshair-2-fill pr-2"></i>Budgets/Goals</a></li>
+                    <!-- Sub menu -->
+                    <!-- <div id="form-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <ul class="side-sub-menu p-0">
+                            <li class="side-sub-menu-item px-3"><a href="form_basic.html" class="w-100 pl-4">Basic Elements</a></li>
+                            <li class="side-sub-menu-item px-3"><a href="form_basic_action.html" class="w-100 pl-4">Basic Action Bar</a></li>
+                            <li class="side-sub-menu-item px-3"><a href="form_layout.html" class="w-100 pl-4">Form layouts</a></li>
+                            <li class="side-sub-menu-item px-3"><a href="multi_column_forms.html" class="w-100 pl-4">Multi Column Forms</a></li>
+                            <li class="side-sub-menu-item px-3"><a href="input_group.html" class="w-100 pl-4">Input Group</a></li>
+                            <li class="side-sub-menu-item px-3"><a href="form_validation.html" class="w-100 pl-4">Form Validation</a></li>
+                        </ul>
+                    </div> -->
+
+                    <!-- Sub menu parent -->
+                    <li class="side-menu-item px-4 mb-1"><a href="#" class="pt-2 pl-4" data-toggle="collapse" aria-expanded="false"><i class="ri-file-chart-line pr-2"></i>Reports</a></li>
+                  
+                    <li class="side-menu-item px-4 mb-1"><a href="#" class="pt-2 pl-4"  aria-expanded="false" ><i class="ri-pie-chart-2-line pr-2"></i>Manage Data</a></li>
+                   
+                   
+                    <li class="side-menu-item px-4"><a href="#" class="pt-2 pl-4"><i class="ri-message-3-line pr-2"></i>Messages</a></li>
+                    <!-- spacer====== -->
+                    <li style="height: calc(100vh/4);">
+
+                    </li>
+                    <li class="side-menu-item px-4 mb-1"><a href="Javascript:viod(0)"  id="logout-btn"  class="pt-2 pl-4"   aria-expanded="true" aria-controls="sub_menu_2"><i class="ri-logout-circle-r-line pr-2"></i>Logout</a></li>
+                  
+                </ul>
+            </div>
+        </div>
+    </div>
+      <!-- Main body -->
+   <div style="position: relative; margin-left:17rem; width: 80rem;padding-top:3.5%; margin-bottom: 100px;">
+    
+    <div class="row p-0 m-0">
+        <div class="col-md-10 pt-5 mx-auto ">
+            <!-- beginning row -->
+         <div class="row">
+            <!-- col  -->
+          <div class="col-md-9" style="background-color: #fff;">
+            <h3 class="font-weight-bold my-2">Budgets/Goals</h3>
+            <span>Manage all bugets here and set financial goals here.</span>
+          </div>
+          <!--End col-md-9 -->
+          <!-- Start col-md-3 -->
+          <div class="col-3 m-0 pt-0 text-right">
+            <!-- <button class="btn bg-dark text-white px-4 my-3"> <i class="ri-add-fill"></i> Add</button> -->
+          </div>
+          <!-- End col-md-3 -->
+         </div>
+               <div class="card mb-4 mt-4 rounded-lg border-0 rounded-sm p-4">
+                    <!-- Card body -->
+                    <div class="card-body">
+                  
+                      <div class="row">
+                        <div class="col-6">
+                         
+                           <!-- start details div -->
+                            <div class="details-div ml-3">
+                                <p class="font-weight-bold m-0" style="font-size: 0.88rem;">Account Balance</p>
+                                <h3 class="font-weight-bold my-2 mr-2">&#8358 60,000</h3> <span class="badge badge-outline-success badge-pill m-1" style="background-color:#c1f1c3 ;">
+                         <i class="fa fa-arrow-up m-2"></i>60%</span>
+                                <p class="small">Account name : <span class="acc-no font-weight-bold"> Backcooo account name</span> </p>
+                                <p class="small">Account no : <span class="acc-no font-weight-bold"> 1099837820</span> </p>
+                                <p class="small">Bank : <span class="acc-no font-weight-bold"> Peudo bank of Nigeria</span> </p>
+                            </div>
+                            <!-- nd details div -->
+                        </div>
+                        <!-- col-6 end -->
+                        <div class="col-6">
+                        <!-- account image -->
+                         <img class="" src="img/babcock-university.jpg" width="80%" style="border-radius: 10px !important;">
+                         
+                         </div>
+                            <!-- col-2 end -->
+                       </div>
+                        
+                 </div>  
+                </div>  
+          <div class="row my-3">
+            <!-- col  -->
+          <div class="col-md-9" style="background-color: #fff;">
+            <h5 class="font-weight-bold my-2">Add Budgets/Goals</h5>
+          </div>
+          <!--End col-md-9 -->
+          <!-- Start col-md-3 -->
+          <div class="col-3 m-0 pt-0 text-right">
+            <button class="btn bg-dark text-white px-4 my-3 addgoal_target" > <i class="ri-add-fill"></i> Add</button>
+          </div>
+          <!-- End col-md-3 -->
+         </div>
+                    
+              <div class="card mt-4 rounded-lg border-0" id="add_goattarget_card" style="display: none;">
+                    <!-- Card body -->
+                    <div class="card-body">
+                    <form class="needs-validation bugets_goal_form" novalidate>
+
+                    <div class="row">
+                    <div class="col-md-6">
+                   <div class="mb-3">
+                        <label for="validationCustom03" class="form-label">What do you want to set</label>
+                        <select class="form-control" name="settype" id="validationCustom03" required>
+                            <option selected disabled value="">What do you want to set</option>
+                            <option>Budget</option>
+                                <option>Goals</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select What you want to set.
+                        </div>
+
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="validationCustom02" class="form-label">name</label>
+                        <input type="text" name="budget_name" class="form-control" id="validationCustom02"
+                            placeholder=" Name of Budget / Goals"  required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="row">
+
+                    <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="validationCustom04" class="form-label">Amount</label>
+                        <input type="text" name="amount" class="form-control" id="validationCustom04"
+                            placeholder=" Enter amount" required>
+                        <div class="invalid-feedback">
+                            Please provide a proper amount.
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="validationCustom05" class="form-label">From :</label>
+                        <input  name="from_date" class="form-control date" id="validationCustom05"
+                            placeholder="01/02/2023" required>
+                        <div class="invalid-feedback">
+                            Please date can not be more than end date.
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="validationCustom05" class="form-label">To :</label>
+                        <input  class="form-control date" id="validationCustom05"
+                            placeholder="1/03/2024" name="to_date" pattern="\d{2}-\d{2}-\d{4}-" required>
+                        <div id="validationServer05Feedback" class="invalid-feedback">
+                             Please date can not be less than end date.
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+
+                    <div>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                    </div>
+                    </form>               
+                       
+                    </div>
+
+                    </div>
+
+                    <!-- Data table -->
+                    <div class="card rounded-lg border-0">
+                    <!-- Card body -->
+                    <div class="card-body">
+                     
+                         <!-- Data table -->
+                    <div class="card  rounded-lg border-0">
+                    <!-- Card body -->
+                    <div class="card-body">
+                            <div class="row my-3">
+                    <!-- col  -->
+                    <div class="col-md-9">
+                    <h5 class="font-weight-bold my-2"></h5>
+                    </div>
+                    <!--End col-md-9 -->
+                    <!-- Start col-md-3 -->
+                    <div class="col-3 m-0 pt-0 text-right">
+                    <!-- <button class="btn btn-outline-light m-2 text-dark badge-pill shadow-sm"> See all records</button> -->
+                    </div>
+                    <!-- End col-md-3 -->
+                    </div>                
+                        <!-- Data table -->
+                         <div class="table-responsive">
+                            <table class="table border-0" style="width: 100%;">
+                                <!-- Table head -->
+                                <thead>
+                                    <tr style="color:#a8a8a8 !important">
+                                      
+                                        <th ><div style='width:40px'>Id</div> </th>
+                                        <th ><div style='width:120px'>Name</div> </th>
+                                        <th ><div style='width:90px'>Type</div> </th>
+                                        <th ><div  style='width:100px'>Amount</div> </th>
+                                        <th ><div  style='width:100px'>Percent</div> </th>
+                                        <th ><div style='width:100px'> From</div> </th>
+                                        <th > <div style='width:100px' >To</div> </th>
+                                    
+                                        
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                         <h4 class="font-weight-bold my-2">Budgets</h4>
+                        <div class="table-responsive" style="overflow: auto;">
+                            <table class="table border-0" id="defaultOrderingDataTable_budgets" style="width: 100%;">
+                                <!-- Table body -->
+                                <tbody class="text-dark font-weight-bold">
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                         <h4 class="font-weight-bold my-2">Goals</h4>
+                          <div class="table-responsive" style="overflow: auto;">
+                            <table class="table border-0" id="defaultOrderingDataTable_goals" style="width: 100%;">
+                                <!-- Table body -->
+                                <tbody class="text-dark font-weight-bold">
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                         <div class="table-responsive">
+                            <table class="table border-0" id="defaultOrderingDataTable" style="width: 100%;">
+                                <!-- Table footer -->
+                                <tfoot>
+                                     <tr style="color:#a8a8a8 !important">
+                                        <th ><div style='width:40px'>Id</div> </th>
+                                        <th ><div style='width:120px'>Name</div> </th>
+                                        <th ><div style='width:90px'>Type</div> </th>
+                                        <th ><div  style='width:100px'>Amount</div> </th>
+                                        <th ><div  style='width:100px'>Percent</div> </th>
+                                        <th ><div style='width:100px'> From</div> </th>
+                                        <th > <div style='width:100px' >To</div> </th>
+                                    
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <!-- End data table -->
+                        
+
+                    </div>
+
+
+                </div>
+                </div>
+              
+        </div>
+        <!-- End of col-md-8 -->
+
+        </div>
+        <!-- End of row -->
+       
+      </div>
+   </div>
+  </div>
+  
+  </body>
+  
+  <script src="js/vendor/bootstrap-4.3.1/modernizr-3.7.1.min.js"></script>
+  <script src="js/vendor/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="js/vendor/popper-js/popper1.14.7.js"></script>
+  <script src="js/vendor/bootstrap-4.3.1/bootstrap.min.js"></script>
+  <!-- eChart -->
+  <script src="js/vendor/eChart/echarts.min.js"></script>
+  <script src="js/vendor/eChart/echarts.option.min.js"></script>
+   <!-- Chart js -->
+   <script src="./js/vendor/Chart.js-2.9.3/Chart.min.js"></script>
+   <script src="./js/plugins/chart_js_drw.js"></script>
+  <!-- eChart script -->
+  <!-- Sweet js  -->
+    <script src="js/plugins/sweetjs.js"></script>
+<!-- data jquery scripts -->
+<script src="js/plugins/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.min.js"></script>
+  <script src="js/plugins/echart_drw.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+  $("input.date").datepicker({
+      format: 'dd/mm/yyyy',
+       autoclose: true,
+        clearBtn: true,
+   });
+
+    $.ajax({
+     url:'backend/backend.php',
+     type:'POST',
+      data:'all_goals',
+     success:function(data){  
+       
+        data = JSON.parse(data)
+         $("#defaultOrderingDataTable_goals tbody").empty()
+        var count = 0 
+        var count2 = 0
+        var mainCount = 0
+         var dataContainer
+         var percentageDiv 
+        data.forEach(function(element){
+          dataContainer =  $("#defaultOrderingDataTable_goals tbody")
+          percentageDiv =  '<div class="progress border-0 mt-2">'+
+                   ' <div class="progress-bar bg-secondary" role="progressbar" style="width:  '+element['percentage_increase']+'%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> </div></div><span>'+element['percentage_increase']+'%</span>'
+          count++
+          mainCount = count
+
+           dataContainer.append( "<tr>"+
+           "<td><div style='width:40px' >"+ mainCount +"</div></td>"+
+            "<td><div style='width:120px'>"+element['name']+"</div></td>"+
+            "<td><div  style='width:90px'>"+ element['type']+"</div></td>"+
+            "<td><div  style='width:100px'>"+element['amount']+"</div></td>"+
+             "<td><div  style='width:100px'>"+percentageDiv+"</div></td>"+
+            "<td><div  style='width:100px'>"+ element['from_date']+"</div></td>"+
+            "<td><div  style='width:100px'>"+element['to_date'] +"</div></td></tr>"
+                                
+            )
+        })
+      
+     }
+   })
+      $.ajax({
+     url:'backend/backend.php',
+     type:'POST',
+      data:'all_budget',
+     success:function(data){  
+        data = JSON.parse(data)
+        $("#defaultOrderingDataTable_budgets tbody").empty()
+        var count2 = 0
+        var mainCount = 0
+         var dataContainer
+         var percentageDiv 
+        data.forEach(function(element){
+        
+          count2++
+          mainCount = count2
+          dataContainer =  $("#defaultOrderingDataTable_budgets tbody")
+           percentageDiv =  '<div class="progress border-0 mt-2">'+
+                   ' <div class="progress-bar bg-secondary" role="progressbar" style="width:  '+element['percentage']+'%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div></div><span> '+element['percentage']+'%</span>'
+
+           dataContainer.append( "<tr>"+
+           "<td><div style='width:40px' >"+ mainCount +"</div></td>"+
+            "<td><div style='width:120px'>"+element['name']+"</div></td>"+
+            "<td><div  style='width:90px'>"+ element['type']+"</div></td>"+
+            "<td><div  style='width:100px'>"+element['amount']+"</div></td>"+
+             "<td><div  style='width:100px'>"+percentageDiv+"</div></td>"+
+            "<td><div  style='width:100px'>"+ element['from_date']+"</div></td>"+
+            "<td><div  style='width:100px'>"+element['to_date'] +"</div></td></tr>"
+                                
+            )
+        })
+      
+     }
+   })
+
+   $(".addgoal_target").click(function(){
+     $("#add_goattarget_card").toggle(400)
+   })
+
+   $(".bugets_goal_form").on('submit',function(e){
+     e.preventDefault()
+     let valid = false
+     var that = this
+     $(this).find("input,select").each(function(idx,e){
+       if(e.value == ''){
+          Swal.fire({
+        title: 'Error !!',
+        text: "Please fill form properly",
+        icon: 'error',
+        confirmButtonText: 'Ok'
+        }) 
+        valid = false  
+         return ;
+       }else{
+       console.log(e.value)
+       valid =true
+       }
+     })
+  var formdt=new FormData(this)
+  if(valid)    
+  $.ajax({
+     url:'backend/backend.php',
+     type:'POST',
+      data:formdt,
+      beforeSend:function(){     
+      $(that).find("button[type='submit']").html("Sent...")
+      },
+      processData:false,
+      contentType: false,
+     success:function(data){  
+       if(data.indexOf('Successful') != -1){
+           Swal.fire({
+        title: '',
+        text: "Budget/Goal set successfull",
+        icon: 'success',
+        confirmButtonText: 'Ok'
+        })
+      setTimeout(function(){
+          $(that).find("input,select").val('')
+      },2000)
+       }
+        
+        else
+           Swal.fire({
+        title: 'Error !!',
+        text: data,
+        icon: 'error',
+        confirmButtonText: 'Ok'
+        }) 
+     },
+    complete:function(){
+     $(that).find("button[type='submit']").html("Save")
+    
+    }
+   })
+   })
+  </script>
+</html>  

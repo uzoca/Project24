@@ -55,10 +55,12 @@ function getUser(){
         url: 'backend/backend.php',
         data : 'check-user',
         success : function(data){
+             console.log(data)
             if(data.indexOf('<script>') != -1){
                 $("body").append(data)
             }else{
                 data = JSON.parse(data)
+               
                 $(".profile-avatar")
                 .attr('src',data['userimg']).css("width","50px").css("margin","0px 20px 0px 20px")
                 $("#user-name").text(data['firstname']+' '+data['lastname'])
@@ -75,13 +77,14 @@ function sendMinorData(mdata,func,beforeSend){
         url: 'backend/backend.php',
         data : mdata,
         success : function(data){
+            console.log(data)
             func(data)
         }
     })
 }
 function logOut(){
      document.cookie = "session_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    sendMinorData('logout',function(data){$("body").append(data)} )
+    sendMinorData('logout',function(data){console.log(data); $("body").append(data)} )
 }
 
 function getTransaction(n,func){
@@ -89,6 +92,7 @@ function getTransaction(n,func){
 }
 
 getUser()
+
 $("#logout-btn,.logout").click(function(){
     logOut()
 })
@@ -125,7 +129,7 @@ var organisation_acount = ''
   sendMinorData({'get_bank_details_org':getCookie('session_id')},function(data){
      // console.log(data)
       data =JSON.parse(data)
-      $(".acc_balance").html("&#8358 "+data['acount_balance'])
+      $(".acc_balance, .balance").html("&#8358 "+data['acount_balance'])
       organisation_acount = data['acount_number'] 
      })
  }
@@ -151,8 +155,8 @@ function get_transactions()
         }    
 
         $("#defaultOrderingDataTable tbody").append( "<tr><td><div style='width:40px'>"+element['id'] +"</div></td>"+
-            "<td><div  style='width:80px' >"+ element['object_fullname']+"</div></td>"+
-            "<td><div  style='width:60px' >"+ element['amount']+"</div></td>"+
+            "<td><div class='font-weight-bold' style='width:80px' >"+ element['object_fullname']+"</div></td>"+
+            "<td><div class='font-weight-bold' style='width:60px' >"+ element['amount']+"</div></td>"+
             "<td><div style='width:100px'>"+element['flow_type']+"</div></td>"+
             "<td '><div style='width:140px'>"+element['description']+"</div></td> "+
             "<td><div style='width:80px'>"+ statusColumn +"</div></td>"+
@@ -161,5 +165,106 @@ function get_transactions()
      });
      $(".expenditure_h3").html("&#8358 "+total_expenses)
      $(".income_h3").html("&#8358 "+total_income)
+     setTimeout(function(){
+       if (!($.fn.DataTable.isDataTable("#defaultOrderingDataTable"))){
+          let dataTable2 =  $("#defaultOrderingDataTable")
+       $(dataTable2).DataTable({
+        paging : false,
+        ordering : false,
+        info : false,
+         dom: 'Bfrtip',
+         buttons: [
+        'copy', 'excel', 'pdf'
+        ],
+       }); 
+        $(".dataTables_filter").parent().addClass("text-right mr-4")
+       }
+      
+     },1000)
      })
 }
+
+// password obscure toggle
+$("body").on('click','.obscure',function(e){
+ 
+ $(this).prev("input[type='password'],input[name='pass'],input[name='c-pass'],input[name='password']").first().attr('type','text')
+  var mwid = parseInt( $(this).prev("input[type='password'],input[name='pass'],input[name='password']").first().width())-10
+ $(this).replaceWith('<div class="unObscure" style="position:relative;left:'+mwid +'px;margin-top:-27px;width:10px" ><i class="ri-eye-off-fill"></i></div>')
+})
+
+$("body").on('click','.unObscure',function(e){
+ console.log($(this))
+ $(this).prev("input[type='password'],input[name='pass'],input[name='c-pass'],input[name='password']").first().attr('type','password')
+  var mwid = parseInt( $(this).prev("input[type='password'],input[name='pass'],input[name='password']").first().width())-10
+ $(this).replaceWith('<div class="obscure" style="position:relative;left:'+mwid +'px;margin-top:-27px;width:10px" ><i class="ri-eye-fill"></i></div>')
+})
+
+$("input[type='password'],input[name='pass'],input[name='password']").each((idx,ele)=>{
+ var mwid = parseInt($(ele).width())-10
+$(ele).after('<div class="obscure" style="position:relative;left:'+mwid +'px;margin-top:-27px;width:10px" ><i class="ri-eye-fill" ></i></div>')
+})
+// form validation 
+
+
+function get_transactions_decending_order(){
+  
+  sendMinorData({'transaction_decending': organisation_acount},function(data){
+   data = JSON.parse(data) 
+   console.log(data)
+   var notificatio_count = 0
+   if(data['credit'].length<=0){
+     $(".credit_div").append('<div class="btn bg-light d-flex justify-content-between mx-2 my-1"><div class="col-7  rounded-sm text-left" style=" white-space: nowrap; overflow: hidden !important;text-overflow: ellipsis !important;">No Credit yet</div></div>')
+     
+   }
+    if(data['debit'].length <= 0){
+     $(".debit_div").append('<div class="btn bg-light d-flex justify-content-between mx-2 my-1"><div class="col-7  rounded-sm text-left" style=" white-space: nowrap; overflow: hidden !important;text-overflow: ellipsis !important;">No Credit yet</div></div>')
+     
+   }
+   data['credit'].forEach(function(ele){
+   
+    $(".credit_div").append('<div class="btn bg-light d-flex justify-content-between mx-2 my-1"><i class="ri-arrow-left-right-line"></i><div class="col-7  rounded-sm text-left" style=" white-space: nowrap; overflow: hidden !important;text-overflow: ellipsis !important;">'+ ele["description"]+'</div><i class="ri-arrow-right-line"></i></div>')
+    
+    if(ele["checked"] == "0"){
+     notificatio_count++
+     $(".notification_toggle").append('<a href="#" class="dropdown-item text-secondary-light p-0"><div class="d-flex flex-row border-bottom"><div class="notification-icon bg-secondary-c pt-3 px-3"><i class="fas fa-clipboard-list text-success fa-lg"></i></div><div class="flex-grow-1 px-3 py-3"><p class="m-0">Credit alert <span class="badge badge-pill badge-success">New</span></p> <small>from : '+ele['subject'] +'</small></div> </div> </a>')
+    }else{
+      $(".notification_toggle").append('<a href="#" class="dropdown-item text-secondary-light p-0"><div class="d-flex flex-row border-bottom"><div class="notification-icon bg-secondary-c pt-3 px-3"><i class="fas fa-clipboard-list text-secondary fa-lg"></i></div><div class="flex-grow-1 px-3 py-3"><p class="m-0">Credit alert </p> <small>from : '+ele['subject'] +'</small></div> </div> </a>')
+    }
+   })
+   data['debit'].forEach(function(ele){
+   
+   $(".debit_div").append('<div class="btn bg-light d-flex justify-content-between mx-2 my-1"><i class="ri-bank-card-fill"></i><div class="col-7  rounded-sm text-left" style=" white-space: nowrap; overflow: hidden !important;text-overflow: ellipsis !important;">'+ ele["description"]+' </div><i class="ri-arrow-right-line"></i> </div>')
+
+   if(ele["checked"] == "0"){
+     notificatio_count++
+     $(".notification_toggle").append('<a href="#" class="dropdown-item text-secondary-light p-0"><div class="d-flex flex-row border-bottom"><div class="notification-icon bg-secondary-c pt-3 px-3"><i class="fas fa-clipboard-list text-danger fa-lg"></i></div><div class="flex-grow-1 px-3 py-3"><p class="m-0">Debit alert <span class="badge badge-pill badge-danger">New</span></p> <small>from : '+ele['subject'] +'</small></div> </div> </a>')
+    }else{
+       $(".notification_toggle").append('<a href="#" class="dropdown-item text-secondary-light p-0"><div class="d-flex flex-row border-bottom"><div class="notification-icon bg-secondary-c pt-3 px-3"><i class="fas fa-clipboard-list text-secondary fa-lg"></i></div><div class="flex-grow-1 px-3 py-3"><p class="m-0">Debit alert </p> <small>from : '+ele['subject'] +'</small></div> </div> </a>')
+    }
+  })
+    $(".notificatio_count").text(notificatio_count)
+    updateCheckedData()
+  })
+
+}
+
+    getAccountDetails() 
+     setTimeout(function(){get_transactions();get_transactions_decending_order()},1000) 
+     
+
+    var tranTicker=  setInterval(() => {
+    get_transactions()
+    getAccountDetails()
+    }, 2000);
+   
+
+    $("#logout-btn,.logout,.logout-btn").click(function(){
+        logOut()
+    })
+
+  function updateCheckedData(){
+  sendMinorData('update_transaction_check',function(data){
+   console.log(data)
+  })
+  
+  }

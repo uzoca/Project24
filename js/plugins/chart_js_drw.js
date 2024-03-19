@@ -1,4 +1,23 @@
 // Line chart 1
+ function calculateExpenseGraphData(){
+  sendMinorData('calculate_expenses_data',function(data){
+
+   data = JSON.parse(data)
+   chartData = []
+   for(var el in data){
+   if(data[el]==0)
+    data[el] = Math.random()*2000
+    chartData.push(data[el])
+   }
+   console.log(chartData)
+   return chartData
+  })
+  
+  }
+
+
+ var chartData=calculateExpenseGraphData()
+setTimeout(function(){
 let myChart = document.getElementById("lineChart").getContext("2d");
 var gradient = myChart.createLinearGradient(0, 0, 0, 400);
 gradient.addColorStop(0, 'rgba(207, 207, 207,1)');   
@@ -14,7 +33,7 @@ let chart = new Chart(myChart,{
             strokeColor : "rgba(121, 121, 122,1)",
             pointRadius : 0,
             lineTension:0,
-            data : [60,75,59,65,73,80,59,55,62,93,45]
+            data : chartData                //[60,75,59,65,73,80,59,55,62,93,45]
         }]
     },
     options : {
@@ -28,6 +47,8 @@ let chart = new Chart(myChart,{
         }
     }
 })
+},1400)
+
 let myChart10 = document.getElementById("pPieChart2").getContext("2d");
 
 let chart10 = new Chart(myChart10,{

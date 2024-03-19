@@ -31,19 +31,44 @@
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
   <div class="container-fluid px-0" >
-    <div class="container-fluid top-bar" style="position: fixed; z-index: 200;">
+      <div class="container-fluid top-bar" style="position: fixed; z-index: 200;">
         <div class="row justify-content-center pt-2 px-3" style="height: 55px;border-bottom: #dbdbdd solid 2px; background-color: #fff;">
             <div class="col">
 
             </div>
-            <div class="form-group col-md-5">
+            <!-- <div class="form-group col-md-5">
                 <input id="search_box" class="form-control border-0" type="text" name="search" placeholder="search" style="background-color: #f3f2f8;">
-            </div>
+            </div> -->
+            
             <div class="col row justify-content-end">
                 <i class="ri-upload-2-line"></i>
                 <i class="ri-add-fill"></i>
-                <i class="ri-settings-4-line"></i>
-                <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown"><img src="img/profilepix1.jpg" alt="profile" style="height:40px;width:40px;border-radius: 100%;"></a>
+               
+                
+                <span style="display: flex;align-self: baseline;" class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <span class="notificatio_count font-weight-bold badge badge-danger" style="position:absolute;top:-1px;">0</span>
+                 <i class="ri-notification-2-line"></i>
+               </span>
+                <div class="dropdown-menu notification_toggle" aria-labelledby="dropdownMenuButton" style="height: 300px !important;overflow-y: auto;">
+                   <a href="#" class="dropdown-item text-secondary-light p-0">
+                                <div class="d-flex flex-row border-bottom">
+                                    <div class="notification-icon bg-secondary-c pt-3 px-3"><i class="far fa-envelope text-primary fa-lg"></i></div>
+                                    <div class="flex-grow-1 px-3 py-3">
+                                        <p class="mb-0">New admin registered <span class="badge badge-pill badge-primary">New</span></p>
+                                        <!-- <small>James : Hey! Are you busy?</small> -->
+                                    </div>
+                                </div>
+                            </a>
+                           
+                </div>
+                 <div class="dropdown">
+                <a href="#" class="dropdown-toggle text-muted" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="img/profilepix1.jpg" alt="profile" style="height:40px;width:40px;border-radius: 100%;"></a>
+                                       
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item text-dark" href="#">Edit profile</a>
+                                            <a class="dropdown-item text-dark logout-btn" href="#">logout</a>
+                                        </div>
+                                    </div>
             </div>
         </div>
        </div>
@@ -224,27 +249,28 @@
                             <!-- Data table -->
                              <div class="table-responsive">
                                 <table class="table border-0" style="width: 100%;">
-                                    <!-- Table head -->
-                                    <thead>
-                                         <tr style="color:#a8a8a8 !important">
-                                            <th ><div style='width:20px'>Id</div> </th>
-                                            <th ><div style='width:60px'></div> </th>
-                                            <th ><div style='width:120px'>Name</div> </th>
-                                            <th ><div  style='width:120px'>Email</div> </th>
-                                            <th ><div  style='width:120px'>Phone</div> </th>
-                                            <th style="margin-left: 0px;"><div style='width:70px'>Gender</div> </th>
-                                            <th > <div style='width:120px' >Priviledges</div> </th>
-                                            <th > <div style='width:120px' >Action </div> </th>
-                                        </tr>
-                                    </thead>
+                                  
                                 </table>
                             </div>
                           
                            
                               <div class="table-responsive" style="overflow: auto;">
-                                <table class="table border-0" id="defaultOrderingDataTable" style="width: 100%;">
+                                <table class="table border-0" id="defaultOrderingDataTable-user" style="width: 100%;">
+                                    <!-- Table head -->
+                                    <thead>
+                                         <tr style="color:#a8a8a8 !important">
+                                            <th ><div>Id</div> </th>
+                                            <th ><div ></div> </th>
+                                            <th ><div >Name</div> </th>
+                                            <th ><div>Email</div> </th>
+                                            <th ><div >Phone</div> </th>
+                                            <th ><div style='width:70px'>Gender</div> </th>
+                                            <th > <div  >Priviledges</div> </th>
+                                            <th > <div >Action </div> </th>
+                                        </tr>
+                                    </thead>
                                     <!-- Table body -->
-                                    <tbody class="text-dark font-weight-bold">
+                                    <tbody class="text-dark ">
                                        
                                     </tbody>
                                 </table>
@@ -444,14 +470,14 @@
          var priviledge = JSON.parse(element['priviledges'])
          if(priviledge.length<=0)
           priviledge = 'none'
-        $("#defaultOrderingDataTable tbody").append( "<tr><td><div style='width:20px'>"+ ++count +"</div></td>"+
+        $("#defaultOrderingDataTable-user tbody").append( "<tr><td><div style='width:20px'>"+ ++count +"</div></td>"+
              "<td><div style='width:60px'><img style='width:50px;height:50px;border-radius:50%' src="+element['userimg']+"></div></td> "+
-            "<td><div  style='width:120px' >"+ element['firstname']+" "+element['lastname']+ "</div></td>"+
+            "<td><div class='font-weight-bold' style='width:120px' >"+ element['firstname']+" "+element['lastname']+ "</div></td>"+
             "<td><div  style='width:120px' >"+ element['email']+"</div></td>"+
             "<td><div style='width:120px'>"+ element['phone'] +"</div></td>"+
-            "<td><div style='width:70px;padding-left:15px'>"+ element['gender'] +"</div></td>"+
-            "<td><div style='width:120px;padding-left:15px'>"+ priviledge +"</div></td>"+ 
-            "<td><div style='width:120px;padding-left:15px'><i class='ri-edit-2-line m-2 mr-4' data-toggle='modal' data-target='#exampleModal4'><span style='display:none'>"+  element['userid'] +"</span></i> <i class='ri-delete-bin-6-line m-2 admin_delete'><span style='display:none'>"+  element['userid'] +"</span></i></div></td></tr>"
+            "<td><div style='width:70px'>"+ element['gender'] +"</div></td>"+
+            "<td><div style='width:120px'>"+ priviledge +"</div></td>"+ 
+            "<td><div style='width:120px'><i class='ri-edit-2-line m-2 mr-4' data-toggle='modal' data-target='#exampleModal4'><span style='display:none'>"+  element['userid'] +"</span></i> <i class='ri-delete-bin-6-line m-2 admin_delete'><span style='display:none'>"+  element['userid'] +"</span></i></div></td></tr>"
             )
      });
   var userEditValue

@@ -3,12 +3,13 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Sign UP | qbytAdmin</title>
+  <title>Sign up </title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="icon" type="image/x-icon" href="img/appIcon.png">
   <!-- Google fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
   <!-- Stylesheet -->
+  <link rel="stylesheet" href="remix_fonts/fonts/remixicon.css">
   <link rel="stylesheet" href="fontawesome/css/all.min.css">
   <link rel="stylesheet" href="css/vendor/bootstrap-4.3.1/bootstrap.min.css">
   <link rel="stylesheet" href="css/main.css">
@@ -31,8 +32,12 @@
                            <img src="img/appIcon.png" alt="image" class="w-25">
                         </div>
                         <form  class="signup-form">
-                            <h5 class="text-dark my-3">Sign Up</h5>
+                            <h5 class="text-dark my-3">Create a super admin</h5>
                              <!-- First Name -->
+                     <div class="form-group mb-2">
+                        <label for="name" class="text-muted">Organisation Key</label>
+                        <input id="org_key" class="form-control badge-pill bg-light" type="text" name="org_key">
+                    </div>
                     <div class="form-group mb-2">
                         <label for="name" class="text-muted">First name</label>
                         <input id="name" class="form-control badge-pill bg-light" type="text" name="firstname">
@@ -92,7 +97,7 @@
     <script src="js/vendor/jquery-3.3.1/jquery-3.3.1.min.js"></script>
     <script src="js/plugins/sweetjs.js"></script>
     <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
+    <!-- <script src="js/main.js"></script> -->
     <script>
         $(".signup-form").on('submit',function(e){
             e.preventDefault()
@@ -123,6 +128,28 @@
                 }
             })
         })
+        function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
     </script>
 </body>
 

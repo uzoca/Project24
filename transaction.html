@@ -31,19 +31,44 @@
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
   <div class="container-fluid px-0" >
-    <div class="container-fluid top-bar" style="position: fixed; z-index: 200;">
+        <div class="container-fluid top-bar" style="position: fixed; z-index: 200;">
         <div class="row justify-content-center pt-2 px-3" style="height: 55px;border-bottom: #dbdbdd solid 2px; background-color: #fff;">
             <div class="col">
 
             </div>
-            <div class="form-group col-md-5">
+            <!-- <div class="form-group col-md-5">
                 <input id="search_box" class="form-control border-0" type="text" name="search" placeholder="search" style="background-color: #f3f2f8;">
-            </div>
+            </div> -->
+            
             <div class="col row justify-content-end">
                 <i class="ri-upload-2-line"></i>
                 <i class="ri-add-fill"></i>
-                <i class="ri-settings-4-line"></i>
-                <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown"><img src="img/profilepix1.jpg" alt="profile" style="height:40px;width:40px;border-radius: 100%;"></a>
+               
+                
+                <span style="display: flex;align-self: baseline;" class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <span class="notificatio_count font-weight-bold badge badge-danger" style="position:absolute;top:-1px;">0</span>
+                 <i class="ri-notification-2-line"></i>
+               </span>
+                <div class="dropdown-menu notification_toggle" aria-labelledby="dropdownMenuButton" style="height: 300px !important;overflow-y: auto;">
+                   <a href="#" class="dropdown-item text-secondary-light p-0">
+                                <div class="d-flex flex-row border-bottom">
+                                    <div class="notification-icon bg-secondary-c pt-3 px-3"><i class="far fa-envelope text-primary fa-lg"></i></div>
+                                    <div class="flex-grow-1 px-3 py-3">
+                                        <p class="mb-0">New admin registered <span class="badge badge-pill badge-primary">New</span></p>
+                                        <!-- <small>James : Hey! Are you busy?</small> -->
+                                    </div>
+                                </div>
+                            </a>
+                           
+                </div>
+                 <div class="dropdown">
+                <a href="#" class="dropdown-toggle text-muted" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="img/profilepix1.jpg" alt="profile" style="height:40px;width:40px;border-radius: 100%;"></a>
+                                       
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item text-dark" href="#">Edit profile</a>
+                                            <a class="dropdown-item text-dark logout-btn" href="#">logout</a>
+                                        </div>
+                                    </div>
             </div>
         </div>
        </div>
@@ -112,7 +137,7 @@
    <div class="main_body_div" style="position: relative; margin-left:16rem; width: 80%;padding-top:3.5%;transition: all ease 0.5s;">
     
     <div class="row p-0 m-0">
-      <div class="w-100 P-3 M-0 mt-3"><i class="ri-menu-2-line menu_toggle" style="font-size: 25px;"></i></div>
+      <div class="w-100 P-3 m-0 mt-5 mt-lg-3"><i class="ri-menu-2-line menu_toggle" style="font-size: 25px;"></i></div>
         </div>
         <!-- End of row -->
         <div class="col-md-11 pt-5 mx-auto ">
@@ -148,39 +173,32 @@
                   <!-- End col-md-3 -->
                   </div>                
                       <!-- Data table -->
-                       <div class="table-responsive">
-                          <table class="table border-0" style="width: 100%;">
+                      
+                      <div class="table-responsive" style="height: 450px; overflow: auto;">
+                          <table class="table border-0" id="defaultOrderingDataTable" style="width: 100%;">
                               <!-- Table head -->
                               <thead>
                                   <tr style="color:#a8a8a8 !important">
                                       <th ><div style='width:40px'>Id</div> </th>
                                       <th ><div style='width:120px'>Name</div> </th>
-                                      <th ><div style='width:140px'>Payment type</div> </th>
-                                      <th ><div  style='width:100px'>Amount</div> </th>
+                                      <th ><div style='width:140px'>Amount</div> </th>
+                                      <th ><div  style='width:100px'>Payment type </div> </th>
                                       <th ><div style='width:140px'> Description</div> </th>
                                       <th > <div style='width:80px' >status</div> </th>
                                       <th ><div style='width:80px'> Date</div></th>
                                   </tr>
                               </thead>
-                          </table>
-                      </div>
-                      <div class="table-responsive" style="height: 450px; overflow: auto;">
-                          <table class="table border-0" id="defaultOrderingDataTable" style="width: 100%;">
                               <!-- Table body -->
-                              <tbody class="text-dark font-weight-bold">
+                              <tbody class="text-dark">
                                  
                               </tbody>
-                          </table>
-                      </div>
-                       <div class="table-responsive">
-                          <table class="table border-0" id="defaultOrderingDataTable" style="width: 100%;">
-                              <!-- Table footer -->
+                               <!-- Table footer -->
                               <tfoot>
                                    <tr style="color:#a8a8a8 !important">
                                       <th ><div style='width:40px'>Id</div> </th>
                                       <th ><div style='width:120px'>Name</div> </th>
-                                      <th ><div style='width:140px'>Payment type</div> </th>
-                                      <th ><div  style='width:100px'>Amount</div> </th>
+                                      <th ><div style='width:140px'>Amount</div> </th>
+                                      <th ><div  style='width:100px'>Payment type </div> </th>
                                       <th ><div style='width:140px'> Description</div> </th>
                                       <th > <div style='width:80px' >status</div> </th>
                                       <th ><div style='width:80px'> Date</div></th>
@@ -188,7 +206,7 @@
                               </tfoot>
                           </table>
                       </div>
-
+                       
                   </div>
 
 
@@ -213,12 +231,23 @@
    <!-- Chart js -->
    <script src="./js/vendor/Chart.js-2.9.3/Chart.min.js"></script>
    <script src="./js/plugins/chart_js_drw.js"></script>
+   <!-- Data table -->
+  <script src="./js/vendor/DataTable-1.10.20/datatables.min.js"></script>
+    <script src="./js/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src=".\js\datatables.net-buttons\js\dataTables.buttons.min.js"></script>
+    <script src=".\js\datatables.net-buttons-bs4\js\buttons.bootstrap4.min.js"></script>
+    <script src=".\js\jszip\dist\jszip.min.js"></script>
+    <script src=".\js\pdfmake\build\pdfmake.min.js"></script>
+    <script src=".\js\pdfmake\build\vfs_fonts.js"></script>
+    <script src="./js/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src=".\js\datatables.net-buttons\js\buttons.print.min.js"></script>
+    <script src=".\js\datatables.net-buttons\js\buttons.colVis.min.js"></script>
   <!-- eChart script -->
   <script src="js/plugins/echart_drw.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
   <script>
-
+   
 
 
     getAccountDetails() 

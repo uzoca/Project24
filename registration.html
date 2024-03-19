@@ -3,12 +3,13 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Sign UP | qbytAdmin</title>
+  <title>Sign UP | Organisation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="icon" type="image/x-icon" href="img/appIcon.png">
   <!-- Google fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
   <!-- Stylesheet -->
+    <link rel="stylesheet" href="remix_fonts/fonts/remixicon.css">
   <link rel="stylesheet" href="fontawesome/css/all.min.css">
   <link rel="stylesheet" href="css/vendor/bootstrap-4.3.1/bootstrap.min.css">
   <link rel="stylesheet" href="css/main.css">
@@ -37,7 +38,15 @@
                         <label for="name" class="text-muted">Name</label>
                         <input id="name" class="form-control badge-pill bg-light" type="text" name="organisation_name">
                     </div>
-                     
+                      <div class="form-group mb-2">
+                        <label for="email" class="text-muted">Email Address</label>
+                        <input id="email" class="form-control badge-pill bg-light" type="email" name="email">
+                    </div>
+                     <!-- Email -->
+                     <div class="form-group mb-2">
+                        <label for="phone" class="text-muted">Phone</label>
+                        <input id="phone" class="form-control badge-pill bg-light" type="tel" name="phone">
+                    </div>
                      <div class="form-group mb-2" >
                         <label for="gender" class="text-muted">AccountType</label>
                         <select class="form-control badge-pill bg-light" name="account_type">
@@ -84,7 +93,7 @@
     <script src="js/vendor/jquery-3.3.1/jquery-3.3.1.min.js"></script>
     <script src="js/plugins/sweetjs.js"></script>
     <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
+    <!-- <script src="js/main.js"></script> -->
     <script>
         $(".signup-form").on('submit',function(e){
             e.preventDefault()
@@ -99,6 +108,7 @@
                     $("button[type ='submit']").html("Loadind please wait....")
                 },
                 success : function(data){
+                  console.log(data)
                     if(data.indexOf('rror')!= -1){
                         Swal.fire({
                         title: 'Error!',
@@ -107,21 +117,60 @@
                         confirmButtonText: 'Close'
                         })
                     }else{
-                        console.log("success")
-                        if(data.indexOf('script')!= -1){
-                        $("body").append(data)
-                        }else
-                         Swal.fire({
-                        title: 'Error!',
-                        text: data,
-                        icon: 'error',
+                       Swal.fire({
+                        title: 'Registration!',
+                        html: 'Registration successfull copy this organisation key:-> '+data+' and click here to <a href="signup.html">sign up an one time superadmin </a> ',
+                        icon: 'success',
                         confirmButtonText: 'Close'
                         })
+                         $("button[type ='submit']").html("Sign up")
                     }
 
                 }
             })
         })
+        function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+// password obscure toggle
+$("body").on('click','.obscure',function(e){
+ 
+ $(this).prev("input[type='password'],input[name='pass'],input[name='c-pass'],input[name='password']").first().attr('type','text')
+  var mwid = parseInt( $(this).prev("input[type='password'],input[name='pass'],input[name='password']").first().width())-10
+ $(this).replaceWith('<div class="unObscure" style="position:relative;left:'+mwid +'px;margin-top:-27px;width:10px" ><i class="ri-eye-off-fill"></i></div>')
+})
+
+$("body").on('click','.unObscure',function(e){
+ console.log($(this))
+ $(this).prev("input[type='password'],input[name='pass'],input[name='c-pass'],input[name='password']").first().attr('type','password')
+  var mwid = parseInt( $(this).prev("input[type='password'],input[name='pass'],input[name='password']").first().width())-10
+ $(this).replaceWith('<div class="obscure" style="position:relative;left:'+mwid +'px;margin-top:-27px;width:10px" ><i class="ri-eye-fill"></i></div>')
+})
+
+$("input[type='password'],input[name='pass'],input[name='password']").each((idx,ele)=>{
+ var mwid = parseInt($(ele).width())-10
+$(ele).after('<div class="obscure" style="position:relative;left:'+mwid +'px;margin-top:-27px;width:10px" ><i class="ri-eye-fill" ></i></div>')
+})
     </script>
 </body>
 

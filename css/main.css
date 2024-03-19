@@ -1331,5 +1331,7 @@ footer {
   overflow: hidden;
   position: relative;
 }
-
+span.dropdown-toggle::after {
+         content: none !important;
+       }
 /*# sourceMappingURL=main.css.map */

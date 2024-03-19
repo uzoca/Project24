@@ -31,7 +31,7 @@
             <div class="card-body"> 
             <!-- row start -->
             
-             <div class="d-flex justify-content-between"><p class="text-center font-weight-bold text-white pl-2"> Welcome: <span class="acc_name_span pl-2">Testaccount1</span></p> <p><span ><a class="text-white" href="./bankpage_login.html">Logout</a></span></p></div>
+             <div class="d-flex justify-content-between"><p class="text-center font-weight-bold text-white pl-2"> Welcome: <span class="acc_name_span pl-2">Testaccount1</span></p> <p><span ><a class="text-white btn" id="bank_logout">Logout</a></span></p></div>
               <div class="row">
                <div class="col-md-7 col-11 mx-auto">
                  <p class="font-weight-bold text-white mt-2 mb-4"> Pseudo bank acount number: <h3 class="text-white acc_number_span">098478672827</h3></p>
@@ -195,7 +195,7 @@
       var formData = new FormData(ev.target)
       var sendingAmount = $("input[name='amount']").val()
       var receiver_accountNumber = $("input[name='account_number']").val()
-       formData.append('send_money',getCookie('session_id'))
+       formData.append('send_money',getCookie('session_bank_user'))
        var nam = $(".bank-feedback").text().split(':')
        formData.append('receiver_name',nam[1])
         Swal.fire({
@@ -253,8 +253,7 @@
     getAccountDetails()
     }, 2000);
   function get_transactions(){
-
-    sendMinorData({'get_user_transaction': getCookie('session_id')},function(data){
+    sendMinorData({'get_user_transaction': getCookie('session_bank_user')},function(data){
       data = JSON.parse(data)
         $("#defaultOrderingDataTable tbody").empty()
        
@@ -283,7 +282,7 @@
      getAccountDetails()  
     //  Get bank details =======
     function getAccountDetails(){
-     sendMinorData({'get_bank_details':getCookie('session_id')},function(data){
+     sendMinorData({'get_bank_details':getCookie('session_bank_user')},function(data){
           if(data.indexOf('script') != -1){
             $('body').append(data)
           }else{
@@ -324,6 +323,12 @@
           }
          
          })
+         $("#bank_logout").click(function(e){
+          sendMinorData('bank_logout',function(data){
+           $('body').append(data)
+         })
+         })
+         
     </script>
 </body>
 

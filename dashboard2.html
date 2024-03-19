@@ -22,9 +22,9 @@
             background-color:#f5f6f7 !important;
             box-shadow: none !important;
         }
-         
+        
     </style>
-  <meta name="theme-color" content="#fafafa">
+ 
 </head>
 
 <body class="position-relative">
@@ -40,11 +40,36 @@
             <!-- <div class="form-group col-md-5">
                 <input id="search_box" class="form-control border-0" type="text" name="search" placeholder="search" style="background-color: #f3f2f8;">
             </div> -->
+            
             <div class="col row justify-content-end">
                 <i class="ri-upload-2-line"></i>
                 <i class="ri-add-fill"></i>
-                <i class="ri-settings-4-line"></i>
-                <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown"><img src="img/profilepix1.jpg" alt="profile" style="height:40px;width:40px;border-radius: 100%;"></a>
+               
+                
+                <span style="display: flex;align-self: baseline;" class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <span class="notificatio_count font-weight-bold badge badge-danger" style="position:absolute;top:-1px;">0</span>
+                 <i class="ri-notification-2-line"></i>
+               </span>
+                <div class="dropdown-menu notification_toggle" aria-labelledby="dropdownMenuButton" style="height: 300px !important;overflow-y: auto;">
+                   <a href="#" class="dropdown-item text-secondary-light p-0">
+                                <div class="d-flex flex-row border-bottom">
+                                    <div class="notification-icon bg-secondary-c pt-3 px-3"><i class="far fa-envelope text-primary fa-lg"></i></div>
+                                    <div class="flex-grow-1 px-3 py-3">
+                                        <p class="mb-0">New admin registered <span class="badge badge-pill badge-primary">New</span></p>
+                                        <!-- <small>James : Hey! Are you busy?</small> -->
+                                    </div>
+                                </div>
+                            </a>
+                           
+                </div>
+                 <div class="dropdown">
+                <a href="#" class="dropdown-toggle text-muted" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="img/profilepix1.jpg" alt="profile" style="height:40px;width:40px;border-radius: 100%;"></a>
+                                       
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item text-dark" href="#">Edit profile</a>
+                                            <a class="dropdown-item text-dark logout-btn" href="#">logout</a>
+                                        </div>
+                                    </div>
             </div>
         </div>
        </div>
@@ -225,39 +250,32 @@
                     <!-- End col-md-3 -->
                     </div>                
                         <!-- Data table -->
-                         <div class="table-responsive">
-                            <table class="table border-0" style="width: 100%;">
-                                <!-- Table head -->
+                        
+                        <div class="table-responsive" style="overflow:auto;height: 350px;">
+                            <table class="table border-0 mb-5" id="defaultOrderingDataTable" style="width: 100%;">
+                            <!-- Table head -->
                                 <thead>
                                     <tr style="color:#a8a8a8 !important">
                                         <th ><div style='width:40px'>Id</div> </th>
                                         <th ><div style='width:120px'>Name</div> </th>
-                                        <th ><div style='width:140px'>Payment type</div> </th>
-                                        <th ><div  style='width:100px'>Amount</div> </th>
+                                        <th ><div style='width:140px'>Amount</div> </th>
+                                        <th ><div  style='width:100px'>Payment type </div> </th>
                                         <th ><div style='width:140px'> Description</div> </th>
                                         <th > <div style='width:80px' >status</div> </th>
                                         <th ><div style='width:80px'> Date</div></th>
                                     </tr>
                                 </thead>
-                            </table>
-                        </div>
-                        <div class="table-responsive" style="overflow:auto;height: 350px;">
-                            <table class="table border-0" id="defaultOrderingDataTable" style="width: 100%;">
                                 <!-- Table body -->
-                                <tbody class="text-dark font-weight-bold">
+                                <tbody class="text-dark">
                                    
                                 </tbody>
-                            </table>
-                        </div>
-                         <div class="table-responsive">
-                            <table class="table border-0" id="defaultOrderingDataTable" style="width: 100%;">
-                                <!-- Table footer -->
+                                 <!-- Table footer -->
                                 <tfoot>
                                      <tr style="color:#a8a8a8 !important">
                                         <th ><div style='width:40px'>Id</div> </th>
                                         <th ><div style='width:120px'>Name</div> </th>
-                                        <th ><div style='width:140px'>Payment type</div> </th>
-                                        <th ><div  style='width:100px'>Amount</div> </th>
+                                        <th ><div style='width:140px'>Amount</div> </th>
+                                        <th ><div  style='width:100px'>Payment type </div> </th>
                                         <th ><div style='width:140px'> Description</div> </th>
                                         <th > <div style='width:80px' >status</div> </th>
                                         <th ><div style='width:80px'> Date</div></th>
@@ -265,6 +283,7 @@
                                 </tfoot>
                             </table>
                         </div>
+                         
                         
 
                     </div>
@@ -376,6 +395,8 @@
   <!-- Bootstrap -->
   <script src="js/vendor/popper-js/popper1.14.7.js"></script>
   <script src="js/vendor/bootstrap-4.3.1/bootstrap.min.js"></script>
+  <!-- Main js -->
+  <script src="js/main.js"></script>
   <!-- eChart -->
   <script src="js/vendor/eChart/echarts.min.js"></script>
   <script src="js/vendor/eChart/echarts.option.min.js"></script>
@@ -385,38 +406,10 @@
   <!-- eChart script -->
   <script src="js/plugins/echart_drw.js"></script>
   <script src="js/plugins.js"></script>
-  <script src="js/main.js"></script>
+  
   <script>
 
-function get_transactions_decending_order(){
-  sendMinorData({'transaction_decending': organisation_acount},function(data){
-   data = JSON.parse(data) 
-   console.log(data)
-   data['credit'].forEach(function(ele){
-   
-    $(".credit_div").append('<div class="btn bg-light d-flex justify-content-between mx-2 my-1"><i class="ri-arrow-left-right-line"></i><div class="col-7 font-weight-bold rounded-sm text-left" style=" white-space: nowrap; overflow: hidden !important;text-overflow: ellipsis !important;">'+ ele["description"]+'</div><i class="ri-arrow-right-line"></i></div>')
-   })
-   data['debit'].forEach(function(ele){
-   
-   $(".debit_div").append('<div class="btn bg-light d-flex justify-content-between mx-2 my-1"><i class="ri-bank-card-fill"></i><div class="col-7 font-weight-bold rounded-sm text-left" style=" white-space: nowrap; overflow: hidden !important;text-overflow: ellipsis !important;">'+ ele["description"]+' </div><i class="ri-arrow-right-line"></i> </div>')
-  })
-  })
-}
-
-    getAccountDetails() 
-     setTimeout(function(){get_transactions();get_transactions_decending_order()},1000) 
-     
-
-    var tranTicker=  setInterval(() => {
-    get_transactions()
-    getAccountDetails()
-    }, 2000);
-   
-
-    $("#logout-btn,.logout").click(function(){
-        logOut()
-    })
-
+ 
    
   </script>
 </html>  

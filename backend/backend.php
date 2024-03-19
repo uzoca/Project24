@@ -47,12 +47,12 @@ class pocket
     public function jasonstring(array $arr){
         return json_encode($arr);
     }
-    public  function register($fir,$las,$email,$phon,$pass,$gend,$uimg,$priviledge){
+    public  function register($fir,$las,$email,$phon,$pass,$gend,$uimg,$priviledge,$org_key){
         $this->uid =substr(md5(openssl_random_pseudo_bytes(7)),10,8);
-        $sql=" INSERT INTO  usertable (firstname, lastname, email,phone,`password`,gender,userid,userimg,priviledges)
-		            VALUES(:fir,:las,:email,:phon,:pass,:gend,:uid,:uimg,:pri)";
+        $sql=" INSERT INTO  usertable (firstname, lastname, email,phone,`password`,gender,userid,organisation_key,userimg,priviledges)
+		            VALUES(:fir,:las,:email,:phon,:pass,:gend,:uid,:org_key,:uimg,:pri)";
         $connarray= array(":fir"=>$fir,":las"=>$las,":email"=>$email,":phon"=>$phon,":pass"=>$pass,":gend"=>$gend,
-                            ":uid"=>$this->uid,":uimg"=>$uimg,":pri"=>$priviledge);
+                            ":uid"=>$this->uid,":uimg"=>$uimg,":pri"=>$priviledge,":org_key"=>$org_key);
         $result=$this->doQuery($sql,$connarray);
         return $result;
 
@@ -100,8 +100,14 @@ function cleanData($data){
 
 if(isset($_POST['account_number']) && isset($_POST['organisation_name'] )){
  $imageLocaion ='';
- $accountDetails = get_bank_details($_POST['account_number']);
- echo $accountDetails;
+ try{
+  $accountDetails = get_bank_details($_POST['account_number']);
+ }catch(Exception $e){
+  echo " Error confirming account check if its entered correctly";
+  exit ;
+ }
+ 
+ //echo $accountDetails;
 if(isset( $_FILES['org_image'] )){
      $fltype= $_FILES['org_image']['type'];
             // echo $fltype;
@@ -113,20 +119,50 @@ if(isset( $_FILES['org_image'] )){
                 echo   "The file $_FILES[vuploads]['name'] is too large";
             }else{
                   $uninquename ='iun'.random_int(100000000,9999999999);
-                if (move_uploaded_file($_FILES['org_image']['tmp_name'],'../img/org_images/profile_image'.$uninquename.'.'.$fltypearay[1])) {
-                     echo " gotten here" ;
-                     $imageLocaion = '../img/org_images/profile_image_'.$uninquename.'.'.$fltypearay[1] ;
+                if (move_uploaded_file($_FILES['org_image']['tmp_name'],'../img/org_images/profile_image_'.$uninquename.'.'.$fltypearay[1])) {
+                     $imageLocaion = './img/org_images/profile_image_'.$uninquename.'.'.$fltypearay[1] ;
                     
                    $sql = "INSERT INTO `organisations`(`id`, `name`, `account_no`, `account_type`, `balance`,`password`, `Organisation Image`)
                     VALUES ('$uninquename','".cleanData($_POST['organisation_name'])."','".cleanData($_POST['account_number'])."','".cleanData($_POST['account_type'])."','".cleanData($accountDetails['acount_balance'])."','".cleanData($_POST['pass'])."','$imageLocaion')";
-                   $rg = $pocket->doQuery($sql,array()); 
-                   if($rg){
-                    $_SESSION['online'] =$pocket->uid;
-                     $_SESSION['organisation']=  $_SESSION['online'] ;
-                    echo"<script> setCookie('session_id','".$_SESSION['online']."', '2'); window.location='./dashboard2.html'</script>";
-                    }else{
-                     echo "error" ;
+                     
+                   if($pocket->doQuery($sql,array())){
+                    
+
+                    $mfirstname = cleanData($_POST['organisation_name']);
+                    $mlastname =' ';
+                    $memail = cleanData($_POST['email']);
+                    $mphone = cleanData($_POST['phone']);
+                    $mpass = cleanData($_POST['pass']);
+                    $privi = 'all';
+                    $org_key = $uninquename;        
+                     $mgender  = 'nil';
+                    if($mgender=="Male"){
+                        $uimg ='img/male_avatar.png ' ;
+                    }else {
+                    $uimg ='img/female_avatar.jpg';
                     }
+
+          $ql="SELECT phone,email FROM usertable WHERE phone=:ph AND email=:em";
+          $ar4ph=array(":ph"=>$_POST['phone'],":em"=>$_POST['email']);
+        $reply= $pocket->doQuery($ql,$ar4ph);
+          $reply=$reply->fetch(PDO::FETCH_ASSOC);
+          if($reply){
+              echo "error could not register admin phone number or email already used try another one";
+     }else{
+       // $passkey=password_hash($mpass,PASSWORD_DEFAULT);
+       $passkey = $mpass;
+        $newuser=$pocket->register($mfirstname,$mlastname,$memail,$mphone,$passkey,$mgender,$uimg,$privi,$org_key);
+       
+           $_SESSION['online'] = $pocket->uid;
+            $_SESSION['organisation'] = $org_key;
+            logActivity("A new admin registration");
+           echo"<script> setCookie('session_id','".$_SESSION['online']."', '2'); window.location='./dashboard2.html'</script>";
+           
+         }
+      
+     }else{
+           echo "error" ;
+       }
 
                 }
                 
@@ -150,20 +186,30 @@ if(isset($_POST['get_org_details'])){
 
 if(isset($_POST['get_bank_details_org'])){
  if(isset($_SESSION['online']))
-  logActivity("Requested organisations bank details");
+  // logActivity("Requested organisations bank details");
  echo json_encode(getDashboardDetails());
  
 }
 // Get Account Amount function
 function get_organisation_accNo(){
+ 
 $pocket = new pocket();
  $sql = "SELECT account_no FROM `organisations` WHERE id = '$_SESSION[organisation]'";
  $acc_no = $pocket->doQuery($sql,array())->fetch(PDO::FETCH_ASSOC);
   return $acc_no['account_no'] ;
 }
+
 function getDashboardDetails(){
   $details = get_bank_details(get_organisation_accNo());
-  return $details ;
+  if($details){
+   // echo $details;
+    return $details ;
+  }else{
+   echo "Wrong acount number";
+   exit ;
+  }
+   
+
 }
 
 // Admin User code ============
@@ -179,7 +225,8 @@ if(isset($_POST['all_user'])){
     }
  
 }
-// user registration ============
+// Admin registration ============
+
 if(isset($_POST['pass']) && isset($_POST['firstname']) && isset($_POST['lastname']) && !isset($_POST["edit_admin"]) ) {
 
     $mfirstname = cleanData($_POST['firstname']);
@@ -189,6 +236,15 @@ if(isset($_POST['pass']) && isset($_POST['firstname']) && isset($_POST['lastname
     $mpass = cleanData($_POST['pass']);
     $mgender =cleanData($_POST['gender']);
     $privi = cleanData($_POST['priviledge']);
+    $org_key = '';
+    if(isset( $_SESSION['organisation'])){
+      $org_key = $_SESSION['organisation'];
+    }elseif(isset($_POST['org_key'])){
+      $org_key = $_POST['org_key'];
+    }else{
+    echo " Please provide an organisation key.";
+    exit ;
+    }
 
     if($mgender=="Male"){
         $uimg ='img/male_avatar.png ' ;
@@ -205,9 +261,10 @@ if(isset($_POST['pass']) && isset($_POST['firstname']) && isset($_POST['lastname
     }else{
        // $passkey=password_hash($mpass,PASSWORD_DEFAULT);
        $passkey = $mpass;
-        $newuser=$pocket->register($mfirstname,$mlastname,$memail,$mphone,$passkey,$mgender,$uimg,$privi);
+        $newuser=$pocket->register($mfirstname,$mlastname,$memail,$mphone,$passkey,$mgender,$uimg,$privi,$org_key);
         if($newuser && !(isset($_POST['from_admin']))){
-           $_SESSION['online'] =$pocket->uid; 
+           $_SESSION['online'] =$pocket->uid;
+            $_SESSION['organisation'] = $_POST['org_key'];
             logActivity("A new admin registration");
            echo"<script> setCookie('session_id','".$_SESSION['online']."', '2'); window.location='./dashboard2.html'</script>";
         }else if($newuser && isset($_POST['from_admin'])){
@@ -216,7 +273,6 @@ if(isset($_POST['pass']) && isset($_POST['firstname']) && isset($_POST['lastname
 
         }
            
-        exit();
 
     }
 
@@ -263,9 +319,9 @@ if(isset($_POST['email']) && isset($_POST['pass'])&& !isset($_POST["edit_admin"]
     $shw=array(":em"=> trim($_POST['email']),":p"=>trim($_POST['pass']));
     if($profiledata=$pocket->doQuery($sql,$shw)->fetch(PDO::FETCH_ASSOC)) {
       //  if(password_verify($_POST['password'] ,$profiledata['password']))
-         $_SESSION['online']=$profiledata['userid'];   
+         $_SESSION['online'] = $profiledata['userid'];   
           logActivity(" Logged in");
-          $_SESSION['organisation']=  $profiledata['organisation_key'];
+          $_SESSION['organisation'] =  $profiledata['organisation_key'];
          echo"<script> setCookie('session_id','".$_SESSION['online']."', '2'); window.location='./dashboard2.html'</script>";
         }else echo "Error Email or Password not correct check and try again.";
     
@@ -276,7 +332,7 @@ if(isset($_POST['check-user'])){
     if($_COOKIE['session_id'] == $_SESSION['online']){
         if($profiledata == ""){
             $sql="SELECT * FROM usertable WHERE userid = '$_COOKIE[session_id]' ";
-        $profiledata=$pocket->doQuery($sql,array())->fetch(PDO::FETCH_ASSOC);
+            $profiledata=$pocket->doQuery($sql,array())->fetch(PDO::FETCH_ASSOC);
         }
         echo json_encode($profiledata) ;
     }else{
@@ -298,22 +354,17 @@ if(isset($_POST['all_transactions'])){
 
 // log out code
 if(isset($_POST['logout'])){
+     $_SESSION['online']=null ;
     if(isset($_SESSION['online']))
     logActivity("Logged Out");
-    if (isset($_COOKIE['session_id'])) {
-    unset($_COOKIE['session_id']); 
-    setcookie('session_id', '', -1, '/'); 
-    } else {
-    return false;
-   }
-    session_unset();
-    session_destroy();
-
+    
+    unset($_SESSION['online']);
+    unset($_SESSION['session_id']);
     echo"<script> window.location='./index.html'</script>";
 }
 
 if(isset($_POST['get_activities'])){
- $sql="SELECT  `activity`, `which_admin`, `date` FROM `activity_log_table`";
+ $sql="SELECT  `activity`, `which_admin`, `date` FROM `activity_log_table` LIMIT 200";
  if($activity = $pocket->doQuery($sql,array())){
    echo json_encode($activity->fetchAll(PDO::FETCH_ASSOC)) ;
  }else{
@@ -383,8 +434,76 @@ if($profiledata){
 }
 
 }
+// Updating new transaction to seen
+if(isset($_POST["update_transaction_check"])){
+$sql = "UPDATE `bank_transaction_table` SET `checked`='1' WHERE `checked`='0'";
+if($pocket->doQuery($sql,array())){
+ echo " Data update successfull";
+}
+}
+
+// Calculating expenses graph data
+
+if(isset($_POST["calculate_expenses_data"])){
+$dataarray= array();
+$dataarray['jan']=0;
+$dataarray['feb']=0;
+$dataarray['mar']=0;
+$dataarray['apr']=0;
+$dataarray['may']=0;
+$dataarray['jun']= 0;
+$dataarray['jul']= 0;
+$dataarray['aug']= 0;  
+$dataarray['sep']= 0;  
+$dataarray['oct']=  0; 
+$dataarray['nov']=0;   
+$dataarray['dec']=0;
+ $sql1 ="SELECT `organisation_key` FROM `usertable` WHERE `userid`='$_SESSION[online]'";
+$organisation_id = $pocket->doQuery($sql1,array())->fetch(PDO::FETCH_ASSOC);
+
+ $sql2 ="SELECT `account_no`  FROM `organisations` WHERE `id`='$organisation_id[organisation_key]'";
+ $account_no = $pocket->doQuery($sql2,array())->fetch(PDO::FETCH_ASSOC);
+
+  $sql = "SELECT *  FROM `bank_transaction_table` WHERE `subject`= '$account_no[account_no]'";
+  $transaction = $pocket->doQuery($sql,array())->fetchAll(PDO::FETCH_ASSOC);
+  // echo json_encode($transaction);
+  foreach($transaction as $item){
+    $dt = explode('-',$item['date']);
+    if(strripos($item['date'],'01')){
+      $dataarray['jan']= $dataarray['jan']+$item['amount'];
+    }else if(strripos($item['date'],'02')) {
+       $dataarray['feb'] = $dataarray['feb'] + $item['amount'];
+    }
+    else if(strripos($item['date'],'03')) {
+       $dataarray['mar']=   $dataarray['mar'] + $item['amount'];
+    }else if(strripos($item['date'],'04')) {
+       $dataarray['apr']= $dataarray['apr'] +  $item['amount'];
+    }else if(strripos($item['date'],'05')) {
+       $dataarray['may']= $dataarray['may'] +$item['amount'];
+    }else if(strripos($item['date'],'06')) {
+       $dataarray['jun']=   $dataarray['jun']+$item['amount'];
+    }else if(strripos($item['date'],'07')) {
+       $dataarray['jul']=  $dataarray['jul'] + $item['amount'];
+    }else if(strripos($item['date'],'08')) {
+       $dataarray['aug']=  $dataarray['aug'] + $item['amount'];
+    }else if(strripos($item['date'],'09')) {
+       $dataarray['sep']=  $dataarray['sep'] + $item['amount'];
+    }else if(strripos($item['date'],'10')) {
+       $dataarray['oct']=  $dataarray['oct'] + $item['amount'];
+    }else if(strripos($item['date'],'11')) {
+       $dataarray['nov']= $dataarray['nov'] + $item['amount'];
+    }else if(strripos($item['date'],'12')) {
+       $dataarray['dec']=$dataarray['dec'] + $item['amount'];
+    }
+    // $dataarray[]=$item['date'];
+  }
+  echo json_encode($dataarray);
+}
 
 // pseudo bank codes ==================
+
+
+// pseudo bank login codes
 
 if(isset($_POST['account_name'])&& isset($_POST['pass'])){
      $sql = "SELECT * FROM `bank_account_table` WHERE `account_name`= '".cleanData($_POST['account_name'])."' AND `password`='".cleanData($_POST['pass'])."'";
@@ -392,12 +511,13 @@ if(isset($_POST['account_name'])&& isset($_POST['pass'])){
     if(count($profiledata)>0) {
       //  if(password_verify($_POST['password'] ,$profiledata['password']))
       $_SESSION['bank_user'] =  $profiledata['acount_number']; 
-     // $_SESSION['userKey'] =    $profiledata['organisation_key'] ;
       echo $_SESSION['bank_user']; 
-         echo"<script> setCookie('session_id','".$_SESSION['bank_user']."', '2'); window.location='./bank_home_page.html'</script>";
+         echo"<script> setCookie('session_bank_user','".$_SESSION['bank_user']."', '2'); window.location='./bank_home_page.html'</script>";
         }else echo "Error wrong account details.";
 }
 
+// bank registration
+         
 if(isset($_POST['firstname_bank']) && isset($_POST['bank_email'])) {
 $name = $_POST['firstname_bank'].' '.$_POST['lastname_bank'];
  $sql="SELECT `email`,`account_name` FROM `bank_account_table` WHERE `email`= '".cleanData($_POST['bank_email'])."' OR `account_name`='".cleanData($_POST['username_bank'])."'";
@@ -412,7 +532,7 @@ $name = $_POST['firstname_bank'].' '.$_POST['lastname_bank'];
         
             if( $pocket->doQuery($sql,array())){
             $_SESSION['bank_user'] = $acc; 
-                echo"<script> setCookie('session_id','".$_SESSION['bank_user']."', '2'); window.location='./bank_home_page.html'</script>";
+                echo"<script> setCookie('session_bank_user','".$_SESSION['bank_user']."', '2'); window.location='./bank_home_page.html'</script>";
             }else{
               echo "An error occurred";
             } 
@@ -444,12 +564,12 @@ if(isset($_POST['get_accountname'])){
      echo json_encode($profiledata);
      exit;
     }else{
-      session_destroy();
+    unset($_SESSION['session_bank_user']);
        echo"<script>  window.location='./bankpage_login.html'</script>" ;
     }
      echo   $_SESSION['bank_user'];
    }else {
-     session_destroy();
+    unset($_SESSION['session_bank_user']);
        echo"<script>  window.location='./bankpage_login.html'</script>" ;
    }
    
@@ -510,14 +630,20 @@ if(isset($_POST['transaction_decending'])){
   echo json_encode(array("debit"=>$debitArray,"credit"=>$creditArray));  
 }
 
-
-
+function logout_bank(){
+  unset($_SESSION['session_bank_user']);
+  echo"<script>  window.location='./bankpage_login.html'</script>" ;
+}
+if(isset($_POST['bank_logout'])){
+ logout_bank();
+} 
 // Apis Codes =======
 function get_bank_details($accountNumber){
+
 $pocket = new pocket();
  $sql = "SELECT * FROM `bank_account_table` WHERE `acount_number` = '$accountNumber'";
      $profiledata=$pocket->doQuery($sql,array())->fetch(PDO::FETCH_ASSOC);
-    if(count($profiledata)>0 ) {
+    if($profiledata) {
      return $profiledata;
      exit;
     }else{

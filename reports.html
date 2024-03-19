@@ -31,19 +31,44 @@
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
   <div class="container-fluid px-0" >
-    <div class="container-fluid top-bar" style="position: fixed; z-index: 200;">
+      <div class="container-fluid top-bar" style="position: fixed; z-index: 200;">
         <div class="row justify-content-center pt-2 px-3" style="height: 55px;border-bottom: #dbdbdd solid 2px; background-color: #fff;">
             <div class="col">
 
             </div>
-            <div class="form-group col-md-5">
+            <!-- <div class="form-group col-md-5">
                 <input id="search_box" class="form-control border-0" type="text" name="search" placeholder="search" style="background-color: #f3f2f8;">
-            </div>
+            </div> -->
+            
             <div class="col row justify-content-end">
                 <i class="ri-upload-2-line"></i>
                 <i class="ri-add-fill"></i>
-                <i class="ri-settings-4-line"></i>
-                <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown"><img src="img/profilepix1.jpg" alt="profile" style="height:40px;width:40px;border-radius: 100%;"></a>
+               
+                
+                <span style="display: flex;align-self: baseline;" class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <span class="notificatio_count font-weight-bold badge badge-danger" style="position:absolute;top:-1px;">0</span>
+                 <i class="ri-notification-2-line"></i>
+               </span>
+                <div class="dropdown-menu notification_toggle" aria-labelledby="dropdownMenuButton" style="height: 300px !important;overflow-y: auto;">
+                   <a href="#" class="dropdown-item text-secondary-light p-0">
+                                <div class="d-flex flex-row border-bottom">
+                                    <div class="notification-icon bg-secondary-c pt-3 px-3"><i class="far fa-envelope text-primary fa-lg"></i></div>
+                                    <div class="flex-grow-1 px-3 py-3">
+                                        <p class="mb-0">New admin registered <span class="badge badge-pill badge-primary">New</span></p>
+                                        <!-- <small>James : Hey! Are you busy?</small> -->
+                                    </div>
+                                </div>
+                            </a>
+                           
+                </div>
+                 <div class="dropdown">
+                <a href="#" class="dropdown-toggle text-muted" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="img/profilepix1.jpg" alt="profile" style="height:40px;width:40px;border-radius: 100%;"></a>
+                                       
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item text-dark" href="#">Edit profile</a>
+                                            <a class="dropdown-item text-dark logout-btn" href="#">logout</a>
+                                        </div>
+                                    </div>
             </div>
         </div>
        </div>
@@ -155,10 +180,10 @@
   <script src="js/plugins/echart_drw.js"></script>
   <script src="js/main.js"></script>
   <script>
-
+    $(".activity_card .card-body").append("<div class-'text-center'> Loading records .....</div>")
    sendMinorData('get_activities',function(data){
     if(data = JSON.parse(data)){
-
+     $(".activity_card .card-body").empty()
     data.forEach(function(ele){
      $(".activity_card .card-body").append(' <div class="btn bg-light shadow-sm my-3 py-3"><div class=" font-weight-bold rounded-sm text-left" style=" white-space: nowrap; overflow: hidden !important;text-overflow: ellipsis !important;font-size:15px">'+ele['which_admin']+ ' ' + ele['activity']+'<br/> Date : '+ ele['date'] +'</div></div><br/>')
     })

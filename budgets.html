@@ -31,19 +31,44 @@
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
   <div class="container-fluid px-0" >
-    <div class="container-fluid top-bar" style="position: fixed; z-index: 200;">
+     <div class="container-fluid top-bar" style="position: fixed; z-index: 200;">
         <div class="row justify-content-center pt-2 px-3" style="height: 55px;border-bottom: #dbdbdd solid 2px; background-color: #fff;">
             <div class="col">
 
             </div>
-            <div class="form-group col-md-5">
+            <!-- <div class="form-group col-md-5">
                 <input id="search_box" class="form-control border-0" type="text" name="search" placeholder="search" style="background-color: #f3f2f8;">
-            </div>
+            </div> -->
+            
             <div class="col row justify-content-end">
                 <i class="ri-upload-2-line"></i>
                 <i class="ri-add-fill"></i>
-                <i class="ri-settings-4-line"></i>
-                <a href="#" class="dropdown-toggle text-muted" data-toggle="dropdown"><img src="img/profilepix1.jpg" alt="profile" style="height:40px;width:40px;border-radius: 100%;"></a>
+               
+                
+                <span style="display: flex;align-self: baseline;" class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <span class="notificatio_count font-weight-bold badge badge-danger" style="position:absolute;top:-1px;">0</span>
+                 <i class="ri-notification-2-line"></i>
+               </span>
+                <div class="dropdown-menu notification_toggle" aria-labelledby="dropdownMenuButton" style="height: 300px !important;overflow-y: auto;">
+                   <a href="#" class="dropdown-item text-secondary-light p-0">
+                                <div class="d-flex flex-row border-bottom">
+                                    <div class="notification-icon bg-secondary-c pt-3 px-3"><i class="far fa-envelope text-primary fa-lg"></i></div>
+                                    <div class="flex-grow-1 px-3 py-3">
+                                        <p class="mb-0">New admin registered <span class="badge badge-pill badge-primary">New</span></p>
+                                        <!-- <small>James : Hey! Are you busy?</small> -->
+                                    </div>
+                                </div>
+                            </a>
+                           
+                </div>
+                 <div class="dropdown">
+                <a href="#" class="dropdown-toggle text-muted" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="img/profilepix1.jpg" alt="profile" style="height:40px;width:40px;border-radius: 100%;"></a>
+                                       
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item text-dark" href="#">Edit profile</a>
+                                            <a class="dropdown-item text-dark logout-btn" href="#">logout</a>
+                                        </div>
+                                    </div>
             </div>
         </div>
        </div>
@@ -80,17 +105,7 @@
                     <!-- Sub menu parent -->
                     <li class="side-menu-item px-4 mb-1"><a href="budgets.html" class="pt-2 pl-4 active" >
                     <i class="ri-crosshair-2-fill pr-2"></i>Budgets/Goals</a></li>
-                    <!-- Sub menu -->
-                    <!-- <div id="form-sub-menu" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                        <ul class="side-sub-menu p-0">
-                            <li class="side-sub-menu-item px-3"><a href="form_basic.html" class="w-100 pl-4">Basic Elements</a></li>
-                            <li class="side-sub-menu-item px-3"><a href="form_basic_action.html" class="w-100 pl-4">Basic Action Bar</a></li>
-                            <li class="side-sub-menu-item px-3"><a href="form_layout.html" class="w-100 pl-4">Form layouts</a></li>
-                            <li class="side-sub-menu-item px-3"><a href="multi_column_forms.html" class="w-100 pl-4">Multi Column Forms</a></li>
-                            <li class="side-sub-menu-item px-3"><a href="input_group.html" class="w-100 pl-4">Input Group</a></li>
-                            <li class="side-sub-menu-item px-3"><a href="form_validation.html" class="w-100 pl-4">Form Validation</a></li>
-                        </ul>
-                    </div> -->
+                    
                     <li class="side-menu-item px-4 mb-1"><a href="users.html" class="pt-2 pl-4"  aria-expanded="false" ><i class="ri-pie-chart-2-line pr-2"></i>Manage Users</a></li>
 
                     <!-- Sub menu parent -->
@@ -112,7 +127,7 @@
    <div class="main_body_div" style="position: relative; margin-left:16rem; width: 80%;padding-top:3.5%;transition: all ease 0.5s;">
     
     <div class="row p-0 m-0">
-      <div class="w-100 P-3 M-0 mt-3"><i class="ri-menu-2-line menu_toggle" style="font-size: 25px;"></i></div>
+      <div class="w-100 P-3 m-0 mt-5 mt-lg-3"><i class="ri-menu-2-line menu_toggle" style="font-size: 25px;"></i></div>
             <!-- col-md-9  -->
             <div class="col-md-9" style="background-color: #fff;">
                 <h3 class="font-weight-bold my-2">Budgets/Goals</h3>
@@ -127,12 +142,19 @@
         </div>
         <!-- End of row -->
         <!-- Card begins -->
-        <div class="card mb-4 mt-4 rounded-lg border-0 rounded-sm p-4">
+        <div class="card justify-content-center mb-4 mt-4 rounded-lg border-0 rounded-sm p-4 col-lg-10 col-md-10">
             <!-- Card body -->
             <div class="card-body">
           
               <div class="row">
-                <div class="col-6">
+                  <div class=" col-lg-3">
+                <!-- account image -->
+                 <!-- <img  src=""  style="width: 40%; border-radius:50% !important;"> -->
+                  <div class="pro_image" style="width: 120px;height: 120px;background-image: url('');border-radius:50% !important;">
+                  </div>
+                 </div>
+                    <!-- col-2 end -->
+                <div class="col-lg-6">
                  
                    <!-- start details div -->
                     <div class="details-div ml-3">
@@ -146,12 +168,7 @@
                     <!-- nd details div -->
                 </div>
                 <!-- col-6 end -->
-                <div class="col-6">
-                <!-- account image -->
-                 <img class="pro_image" src="img/org_images/babcock-university.jpg" width="80%" style="border-radius: 10px !important;">
-                 
-                 </div>
-                    <!-- col-2 end -->
+               
                </div>
                 
          </div>  
@@ -515,8 +532,7 @@ all_budget()
      console.log(data)
      $(".account_name").text(data['name'])
       $(".account_no").text(data['account_no'])
-      $(".balance").text(data['balance'])
-        $(".prof_image").attr('src',data['Organisation Image'])
+     $(".pro_image").css('background-image',"url("+data['Organisation Image']+")")
    })},1200)
   </script>
 </html>  

@@ -1324,6 +1324,9 @@ main {
   .main-full-body, .footer-full-body {
     width: calc( 100% - 70px - 200px ) !important;
   }
+  .signup-form{
+   width: 296px ;
+  }
 }
 footer {
   width: 100%;

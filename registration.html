@@ -29,9 +29,9 @@
                     <div class="col-md-6 border-0 border-md-right">
                         <!-- Brand -->
                         <div class="login-brand m-3 m-md-0 d-flex justify-content-center align-items-center">
-                           <img src="img/appIcon.png" alt="image" class="w-25">
+                           
                         </div>
-                        <form  class="signup-form">
+                        <form  class="signup-form" >
                             <h5 class="text-dark my-3">Sign Up Your FinAnalyes</h5>
                              <!-- First Name -->
                     <div class="form-group mb-2">
@@ -85,6 +85,9 @@
                     <!-- Right side -->
                     <div class="col-md-6 d-flex flex-column justify-content-center align-items-center pt-3 pt-md-0">
                         <div style="width: 300px;height: 100px;"></div>
+                        <img src="img/appIcon.png" alt="image" class="w-25"><br/>
+                         <h5 class="text-dark my-3">FinAnalyes</h5>
+
                     </div>
                 </div>
             </div>
@@ -95,21 +98,19 @@
     <script src="js/plugins.js"></script>
     <!-- <script src="js/main.js"></script> -->
     <script>
-         var passValid = false
+         var passValid = false, passwordValid = false
         const inputs = document.querySelectorAll("input");
         const form = document.querySelector("form");
             const password = document.getElementById("password");
             const confirmPassword = document.getElementById("c-pass")
 
              const updateRequirement = (id, valid) => {
-            const requirement = document.getElementById(id);
-
+           
             if (valid) {
-                requirement.classList.add("valid");
-                requirement.classList.remove("error")
+                passwordValid = true
             } else {
-                requirement.classList.remove("valid");
-                 requirement.classList.add("error")
+
+                 passwordValid = false
             }
             };
 
@@ -127,15 +128,16 @@
             const value = event.target.value;
 
             if (value.length && value != password.value) {
-                matchPassword.classList.remove("hidden");
+                $(".confirm-error").remove()
+              $(event.target).next().after('<div class="text-danger confirm-error pl-2 pt-2">Password did not match !</div>')
+              passValid = false
             } else {
-                matchPassword.classList.add("hidden");
+                $(".confirm-error").remove()
+                passValid = true
             }
             });
 
-            confirmPassword.addEventListener("focus", (event) => {
-            matchPassword.classList.add("hidden");
-            });
+           
              const handleFormValidation = () => {
             const value = password.value;
             const confirmValue = confirmPassword.value;
@@ -166,11 +168,12 @@
                      input.classList.add("is-valid");
                      $('.email-error').remove()
                   }else{
+                     $('.email-error').remove()
                     $(input).after("<span class='text-danger email-error'>Please fill in a correct email</span>")
                   }
                 
-              }else if(event.target.type == 'password'){
-                   if( passValid){
+              }else if(event.target.id == 'password'){
+                   if( passwordValid){
                       $('.pass-error').remove()
                      input.classList.add("is-valid");
                    }else{
@@ -183,21 +186,24 @@
                    if( event.target.value.match(/^(\d{10}|\d{11}|\d{12})$/)){
                      input.classList.add("is-valid");
                      $('.phone-error').remove()
+                     passValid = true
                    }else{
                        $('.phone-error').remove()
                         input.classList.remove("is-valid");
                        $(input).after("<div class='text-danger phone-error p-1' style='width:300px;overflow:hidden' >Please enter an accurate phone number.</div>")
+                       passValid = false
                    }
                   
                 
                }
                
-               else if (event.target.value && event.target.type != 'email' && event.target.type != 'password') {
+               else if (event.target.value && event.target.type != 'tel' && event.target.type != 'email' && event.target.type != 'password') {
                 
                  input.classList.add("is-valid");
+                 passValid = true
                  
                 } else {
-              
+                passValid = false
                 input.classList.remove("is-valid");
                 if(event.target.type != 'password')
                 input.classList.add("error");
@@ -206,12 +212,20 @@
             });
             });
          
-        if(handleFormValidation)
+       
         $(".signup-form").on('submit',function(e){
             e.preventDefault()
            
-            
+            if($("input[type='file']").val().length>4 ){
+                   
+                 }else{
+                     $("input[type='file']").after("<div class='text-danger file-error p-1' style='width:300px;overflow:hidden' >Please select an organisation image</div>")
+                      passValid = false
+                     return false;
+                 }
+               
             var formData = new FormData(e.target)
+            if(handleFormValidation() && passValid)
             $.ajax({
                 method :'Post',
                 url: 'backend/backend.php',

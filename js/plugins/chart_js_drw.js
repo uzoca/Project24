@@ -5,7 +5,7 @@
    data = JSON.parse(data)
    chartData = []
    for(var el in data){
-   if(data[el]==0)
+   if(data[el]!= 0)
     data[el] = Math.random()*2000
     chartData.push(data[el])
    }

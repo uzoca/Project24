@@ -42,8 +42,8 @@
             </div> -->
             
             <div class="col row justify-content-end">
-                <i class="ri-upload-2-line"></i>
-                <i class="ri-add-fill"></i>
+                <a href="transaction.html"> <i class="ri-upload-2-line"></i></a>
+                <a href="users.html"><i class="ri-add-fill"></i></a>
                
                 
                 <span style="display: flex;align-self: baseline;" class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -63,11 +63,10 @@
                            
                 </div>
                  <div class="dropdown">
-                <a href="#" class="dropdown-toggle text-muted" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="img/profilepix1.jpg" alt="profile" style="height:40px;width:40px;border-radius: 100%;"></a>
+                <a href="#" class="dropdown-toggle text-muted" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="img/profilepix1.jpg" alt="profile" id="profile-image" style="height:40px;width:40px;border-radius: 100%;"></a>
                                        
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item text-dark" href="#">Edit profile</a>
-                                            <a class="dropdown-item text-dark logout-btn" href="#">logout</a>
+                                            <a class="dropdown-item text-dark logout-btn" href="#">Log Out</a>
                                         </div>
                                     </div>
             </div>
@@ -127,7 +126,7 @@
                     <li style="height: calc(100vh/4);">
 
                     </li>
-                    <li class="side-menu-item px-lg-2 px-xl-4 mb-1"><a  id="logout-btn"  class="pt-2 pl-4"   aria-expanded="true" aria-controls="sub_menu_2"><i class="ri-logout-circle-r-line pr-2"></i>Logout</a></li>
+                    <li class="side-menu-item px-lg-2 px-xl-4 mb-1"><a  id="logout-btn"  class="pt-2 pl-4"   aria-expanded="true" aria-controls="sub_menu_2"><i class="ri-logout-circle-r-line pr-2"></i>Log Out</a></li>
                   
                 </ul>
             </div>
@@ -166,7 +165,7 @@
                         </div>
                         <!-- col-8 end -->
                         <div class="col-2">
-                            <span class="badge badge-outline-success badge-pill m-1" style="background-color:#c1f1c3 ;"><i class="fa fa-arrow-up m-xl-1 "></i>30%</span>
+                            <span class="badge badge-outline-success badge-pill m-1 acc_balance-pill" style="background-color:#c1f1c3 ;"><i class="fa fa-arrow-up m-xl-1 "></i>30%</span>
                             </div>
                             <!-- col-2 end -->
                     </div>
@@ -187,7 +186,7 @@
                     </div>
                     <!-- col-8 end -->
                     <div class="col-2">
-                        <span class="badge badge-outline-success badge-pill m-1" 
+                        <span class="badge badge-outline-success badge-pill m-1 income_pill" 
                         style="background-color:#c1f1c3 ;"><i class="fa fa-arrow-up m-xl-1"></i>10%</span>
                         </div>
                         <!-- col-2 end -->
@@ -209,7 +208,7 @@
                     </div>
                     <!-- col-8 end -->
                     <div class="col-2">
-                        <span class="badge badge-outline-danger badge-pill m-1" style="background-color:#f3dbdb ;"><i class="fa fa-arrow-down m-xl-1"></i>14%</span>
+                        <span class="badge badge-outline-danger badge-pill m-1 expenditure_pill" style="background-color:#f3dbdb ;"><i class="fa fa-arrow-down m-xl-1"></i>14%</span>
                         </div>
                         <!-- col-2 end -->
                 </div>
@@ -245,7 +244,7 @@
                     <!--End col-md-9 -->
                     <!-- Start col-md-3 -->
                     <div class="col-3 m-0 pt-0 text-right">
-                    <button class="btn btn-outline-light m-2 text-dark badge-pill shadow-sm"> See all records</button>
+                    <a href="transaction.html"><button class="btn btn-outline-light m-2 text-dark badge-pill shadow-sm"> See all records</button></a>
                     </div>
                     <!-- End col-md-3 -->
                     </div>                
@@ -259,9 +258,9 @@
                                         <th ><div style='width:40px'>Id</div> </th>
                                         <th ><div style='width:120px'>Name</div> </th>
                                         <th ><div style='width:140px'>Amount</div> </th>
-                                        <th ><div  style='width:100px'>Payment type </div> </th>
+                                        <th ><div  style='width:100px'>Payment Type </div> </th>
                                         <th ><div style='width:140px'> Description</div> </th>
-                                        <th > <div style='width:80px' >status</div> </th>
+                                        <th > <div style='width:80px' >Status</div> </th>
                                         <th ><div style='width:80px'> Date</div></th>
                                     </tr>
                                 </thead>
@@ -275,9 +274,9 @@
                                         <th ><div style='width:40px'>Id</div> </th>
                                         <th ><div style='width:120px'>Name</div> </th>
                                         <th ><div style='width:140px'>Amount</div> </th>
-                                        <th ><div  style='width:100px'>Payment type </div> </th>
+                                        <th ><div  style='width:100px'>Payment Type </div> </th>
                                         <th ><div style='width:140px'> Description</div> </th>
-                                        <th > <div style='width:80px' >status</div> </th>
+                                        <th > <div style='width:80px' >Status</div> </th>
                                         <th ><div style='width:80px'> Date</div></th>
                                     </tr>
                                 </tfoot>
@@ -299,7 +298,7 @@
          <div class="row">
             <!-- col  -->
           <div class="col-md-9 pt-5 mt-2">
-            <h6 class="font-weight-bold my-2">payments view</h6>
+            <h6 class="font-weight-bold my-2">Payments View</h6>
           </div>
           <!--End col-md-9 -->
           <!-- Start col-md-3 -->
@@ -332,37 +331,8 @@
               <div class="card bg-light mt-2 mt-md-5 rounded border-0 pt-1 pb-3"
              style=" background-color: #fff !important; box-shadow: 0 .5rem 0.3rem rgba(0,0,0,.10) !important;">
              
-              <h6 class="font-weight-bold m-3 text-secondary-light">Statictics</h6>
-               <!-- start col-12 -->
-               <div class="col-12 mb-3">
-                 <div class="d-flex text-secondary-light">
-                  <div class="bg-light rounded-sm text-center px-1"><i class="ri-exchange-cny-line" style="font-size:22px;"></i> </div>
-                  <span class="pl-2 font-weight-bold">Tution fees</span>
-                </div>
-                <div class="progress border-0 mt-2">
-                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 60%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                 <div class=" d-flex justify-content-between">
-                   <span style="font-size: 12px;font-weight: bold;">200,000</span>
-                   <span style="font-size: 12px;font-weight: bold;">30%</span>
-             </div>
-               </div>
-               <!-- End col-12 -->
-                <!-- start col-12 -->
-               <div class="col-12 mb-3">
-                 <div class="d-flex text-secondary-light">
-                  <div class="bg-light rounded-sm text-center px-1"><i class="ri-hand-coin-fill" style="font-size:22px;"></i> </div>
-                  <span class="pl-2 font-weight-bold">Staff Expenses</span>
-                </div>
-                <div class="progress border-0 mt-2">
-                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 60%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                 <div class=" d-flex justify-content-between">
-                   <span style="font-size: 12px;font-weight: bold;">400,000</span>
-                   <span style="font-size: 12px;font-weight: bold;">55%</span>
-             </div>
-               </div>
-               <!-- End col-12 -->
+              <h6 class="font-weight-bold m-3 text-secondary-light stat" >Statictics</h6>
+               
                 <!-- start col-12 -->
                <div class="col-12 mb-3">
                  <div class="d-flex text-secondary-light">
@@ -395,6 +365,17 @@
   <!-- Bootstrap -->
   <script src="js/vendor/popper-js/popper1.14.7.js"></script>
   <script src="js/vendor/bootstrap-4.3.1/bootstrap.min.js"></script>
+   <!-- Data table -->
+  <script src="./js/vendor/DataTable-1.10.20/datatables.min.js"></script>
+    <script src="./js/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src=".\js\datatables.net-buttons\js\dataTables.buttons.min.js"></script>
+    <script src=".\js\datatables.net-buttons-bs4\js\buttons.bootstrap4.min.js"></script>
+    <script src=".\js\jszip\dist\jszip.min.js"></script>
+    <script src=".\js\pdfmake\build\pdfmake.min.js"></script>
+    <script src=".\js\pdfmake\build\vfs_fonts.js"></script>
+    <script src="./js/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src=".\js\datatables.net-buttons\js\buttons.print.min.js"></script>
+    <script src=".\js\datatables.net-buttons\js\buttons.colVis.min.js"></script>
   <!-- Main js -->
   <script src="js/main.js"></script>
   <!-- eChart -->

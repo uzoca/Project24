@@ -32,7 +32,7 @@
                            <img src="img/appIcon.png" alt="image" class="w-25">
                         </div>
                         <form  class="signup-form">
-                            <h5 class="text-dark my-3">Sign Up Your Organisation</h5>
+                            <h5 class="text-dark my-3">Sign Up Your FinAnalyes</h5>
                              <!-- First Name -->
                     <div class="form-group mb-2">
                         <label for="name" class="text-muted">Name</label>
@@ -48,7 +48,7 @@
                         <input id="phone" class="form-control badge-pill bg-light" type="tel" name="phone">
                     </div>
                      <div class="form-group mb-2" >
-                        <label for="gender" class="text-muted">AccountType</label>
+                        <label for="gender" class="text-muted">Account Type</label>
                         <select class="form-control badge-pill bg-light" name="account_type">
                             <option value="savings">
                                 Savings
@@ -65,7 +65,7 @@
                     </div>
                      <div class="form-group mb-2">
                         <label for="account_number" class="text-muted">Account Number</label>
-                        <input id="account_number" class="form-control badge-pill bg-light" type="text" name="account_number">
+                        <input id="account_number" class="form-control badge-pill bg-light" type="number" name="account_number">
                     </div>
                     <!-- password -->
                     <div class="form-group mb-2">
@@ -79,7 +79,7 @@
                     </div>
 
                      <button type="submit" class="btn btn-primary btn-outline-primary badge-pill btn-block w-75 m-auto">Sign Up</button>
-                     <p class="text-center mt-3"><a href="./index.html" >Already have an acount? Login </a></p>      
+                     <p class="text-center mt-3"><a href="./index.html" >Already have an acount? Log in </a></p>      
                      </form>
                     </div>
                     <!-- Right side -->
@@ -95,8 +95,122 @@
     <script src="js/plugins.js"></script>
     <!-- <script src="js/main.js"></script> -->
     <script>
+         var passValid = false
+        const inputs = document.querySelectorAll("input");
+        const form = document.querySelector("form");
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("c-pass")
+
+             const updateRequirement = (id, valid) => {
+            const requirement = document.getElementById(id);
+
+            if (valid) {
+                requirement.classList.add("valid");
+                requirement.classList.remove("error")
+            } else {
+                requirement.classList.remove("valid");
+                 requirement.classList.add("error")
+            }
+            };
+
+            password.addEventListener("input", (event) => {
+            const value = event.target.value;
+
+            updateRequirement("length", value.length >= 8);
+            updateRequirement("lowercase", /[a-z]/.test(value));
+            updateRequirement("uppercase", /[A-Z]/.test(value));
+            updateRequirement("number", /\d/.test(value));
+            updateRequirement("characters", /[#.?!@$%^&*-]/.test(value));
+            });
+
+            confirmPassword.addEventListener("blur", (event) => {
+            const value = event.target.value;
+
+            if (value.length && value != password.value) {
+                matchPassword.classList.remove("hidden");
+            } else {
+                matchPassword.classList.add("hidden");
+            }
+            });
+
+            confirmPassword.addEventListener("focus", (event) => {
+            matchPassword.classList.add("hidden");
+            });
+             const handleFormValidation = () => {
+            const value = password.value;
+            const confirmValue = confirmPassword.value;
+
+            if (
+                value.length >= 8 &&
+                /[a-z]/.test(value) &&
+                /[A-Z]/.test(value) &&
+                /\d/.test(value) &&
+                /[#.?!@$%^&*-]/.test(value) &&
+                value == confirmValue
+            ) {
+                // submit.removeAttribute("disabled");
+                passValid = true ;
+                return true;
+            }
+
+            // submit.setAttribute("disabled", true);
+            return false;
+            };
+
+            inputs.forEach((input) => {
+             
+            input.addEventListener("blur", (event) => {
+              console.log(event.target.type)
+              if(event.target.type == 'email'){
+                  if(ValidateEmail(event.target.value)){
+                     input.classList.add("is-valid");
+                     $('.email-error').remove()
+                  }else{
+                    $(input).after("<span class='text-danger email-error'>Please fill in a correct email</span>")
+                  }
+                
+              }else if(event.target.type == 'password'){
+                   if( passValid){
+                      $('.pass-error').remove()
+                     input.classList.add("is-valid");
+                   }else{
+                       $('.pass-error').remove()
+                       $(event.target).next().after("<div class='text-danger pass-error p-1' style='width:300px;overflow:hidden' >Password should have numbers,uppercase letter, lowercase letter,special character and must be eight(8) or more characters </div>")
+                   }
+                  
+                
+               } else if(event.target.type == 'tel'){
+                   if( event.target.value.match(/^(\d{10}|\d{11}|\d{12})$/)){
+                     input.classList.add("is-valid");
+                     $('.phone-error').remove()
+                   }else{
+                       $('.phone-error').remove()
+                        input.classList.remove("is-valid");
+                       $(input).after("<div class='text-danger phone-error p-1' style='width:300px;overflow:hidden' >Please enter an accurate phone number.</div>")
+                   }
+                  
+                
+               }
+               
+               else if (event.target.value && event.target.type != 'email' && event.target.type != 'password') {
+                
+                 input.classList.add("is-valid");
+                 
+                } else {
+              
+                input.classList.remove("is-valid");
+                if(event.target.type != 'password')
+                input.classList.add("error");
+               
+                }
+            });
+            });
+         
+        if(handleFormValidation)
         $(".signup-form").on('submit',function(e){
             e.preventDefault()
+           
+            
             var formData = new FormData(e.target)
             $.ajax({
                 method :'Post',
@@ -118,8 +232,8 @@
                         })
                     }else{
                        Swal.fire({
-                        title: 'Registration!',
-                        html: 'Registration successfull copy this organisation key:-> '+data+' and click here to <a href="signup.html">sign up an one time superadmin </a> ',
+                        title: 'Registration Successful',
+                        html: 'Click here to <a href="index.html">sign into your account </a> ',
                         icon: 'success',
                         confirmButtonText: 'Close'
                         })
@@ -156,14 +270,14 @@
 $("body").on('click','.obscure',function(e){
  
  $(this).prev("input[type='password'],input[name='pass'],input[name='c-pass'],input[name='password']").first().attr('type','text')
-  var mwid = parseInt( $(this).prev("input[type='password'],input[name='pass'],input[name='password']").first().width())-10
+  var mwid = parseInt( $(this).css("left"))
  $(this).replaceWith('<div class="unObscure" style="position:relative;left:'+mwid +'px;margin-top:-27px;width:10px" ><i class="ri-eye-off-fill"></i></div>')
 })
 
 $("body").on('click','.unObscure',function(e){
  console.log($(this))
  $(this).prev("input[type='password'],input[name='pass'],input[name='c-pass'],input[name='password']").first().attr('type','password')
-  var mwid = parseInt( $(this).prev("input[type='password'],input[name='pass'],input[name='password']").first().width())-10
+  var mwid = parseInt( $(this).css("left"))
  $(this).replaceWith('<div class="obscure" style="position:relative;left:'+mwid +'px;margin-top:-27px;width:10px" ><i class="ri-eye-fill"></i></div>')
 })
 
@@ -171,7 +285,19 @@ $("input[type='password'],input[name='pass'],input[name='password']").each((idx,
  var mwid = parseInt($(ele).width())-10
 $(ele).after('<div class="obscure" style="position:relative;left:'+mwid +'px;margin-top:-27px;width:10px" ><i class="ri-eye-fill" ></i></div>')
 })
-    </script>
+
+ function ValidateEmail(mail) 
+{
+console.log(mail) 
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+ 
+  {
+    return true
+  }
+  return false
+}
+
+</script>
 </body>
 
 </html>

@@ -41,8 +41,8 @@
             </div> -->
             
             <div class="col row justify-content-end">
-                <i class="ri-upload-2-line"></i>
-                <i class="ri-add-fill"></i>
+                <a href="transaction.html"> <i class="ri-upload-2-line"></i></a>
+                <a href="users.html"><i class="ri-add-fill"></i></a>
                
                 
                 <span style="display: flex;align-self: baseline;" class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -178,10 +178,11 @@
 <!-- data jquery scripts -->
 <script src="js/plugins/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.min.js"></script>
   <script src="js/plugins/echart_drw.js"></script>
-  <script src="js/main.js"></script>
+  <!-- <script src="js/main.js"></script> -->
   <script>
     $(".activity_card .card-body").append("<div class-'text-center'> Loading records .....</div>")
    sendMinorData('get_activities',function(data){
+   
     if(data = JSON.parse(data)){
      $(".activity_card .card-body").empty()
     data.forEach(function(ele){
@@ -190,6 +191,18 @@
       
     }
    })
+
+   function sendMinorData(mdata,func,beforeSend){
+    $.ajax({
+        method :'post',
+        url: 'backend/backend.php',
+        data : mdata,
+        success : function(data){
+           // console.log(data)
+            func(data)
+        }
+    })
+}
   </script>
   </body>
  

@@ -55,13 +55,13 @@ function getUser(){
         url: 'backend/backend.php',
         data : 'check-user',
         success : function(data){
-             console.log(data)
+            // console.log(data)
             if(data.indexOf('<script>') != -1){
                 $("body").append(data)
             }else{
                 data = JSON.parse(data)
                
-                $(".profile-avatar")
+                $("#profile-image")
                 .attr('src',data['userimg']).css("width","50px").css("margin","0px 20px 0px 20px")
                 $("#user-name").text(data['firstname']+' '+data['lastname'])
             }
@@ -77,7 +77,7 @@ function sendMinorData(mdata,func,beforeSend){
         url: 'backend/backend.php',
         data : mdata,
         success : function(data){
-            console.log(data)
+           // console.log(data)
             func(data)
         }
     })
@@ -125,10 +125,12 @@ $(".close-btn").click(function(){
 
 var organisation_acount = ''
  //  Get bank details =======
+ var acc_balance
  function getAccountDetails(){
   sendMinorData({'get_bank_details_org':getCookie('session_id')},function(data){
      // console.log(data)
       data =JSON.parse(data)
+      acc_balance = data['acount_balance']
       $(".acc_balance, .balance").html("&#8358 "+data['acount_balance'])
       organisation_acount = data['acount_number'] 
      })
@@ -136,12 +138,13 @@ var organisation_acount = ''
 function get_transactions()
 {
      var total_expenses = 0, total_income = 0
+     var tutionAmount = 0 , staff_expenses = 0 
      if(organisation_acount != '')
     sendMinorData({'get_user_transaction': organisation_acount},function(data){
      // console.log(data)
       data = JSON.parse(data)
      $("#defaultOrderingDataTable tbody").empty()
-       
+      var count = 1
      data.forEach( 
        element => {
         var statusColumn 
@@ -153,18 +156,39 @@ function get_transactions()
           total_income = total_income + parseFloat(element['amount'])
            statusColumn = '<span class="badge badge-outline-success badge-pill m-1 border-0 px-3 pt-1 pb-2" style="background-color:#c1f1c3 ;"></i>Credit</span>'
         }    
-
-        $("#defaultOrderingDataTable tbody").append( "<tr><td><div style='width:40px'>"+element['id'] +"</div></td>"+
-            "<td><div class='font-weight-bold' style='width:80px' >"+ element['object_fullname']+"</div></td>"+
+        if(element['description'].indexOf('staff') !=-1){
+            staff_expenses = staff_expenses + parseFloat(element['amount'])
+        }
+          if(element['description'].indexOf('fee') !=-1){
+            tutionAmount= tutionAmount + parseFloat(element['amount'])
+        }
+        $("#defaultOrderingDataTable tbody").append( "<tr><td><div style='width:40px'>"+ count++ +"</div></td>"+
+            "<td><div class='font-weight-bold' style='width:120px' >"+ element['object_fullname']+"</div></td>"+
             "<td><div class='font-weight-bold' style='width:60px' >"+ element['amount']+"</div></td>"+
             "<td><div style='width:100px'>"+element['flow_type']+"</div></td>"+
             "<td '><div style='width:140px'>"+element['description']+"</div></td> "+
             "<td><div style='width:80px'>"+ statusColumn +"</div></td>"+
             "<td><div style='width:80px'>"+element['date'] +"</div></td></tr>"
             )
+
+
      });
      $(".expenditure_h3").html("&#8358 "+total_expenses)
      $(".income_h3").html("&#8358 "+total_income)
+     $(".income_pill").html('<i class="fa fa-arrow-up m-xl-1"></i>'+parseInt((total_income/acc_balance)*100)+'%')
+     $(".expenditure_pill").html('<i class="fa fa-arrow-down m-xl-1"></i>'+parseInt((total_expenses/acc_balance)*100)+"%")
+     var newIncome = total_income - total_expenses
+     if(Math.sign(newIncome)){
+       $(".acc_balance-pill").removeClass('badge-outline-danger').addClass('badge-outline-success').html('<i class="fa fa-arrow-up m-xl-1 ">'+parseInt((newIncome/acc_balance)*100)+"%")
+     }else{
+       $(".acc_balance-pill").removeClass('badge-outline-success').addClass('badge-outline-danger').html('<i class="fa fa-arrow-up m-xl-1 ">'+(newIncome/acc_balance)*100+"%")
+     }
+     var tutionAmountPercent = (parseFloat(tutionAmount)/ parseFloat(total_expenses))*100
+     $(".tt").remove()
+     $(".stat").after('<div class="col-12 mb-3 tt"><div class="d-flex text-secondary-light"><div class="bg-light rounded-sm text-center px-1"><i class="ri-exchange-cny-line" style="font-size:22px;"></i> </div><span class="pl-2 font-weight-bold">Tution fees</span> </div><div class="progress border-0 mt-2"><div class="progress-bar bg-secondary" role="progressbar" style="width: '+parseInt(tutionAmountPercent)+'%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div> </div><div class=" d-flex justify-content-between"><span style="font-size: 12px;font-weight: bold;color:black">'+tutionAmount +'</span><span style="font-size: 12px;font-weight: bold;color:black">'+parseInt(tutionAmountPercent) +'%</span></div></div>')
+      var staff_expensesPercent = (parseFloat(staff_expenses)/ parseFloat(total_expenses))*100
+     $(".st").remove()
+     $('.tt').after('<div class="col-12 mb-3 st"><div class="d-flex text-secondary-light"><div class="bg-light rounded-sm text-center px-1"><i class="ri-exchange-cny-line" style="font-size:22px;"></i> </div><span class="pl-2 font-weight-bold">Staff Expenses</span> </div><div class="progress border-0 mt-2"><div class="progress-bar bg-secondary" role="progressbar" style="width: '+parseInt(staff_expensesPercent)+'%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div> </div><div class=" d-flex justify-content-between"><span style="font-size: 12px;font-weight: bold;color:black">'+ staff_expenses +'</span><span style="font-size: 12px;font-weight: bold;color:black">'+parseInt(staff_expensesPercent) +'%</span></div></div>')
      setTimeout(function(){
        if (!($.fn.DataTable.isDataTable("#defaultOrderingDataTable"))){
           let dataTable2 =  $("#defaultOrderingDataTable")
@@ -174,10 +198,10 @@ function get_transactions()
         info : false,
          dom: 'Bfrtip',
          buttons: [
-        'copy', 'excel', 'pdf'
+        'copy','excel', 'csv', 'pdf'
         ],
        }); 
-        $(".dataTables_filter").parent().addClass("text-right mr-4")
+        //$(".dataTables_filter").parent().addClass("text-right mr-4")
        }
       
      },1000)
@@ -186,20 +210,20 @@ function get_transactions()
 
 // password obscure toggle
 $("body").on('click','.obscure',function(e){
- 
+  console.log($(this))
  $(this).prev("input[type='password'],input[name='pass'],input[name='c-pass'],input[name='password']").first().attr('type','text')
-  var mwid = parseInt( $(this).prev("input[type='password'],input[name='pass'],input[name='password']").first().width())-10
+  var mwid = parseInt( $(this).css('left'))
  $(this).replaceWith('<div class="unObscure" style="position:relative;left:'+mwid +'px;margin-top:-27px;width:10px" ><i class="ri-eye-off-fill"></i></div>')
 })
 
 $("body").on('click','.unObscure',function(e){
  console.log($(this))
- $(this).prev("input[type='password'],input[name='pass'],input[name='c-pass'],input[name='password']").first().attr('type','password')
-  var mwid = parseInt( $(this).prev("input[type='password'],input[name='pass'],input[name='password']").first().width())-10
+ $(this).prev("input[name='c-pass'],input[name='password']").first().attr('type','password')
+  var mwid = parseInt( $(this).css('left'))
  $(this).replaceWith('<div class="obscure" style="position:relative;left:'+mwid +'px;margin-top:-27px;width:10px" ><i class="ri-eye-fill"></i></div>')
 })
 
-$("input[type='password'],input[name='pass'],input[name='password']").each((idx,ele)=>{
+$("input[name='c-pass'],input[type='password'], input[name='password']").each((idx,ele)=>{
  var mwid = parseInt($(ele).width())-10
 $(ele).after('<div class="obscure" style="position:relative;left:'+mwid +'px;margin-top:-27px;width:10px" ><i class="ri-eye-fill" ></i></div>')
 })
@@ -210,7 +234,7 @@ function get_transactions_decending_order(){
   
   sendMinorData({'transaction_decending': organisation_acount},function(data){
    data = JSON.parse(data) 
-   console.log(data)
+  // console.log(data)
    var notificatio_count = 0
    if(data['credit'].length<=0){
      $(".credit_div").append('<div class="btn bg-light d-flex justify-content-between mx-2 my-1"><div class="col-7  rounded-sm text-left" style=" white-space: nowrap; overflow: hidden !important;text-overflow: ellipsis !important;">No Credit yet</div></div>')
@@ -264,7 +288,17 @@ function get_transactions_decending_order(){
 
   function updateCheckedData(){
   sendMinorData('update_transaction_check',function(data){
-   console.log(data)
+   //console.log(data)
   })
   
   }
+ function ValidateEmail(mail) 
+{
+console.log(mail) 
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+ 
+  {
+    return true
+  }
+  return false
+}

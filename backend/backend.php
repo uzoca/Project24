@@ -364,7 +364,7 @@ if(isset($_POST['logout'])){
 }
 
 if(isset($_POST['get_activities'])){
- $sql="SELECT  `activity`, `which_admin`, `date` FROM `activity_log_table` LIMIT 200";
+ $sql="SELECT  `activity`, `which_admin`, `date` FROM `activity_log_table` WHERE `organisation_key`= '$_SESSION[organisation]'  LIMIT 400";
  if($activity = $pocket->doQuery($sql,array())){
    echo json_encode($activity->fetchAll(PDO::FETCH_ASSOC)) ;
  }else{
@@ -388,11 +388,11 @@ function entitySum($entity, $from,$to){
  if(isset($_POST['budget_name']) && isset($_POST['settype'])){
 
    $_POST['settype'] == 'Goals'?
-     $sql="INSERT INTO `financial_target_table`( `name`,`type`, `amount`, `from_date`, `to_date`)
-    VALUES ('".cleanData($_POST['budget_name'])."','".cleanData($_POST['settype'])."','".cleanData($_POST['amount'])."','".cleanData($_POST['from_date'])."','".cleanData($_POST['to_date'])."')"
+     $sql="INSERT INTO `financial_target_table`( `name`,`organisation_key`, `admin_ad`,`type`, `amount`, `from_date`, `to_date`)
+    VALUES ('".cleanData($_POST['budget_name'])."','$_SESSION[organisation]','$_SESSION[online]','".cleanData($_POST['settype'])."','".cleanData($_POST['amount'])."','".cleanData($_POST['from_date'])."','".cleanData($_POST['to_date'])."')"
    :
-   $sql="INSERT INTO `budget_table`( `name`,`type`, `amount`, `from_date`, `to_date`)
-    VALUES ('".cleanData($_POST['budget_name'])."','".cleanData($_POST['settype'])."','".cleanData($_POST['amount'])."','".cleanData($_POST[from_date])."','".cleanData($_POST[to_date])."')";
+   $sql="INSERT INTO `budget_table`( `name`,`organisation_key`, `admin_ad`,`type`, `amount`, `from_date`, `to_date`)
+    VALUES ('".cleanData($_POST['budget_name'])."','$_SESSION[organisation]','$_SESSION[online]','".cleanData($_POST['settype'])."','".cleanData($_POST['amount'])."','".cleanData($_POST[from_date])."','".cleanData($_POST[to_date])."')";
    $setBudget = $pocket->doQuery($sql,array());
    if($setBudget){
       if(isset($_SESSION['online']))
@@ -405,14 +405,14 @@ function entitySum($entity, $from,$to){
  }
 
  if(isset($_POST['all_budget'])){
-    $sql="SELECT * FROM `budget_table` " ;
+    $sql="SELECT * FROM `budget_table`  WHERE `admin_ad` = '$_SESSION[online]' AND `organisation_key`='$_SESSION[organisation]'" ;
     $transactiondata = $pocket->doQuery($sql,array())->fetchAll(PDO::FETCH_ASSOC);
 
     // echo  entitySum('Donations',$transactiondata[0]['from_date'],$transactiondata[0]['to_date']);
   echo json_encode($transactiondata);
 }
   if(isset($_POST['all_goals'])){
-    $sql="SELECT * FROM `financial_target_table` " ;
+    $sql="SELECT * FROM `financial_target_table` WHERE `admin_ad` = '$_SESSION[online]' AND `organisation_key`='$_SESSION[organisation]'" ;
     $transactiondata = $pocket->doQuery($sql,array())->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($transactiondata);
 }
@@ -424,8 +424,8 @@ $sql="SELECT `userid`, `firstname`,`lastname`,priviledges FROM usertable WHERE u
  $profiledata=$pocket->doQuery($sql,array())->fetch(PDO::FETCH_ASSOC);
  $nameString = "Admin $profiledata[firstname] $profiledata[lastname] with user id $profiledata[userid]";
 if($profiledata){
-   $sql_activity ="INSERT INTO `activity_log_table`( `activity`, `which_admin`) 
-   VALUES ('$log','$nameString')";
+   $sql_activity ="INSERT INTO `activity_log_table`(`organisation_key`, `activity`, `which_admin`) 
+   VALUES ('$_SESSION[organisation]','$log','$nameString')";
    if($pocket->doQuery($sql_activity,array())){
      return ;
    }else{

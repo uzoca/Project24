@@ -16,7 +16,45 @@
   <link rel="stylesheet" href="css/vendor/bootstrap-4.3.1/bootstrap.min.css">
   <link rel="stylesheet" href="css/main.css">
     <!-- Theme color -->
-  <meta name="theme-color" content="#fafafa">
+  <style>
+    
+.requirement {
+font-size: 14px;
+flex: 1 0 50%;
+min-width: max-content;
+margin: 5px 0;
+}
+       
+.requirement:before {
+  content: '\2639';
+  padding-right: 5px;
+  font-size: 1.6em;
+  position: relative;
+  top: .15em;
+}
+
+.requirement:not(.valid) {
+  color: #808080;
+}
+
+.requirement.valid {
+  color: #4CAF50;
+}
+
+.requirement.valid:before {
+  /* content: '\263A'; */
+}
+
+.requirement.error,input.error {
+  color: red ;
+}
+
+.hidden {
+  display: none;
+}
+
+
+  </style>
 </head>
 
 <body class="position-relative">
@@ -39,11 +77,11 @@
                      <h5 class="text-dark my-3">Sign Up </h5>
                              <!-- First Name -->
                     <div class="form-group mb-2">
-                        <label for="name" class="text-muted">firstname</label>
+                        <label for="name" class="text-muted">First Name</label>
                         <input id="name" class="form-control badge-pill bg-light" type="text" name="firstname_bank">
                     </div>
                      <div class="form-group mb-2">
-                        <label for="name" class="text-muted">lastname</label>
+                        <label for="name" class="text-muted">Last Name</label>
                         <input id="name" class="form-control badge-pill bg-light" type="text" name="lastname_bank">
                     </div>
                      <div class="form-group mb-2">
@@ -52,7 +90,7 @@
                     </div>
                       <div class="form-group mb-2">
                         <label for="email" class="text-muted">Email</label>
-                        <input id="email" class="form-control badge-pill bg-light" type="text" name="bank_email">
+                        <input id="email" class="form-control badge-pill bg-light" type="email" name="bank_email">
                     </div>
                      
                     <!-- password -->
@@ -60,14 +98,21 @@
                         <label for="password" class="text-muted">Password</label>
                         <input id="password" class="form-control badge-pill bg-light" type="password" name="pass">
                     </div>
-                    <!-- Password -->
+                    <div id="requirements" class="password-requirements py-3">
+                    <p class="requirement" id="length">Min. 8 characters</p>
+                    <p class="requirement" id="lowercase">Include lowercase letter</p>
+                    <p class="requirement" id="uppercase">Include uppercase letter</p>
+                    <p class="requirement" id="number">Include number</p>
+                    <p class="requirement" id="characters">Include a special character: #.-?!@$%^&*</p>
+                    </div>
+                    <!--Confirm Password -->
                     <div class="form-group mb-4">
                         <label for="c-pass" class="text-muted">Confirm Password</label>
                         <input id="c-pass" class="form-control badge-pill bg-light" type="password" name="c-pass">
                     </div>
 
                      <button type="submit" class="btn btn-primary btn-outline-primary badge-pill btn-block w-75 m-auto">Sign Up</button>
-                     <p class="text-center mt-3"><a href="./bankpage_login.html" >Already have an acount? Login </a></p>      
+                     <p class="text-center mt-3"><a href="./bankpage_login.html" >Already have an acount? Login in </a></p>      
                     </form>
                     </div>
                     <!-- Right side -->
@@ -85,7 +130,10 @@
 
     $(".signup-bank-form").on('submit',function(e){
       e.preventDefault()
-      var formData = new FormData(e.target)
+      console.log(handleFormValidation())
+      if(handleFormValidation() ){
+       
+         var formData = new FormData(e.target)
       $.ajax({
           method :'Post',
           url: 'backend/backend.php',
@@ -93,7 +141,7 @@
           processData: false,
           contentType : false,
           beforeSend : function(){
-              $("button[type ='submit']").html("Loadind please wait....")
+              $("button[type ='submit']").html("Loading please wait....")
           },
           success : function(data){
               console.log(data)
@@ -104,14 +152,123 @@
                   icon: 'error',
                   confirmButtonText: 'Close'
                   })
+                $("button[type ='submit']").html("Sign Up")    
               }else{
+                 $("button[type ='submit']").html("Sign Up")
                   $("body").append(data)
               }
              
           }
       })
+      }else{
+        Swal.fire({
+            title: 'Error!',
+            text: 'Password do not match.',
+            icon: 'error',
+            confirmButtonText: 'Close'
+            })
+            return ;
+      }
+      
   })
-</script>
+            var passValid = false
+            const inputs = document.querySelectorAll("input");
+            const form = document.querySelector("form");
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("c-pass");
+            const showPassword = document.getElementById("show-password");
+            const matchPassword = document.getElementById("match");
+            const submit =  $("button[type ='submit']");
+
+            inputs.forEach((input) => {
+             
+            input.addEventListener("blur", (event) => {
+              console.log(event.target.type)
+              if(event.target.type == 'email' && ValidateEmail(event.target.value)){
+                 input.classList.add("is-valid");
+              }else if(event.target.type == 'password' && passValid){
+                   input.classList.add("is-valid");
+                   input.classList.remove("error");
+                
+               } else if (event.target.value && event.target.type != 'email' && event.target.type != 'password') {
+                
+                 input.classList.add("is-valid");
+                 input.classList.remove("error");
+                } else {
+              
+                input.classList.remove("is-valid");
+                if(event.target.type != 'password')
+                input.classList.add("error");
+               
+                }
+            });
+            });
+
+
+            const updateRequirement = (id, valid) => {
+            const requirement = document.getElementById(id);
+
+            if (valid) {
+                requirement.classList.add("valid");
+                requirement.classList.remove("error")
+            } else {
+                requirement.classList.remove("valid");
+                 requirement.classList.add("error")
+            }
+            };
+
+            password.addEventListener("input", (event) => {
+            const value = event.target.value;
+
+            updateRequirement("length", value.length >= 8);
+            updateRequirement("lowercase", /[a-z]/.test(value));
+            updateRequirement("uppercase", /[A-Z]/.test(value));
+            updateRequirement("number", /\d/.test(value));
+            updateRequirement("characters", /[#.?!@$%^&*-]/.test(value));
+            });
+
+            confirmPassword.addEventListener("blur", (event) => {
+            const value = event.target.value;
+
+            if (value.length && value != password.value) {
+                matchPassword.classList.remove("hidden");
+            } else {
+                matchPassword.classList.add("hidden");
+            }
+            });
+
+            confirmPassword.addEventListener("focus", (event) => {
+            matchPassword.classList.add("hidden");
+            });
+
+            const handleFormValidation = () => {
+            const value = password.value;
+            const confirmValue = confirmPassword.value;
+
+            if (
+                value.length >= 8 &&
+                /[a-z]/.test(value) &&
+                /[A-Z]/.test(value) &&
+                /\d/.test(value) &&
+                /[#.?!@$%^&*-]/.test(value) &&
+                value == confirmValue
+            ) {
+                // submit.removeAttribute("disabled");
+                passValid = true ;
+                return true;
+            }
+
+            // submit.setAttribute("disabled", true);
+            return false;
+            };
+
+            form.addEventListener("change", () => {
+             handleFormValidation();
+            });
+
+          
+
+  </script>
 </body>
 
 </html>

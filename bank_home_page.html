@@ -31,13 +31,13 @@
             <div class="card-body"> 
             <!-- row start -->
             
-             <div class="d-flex justify-content-between"><p class="text-center font-weight-bold text-white pl-2"> Welcome: <span class="acc_name_span pl-2">Testaccount1</span></p> <p><span ><a class="text-white btn" id="bank_logout">Logout</a></span></p></div>
+             <div class="d-flex justify-content-between"><p class="text-center font-weight-bold text-white pl-2"> Welcome <span class="acc_name_span pl-2"></span></p> <p><span style="cursor: pointer;"><a class="text-white btn" id="bank_logout">Log Out</a></span></p></div>
               <div class="row">
                <div class="col-md-7 col-11 mx-auto">
-                 <p class="font-weight-bold text-white mt-2 mb-4"> Pseudo bank acount number: <h3 class="text-white acc_number_span">098478672827</h3></p>
+                 <p class="font-weight-bold text-white mt-2 mb-4"> Pseudo bank acount number: <h3 class="text-white acc_number_span"></h3></p>
                  <span class="font-weight-bold text-white pl-1 ">Account Balance</span>
-                 <h2 class="font-weight-bold text-white mb-3 acc_balance_span">&#8358 60,000</h4>
-                 <p class="font-weight-bold text-white"> Book balance: <span class="acc_balance_span">&#8358 60,000</span></p>
+                 <h2 class="font-weight-bold text-white mb-1 acc_balance_span"></h4>
+                 <p class="font-weight-bold text-white"> Book balance: <span class="acc_balance_span"></span></p>
                </div>
                <div class="col-md-4 col-2 mx-auto p-md-3 d-none d-md-block">
                 <img src="img/pseudo_icon_large.png">
@@ -70,7 +70,7 @@
                                <option value="Extracurricular Activities">Extracurricular Activities</option>
                                <option value="Miscellaneous Expenses">	Miscellaneous Expenses</option>
                                <option value="Tuition Fees">Tuition Fees</option>
-                               <option value="Registratiom Fees"> Registratiom Fees</option>
+                               <option value="Registratiom Fees"> Registration Fees</option>
                                <option value="Facility Rentals">Facility Rentals </option>	
                                <option value="Donations"> Donations</option>
                                <option value="Grants and Scholarships">Grants and Scholarships</option>
@@ -147,7 +147,7 @@
                                         <th>Amount</th>
                                         <th>Cash Flow Type</th>
                                         <th>Description</th>
-                                        <th>status</th>
+                                        <th>Status</th>
                                         <th>Date</th>
                                     </tr>
                                 </thead>
@@ -171,7 +171,7 @@
                                         <th>Amount</th>
                                         <th>Cash Flow Type</th>
                                         <th>Description</th>
-                                        <th>status</th>
+                                        <th>Status</th>
                                         <th>Date</th>
                                     </tr>
                                 </tfoot>
@@ -316,7 +316,7 @@
                  $(".bank-feedback").text(data).removeClass('text-success').addClass('text-danger')
                }else{
                  data = JSON.parse(data)
-                 $(".bank-feedback").html("<div> Acc name : "+ data['firstname'] +' '+ data['lastname'] +" </div>").addClass('text-success').removeClass('text-danger')
+                 $(".bank-feedback").html("<div>"+ data['firstname'] +' '+ data['lastname'] +" </div>").addClass('text-success').removeClass('text-danger')
                }
              
             })

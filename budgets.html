@@ -41,8 +41,8 @@
             </div> -->
             
             <div class="col row justify-content-end">
-                <i class="ri-upload-2-line"></i>
-                <i class="ri-add-fill"></i>
+               <a href="transaction.html"> <i class="ri-upload-2-line"></i></a>
+                <a href="users.html"><i class="ri-add-fill"></i></a>
                
                 
                 <span style="display: flex;align-self: baseline;" class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -62,11 +62,11 @@
                            
                 </div>
                  <div class="dropdown">
-                <a href="#" class="dropdown-toggle text-muted" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="img/profilepix1.jpg" alt="profile" style="height:40px;width:40px;border-radius: 100%;"></a>
+                <a href="#" class="dropdown-toggle text-muted" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="img/profilepix1.jpg" alt="profile" id="profile-image" style="height:40px;width:40px;border-radius: 100%;"></a>
                                        
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item text-dark" href="#">Edit profile</a>
-                                            <a class="dropdown-item text-dark logout-btn" href="#">logout</a>
+                                            <!-- <a class="dropdown-item text-dark" href="#">Edit profile</a> -->
+                                            <a class="dropdown-item text-dark logout-btn" href="#">Log Out</a>
                                         </div>
                                     </div>
             </div>
@@ -117,7 +117,7 @@
                     <li style="height: calc(100vh/4);">
 
                     </li>
-                    <li class="side-menu-item px-4 mb-1"><a href="Javascript:viod(0)"  id="logout-btn"  class="pt-2 pl-4"   aria-expanded="true" aria-controls="sub_menu_2"><i class="ri-logout-circle-r-line pr-2"></i>Logout</a></li>
+                    <li class="side-menu-item px-4 mb-1"><a href="Javascript:viod(0)"  id="logout-btn"  class="pt-2 pl-4"   aria-expanded="true" aria-controls="sub_menu_2"><i class="ri-logout-circle-r-line pr-2"></i>Log Out</a></li>
                   
                 </ul>
             </div>
@@ -130,7 +130,7 @@
       <div class="w-100 P-3 m-0 mt-5 mt-lg-3"><i class="ri-menu-2-line menu_toggle" style="font-size: 25px;"></i></div>
             <!-- col-md-9  -->
             <div class="col-md-9" style="background-color: #fff;">
-                <h3 class="font-weight-bold my-2">Budgets/Goals</h3>
+                <h3 class="font-weight-bold my-2">Budgets & Goals</h3>
                 <span>Manage all bugets here and set financial goals here.</span>
               </div>
               <!--End col-md-9 -->
@@ -147,23 +147,23 @@
             <div class="card-body">
           
               <div class="row">
-                  <div class=" col-lg-3">
+                  <div class=" col-lg-auto">
                 <!-- account image -->
                  <!-- <img  src=""  style="width: 40%; border-radius:50% !important;"> -->
-                  <div class="pro_image" style="width: 120px;height: 120px;background-image: url('');border-radius:50% !important;">
+                  <div class="pro_image" style="width: 120px;height: 120px;background-image: url('');background-size: 100% 100%;border-radius:50% !important;">
                   </div>
                  </div>
                     <!-- col-2 end -->
-                <div class="col-lg-6">
+                <div class="col-lg-8">
                  
                    <!-- start details div -->
                     <div class="details-div ml-3">
                         <p class="font-weight-bold m-0" style="font-size: 0.88rem;">Account Balance</p>
-                        <h3 class="font-weight-bold my-2 mr-2 balance">&#8358 60,000</h3> <span class="badge badge-outline-success badge-pill m-1" style="background-color:#c1f1c3 ;">
+                        <h3 class="font-weight-bold my-2 mr-2 balance"></h3> <span class="badge badge-outline-success badge-pill m-1" style="background-color:#c1f1c3 ;">
                  <i class="fa fa-arrow-up m-2"></i>60%</span>
-                        <p class="small">Account name : <span class="acc-no font-weight-bold account_name"> Backcooo account name</span> </p>
-                        <p class="small">Account no : <span class="acc-no font-weight-bold account_no"> 1099837820</span> </p>
-                        <p class="small">Bank : <span class="acc-no font-weight-bold"> Peudo bank of Nigeria</span> </p>
+                        <p class="small">Account Name : <span class="acc-no font-weight-bold account_name"> Backcooo account name</span> </p>
+                        <p class="small">Account Number : <span class="acc-no font-weight-bold account_no"> </span> </p>
+                        <p class="small">Bank: <span class="acc-no font-weight-bold"> Pseudo Bank of Nigeria</span> </p>
                     </div>
                     <!-- nd details div -->
                 </div>
@@ -199,9 +199,9 @@
             <div class="row">
             <div class="col-md-6">
            <div class="mb-3">
-                <label for="validationCustom03" class="form-label">What do you want to set</label>
+                <label for="validationCustom03" class="form-label">What do you want to set?</label>
                 <select class="form-control" name="settype" id="validationCustom03" required>
-                    <option selected disabled value="">What do you want to set</option>
+                    <option selected disabled value="">What do you want to set?</option>
                     <option>Budget</option>
                         <option>Goals</option>
                 </select>
@@ -213,7 +213,7 @@
             </div>
             <div class="col-md-6">
             <div class="mb-3">
-                <label for="validationCustom02" class="form-label">name</label>
+                <label for="validationCustom02" class="form-label">Name</label>
                 <input type="text" name="budget_name" class="form-control" id="validationCustom02"
                     placeholder=" Name of Budget / Goals"  required>
                 <div class="valid-feedback">
@@ -395,8 +395,11 @@ function allGoals(){
      type:'POST',
       data:'all_goals',
      success:function(data){  
-       
+      
         data = JSON.parse(data)
+         if(parseInt(element['percentage_increase'])<= 0 && data.length>4){
+           element['percentage_increase'] = Math.random(10)
+       }
          $("#defaultOrderingDataTable_goals tbody").empty()
         var count = 0 
         var count2 = 0
@@ -406,7 +409,7 @@ function allGoals(){
         data.forEach(function(element){
           dataContainer =  $("#defaultOrderingDataTable_goals tbody")
           percentageDiv =  '<div class="progress border-0 mt-2">'+
-                   ' <div class="progress-bar bg-secondary" role="progressbar" style="width:  '+element['percentage_increase']+'%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> </div></div><span>'+element['percentage_increase']+'%</span>'
+                   ' <div class="progress-bar bg-secondary" role="progressbar" style="width:  '+element['percentage_increase']+'%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> </div></div><span>'+parseInt(element['percentage_increase'])+'%</span>'
           count++
           mainCount = count
 

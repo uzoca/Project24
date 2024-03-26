@@ -38,7 +38,7 @@
                             <h5 class="text-dark my-3">Sign In</h5>
                             <!-- Email -->
                             <div class="form-group mb-2 w-100">
-                                <label for="email" class="text-muted">Account Name</label>
+                                <label for="email" class="text-muted">Username</label>
                                 <input id="acc_name"  class="form-control badge-pill bg-light" type="text" name="account_name">
                             </div>
                             <!-- Passeord -->
@@ -53,7 +53,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-outline-primary badge-pill btn-block w-75 m-auto">Sign in</button>
-                             <p class="text-center mt-3"><a href="./bankpage_register.html" >Don't have an account register here</a></p>
+                             <p class="text-center mt-3"><a href="./bankpage_register.html" >Don't have an account? Register here</a></p>
                             <p class="text-center mt-3"><a href="./forget_password.html" >Forgot Password?</a></p>
                         </form>
                     </div>
@@ -81,7 +81,7 @@
           processData: false,
           contentType : false,
           beforeSend : function(){
-              $("button[type ='submit']").html("Loadind please wait....")
+              $("button[type ='submit']").html("Loading please wait....")
           },
           success : function(data){
               console.log(data)
@@ -92,7 +92,9 @@
                   icon: 'error',
                   confirmButtonText: 'Close'
                   })
+                   $("button[type ='submit']").html("Sign in")
               }else{
+                   $("button[type ='submit']").html("Sign in")
                   $("body").append(data)
               }
              
